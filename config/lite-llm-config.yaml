@@ -1,0 +1,16 @@
+model_list:
+  - model_name: internal-llm
+    litellm_params:
+      model: openai/deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+      api_base: http://vllm:8000/v1
+      api_key: "not-needed"
+
+  - model_name: internal-embedding
+    litellm_params:
+      model: openai/BAAI/bge-m3
+      api_base: http://tei:8080/v1
+      api_key: "not-needed"
+
+general_settings:
+  master_key: your_key_here # Replace with a secure key
+  store_model_usage: true

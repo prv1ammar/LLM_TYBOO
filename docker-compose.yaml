@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # LiteLLM Proxy - The Gateway
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./config/lite-llm-config.yaml:/app/config.yaml
+    command: ["--config", "/app/config.yaml"]
+    depends_on:
+      - vllm
+      - tei
+
+  # vLLM - LLM Inference Engine
+  vllm:
+    image: vllm/vllm-openai:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      - HUGGING_FACE_HUB_TOKEN=${HUGGING_FACE_HUB_TOKEN}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    command: >
+      --model deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+      --tensor-parallel-size 1
+      --max-model-len 4096
+
+  # TEI - Text Embeddings Inference
+  tei:
+    image: ghcr.io/huggingface/text-embeddings-inference:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    command: --model-id BAAI/bge-m3
