@@ -26,6 +26,11 @@ models/
 *.log
 logs/
 
+# Project Data
+data/
+documents/
+!documents/.gitkeep
+
 # OS
 .DS_Store
 Thumbs.db
