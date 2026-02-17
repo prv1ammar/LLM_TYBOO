@@ -179,10 +179,24 @@ This document outlines the step-by-step plan to upgrade the current demo setup i
 
 ---
 
+## 🏛️ Phase 8: Enterprise Admin Dashboard
+
+### 8.1 Administrative Control Center
+- [ ] **Platform Management (Streamlit)**:
+    - [ ] Build a centralized dashboard for platform owners.
+    - [ ] Implemented **Knowledge Base Manager** (Index/Delete docs).
+    - [ ] Implemented **User & Key Management** (CRUD operations).
+    - [ ] Implemented **Live Analytics** (Token usage, latency, cost estimation).
+- [ ] **Audit & Compliance**:
+    - [ ] Exportable activity logs from Postgres.
+    - [ ] Governance reports for executive stakeholders.
+
+---
+
 ## 🗓️ Next Immediate Steps (Day 1)
 
-1.  **Production Readiness complete**: All systems (Auth, RAG, Monitoring, Scaling) are active.
-2.  **Monitor Performance**: Observe Grafana for VRAM and throughput metrics.
+1.  **Build Admin Dashboard**: Implement the Streamlit-based control center for non-developers.
+2.  **User Management**: Integrate a formal Postgres User Table for RBAC.
 3.  **Scale UP**: If latency increases, adjust the `replicas` count in `docker-compose.yaml`.
 
 To restart the full stack with updates:

@@ -10,3 +10,6 @@ pypdf
 langchain-text-splitters
 python-jose[cryptography]
 passlib[bcrypt]
+streamlit
+pandas
+altair

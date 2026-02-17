@@ -70,6 +70,7 @@ Access the auto-generated documentation to test your agents:
 | Service | Local URL | Description |
 | :--- | :--- | :--- |
 | **Nginx Gateway** | `http://localhost` | Main entry point (Port 80) |
+| **Admin Dashboard** | `http://localhost/admin/` | Platform Control Center |
 | **API Docs** | `http://localhost/api/docs` | Test Agents & RAG |
 | **Grafana** | `http://localhost/dashboard/` | Visualize GPU & Token Usage |
 | **Qdrant UI** | `http://localhost/qdrant/dashboard` | Inspect your vector data |
