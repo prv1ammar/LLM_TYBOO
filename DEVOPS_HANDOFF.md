@@ -17,14 +17,27 @@ AGATE is designed to run efficiently on standard enterprise server hardware with
 
 ---
 
-## 🖥️ 2. Infrastructure Requirements
+## 🖥️ 2. Infrastructure Requirements (Neighbor-Friendly Mode)
 
-| Resource | Recommended | Minimum |
+The platform is configured with **Strict Resource Quarantining** to ensure it does not interfere with other company projects on the same host.
+
+| Resource | Stack Hard-Limit (Total) | Your Server Availability |
 | :--- | :--- | :--- |
-| **CPU** | 16 Cores (Threadripper / Epic / Xeon) | 8 Cores |
-| **RAM** | 64GB | 32GB |
-| **Storage** | 200GB NVMe SSD | 100GB SSD |
-| **OS** | Ubuntu 22.04 LTS | Any Docker-ready Linux |
+| **CPU** | **~10 Cores Max** (Capped via Docker) | 24 Cores (14 remain free) |
+| **RAM** | **~24 GB Max** (Capped via Docker) | 124 GB (100 remain free) |
+| **Storage** | **~157 GB Max** (Capped via Docker Volumes) | 1000 GB (843 remain free) |
+
+*The `docker-compose.yaml` uses `deploy.resources.limits` to ensure that even at 100% AI load, the host remains stable for other applications.*
+
+### 📦 Storage Breakdown (Hard Limits)
+- **Ollama Models**: 50 GB (Qwen2.5-7B + future models)
+- **Qdrant Vectors**: 50 GB (Indexed knowledge base)
+- **Prometheus Metrics**: 20 GB (Performance history)
+- **Loki Logs**: 20 GB (Audit trail)
+- **Postgres Analytics**: 10 GB (Usage tracking)
+- **Grafana Dashboards**: 5 GB (Visualizations)
+- **Redis Cache**: 2 GB (Semantic cache)
+- **TOTAL**: **157 GB Maximum**
 
 ---
 

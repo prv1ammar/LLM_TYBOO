@@ -18,6 +18,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '0.5'
           memory: 4G
       replicas: 2
 
@@ -37,6 +38,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '0.5'
           memory: 1G
       replicas: 2
 
@@ -53,6 +55,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '4.0'
           memory: 8G # Sufficient for 7B models on CPU
 
   # TEI - Text Embeddings Inference (CPU Mode)
@@ -69,6 +72,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '2.0'
           memory: 2G
     command: --model-id BAAI/bge-m3 --port 80 --max-batch-tokens 16384 --max-concurrent-requests 512
 
@@ -86,6 +90,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '0.5'
           memory: 1G
 
   # Nginx - Reverse Proxy
@@ -104,6 +109,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '0.2'
           memory: 256M
 
   # Qdrant - Vector Database (Production RAG)
@@ -119,6 +125,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '1.0'
           memory: 4G
 
   # Redis - High-Performance Cache
@@ -132,6 +139,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '0.1'
           memory: 1G
 
   # Postgres - Usage Tracking & Analytics
@@ -149,6 +157,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '0.5'
           memory: 1G
 
   # Prometheus - Metrics Collection
@@ -170,6 +179,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '0.5'
           memory: 1G
 
   # Grafana - Metrics Dashboard
@@ -189,6 +199,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '0.5'
           memory: 1G
 
   # Loki - Log Aggregation
@@ -206,6 +217,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '0.5'
           memory: 512M
 
   # Promtail - Log Shipping
@@ -224,8 +236,60 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '0.2'
           memory: 256M
 
 networks:
   llm-network:
     driver: bridge
+
+volumes:
+  # Storage Quotas - Total: ~150GB max
+  ollama_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind,size=50G
+      device: ./data/ollama
+
+  qdrant_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind,size=50G
+      device: ./data/qdrant
+
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind,size=10G
+      device: ./data/postgres
+
+  prometheus_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind,size=20G
+      device: ./data/prometheus
+
+  loki_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind,size=20G
+      device: ./data/loki
+
+  grafana_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind,size=5G
+      device: ./data/grafana
+
+  redis_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind,size=2G
+      device: ./data/redis
