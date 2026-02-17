@@ -1,8 +1,8 @@
 model_list:
   - model_name: internal-llm
     litellm_params:
-      model: openai/casperhansen/deepseek-r1-distill-llama-70b-awq
-      api_base: http://vllm:8000/v1
+      model: ollama/qwen2.5:7b
+      api_base: http://ollama:11434
       api_key: "not-needed"
 
   - model_name: internal-embedding
@@ -11,15 +11,11 @@ model_list:
       api_base: http://tei:80/v1
       api_key: "not-needed"
 
-  # Specialized routing example
-  - model_name: coding-assistant
+  # Hybrid Cloud Fallback (Example using Groq for fast 70B inference)
+  - model_name: high-reasoning-llm
     litellm_params:
-      model: openai/casperhansen/deepseek-r1-distill-llama-70b-awq
-      api_base: http://vllm:8000/v1
-      api_key: "not-needed"
-    model_info:
-      id: "coding-v1"
-      mode: "chat"
+      model: groq/deepseek-r1-distill-llama-70b
+      api_key: os.environ/GROQ_API_KEY
 
 general_settings:
   master_key: your_key_here # Replace with a secure key

@@ -40,46 +40,36 @@ services:
           memory: 1G
       replicas: 2
 
-  # vLLM - LLM Inference Engine
-  vllm:
-    image: vllm/vllm-openai:latest
+  # Ollama - CPU-optimized LLM Inference Engine (GGUF Support)
+  ollama:
+    image: ollama/ollama:latest
     restart: always
     ports:
-      - "8000:8000"
+      - "11434:11434"
     volumes:
-      - ~/.cache/huggingface:/root/.cache/huggingface
-    environment:
-      - HUGGING_FACE_HUB_TOKEN=${HUGGING_FACE_HUB_TOKEN}
+      - ./data/ollama:/root/.ollama
     networks:
       - llm-network
     deploy:
       resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [ gpu ]
-    command: >
-      --model casperhansen/deepseek-r1-distill-llama-70b-awq --quantization awq --tensor-parallel-size 1 --max-model-len 4096 --gpu-memory-utilization 0.95 --disable-log-stats
+        limits:
+          memory: 8G # Sufficient for 7B models on CPU
 
-  # TEI - Text Embeddings Inference
+  # TEI - Text Embeddings Inference (CPU Mode)
   tei:
-    image: ghcr.io/huggingface/text-embeddings-inference:latest
+    image: ghcr.io/huggingface/text-embeddings-inference:cpu-latest
     restart: always
     ports:
       - "8080:80"
     volumes:
       - ~/.cache/huggingface:/root/.cache/huggingface
-      - ./data/tei:/data # Persistence for potential caching defined by TEI
+      - ./data/tei:/data
     networks:
       - llm-network
     deploy:
       resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [ gpu ]
+        limits:
+          memory: 2G
     command: --model-id BAAI/bge-m3 --port 80 --max-batch-tokens 16384 --max-concurrent-requests 512
 
   # Admin Dashboard - Streamlit UI for monitoring and management

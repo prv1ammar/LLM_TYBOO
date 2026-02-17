@@ -9,12 +9,13 @@ This document outlines the step-by-step plan to upgrade the current demo setup i
 ### 1.1 Dedicated AI Server Setup
 - [ ] **Provision Hardware**:
     - Recommended: Ubuntu Server 22.04 LTS
-    - GPU: NVIDIA A100/H100 or consumer grade RTX 3090/4090 cluster (24GB+ VRAM per card)
-    - Storage: 1TB+ NVMe SSD
-    - RAM: 64GB+ System RAM
+    - CPU: 8+ Core modern CPU (AMD Ryzen 7/9 or Intel i7/i9)
+    - GPU: **Not Required** (Optimized for CPU-only inference)
+    - Storage: 100GB+ NVMe SSD
+    - RAM: 32GB+ System RAM
 - [ ] **OS Optimization**:
-    - Install NVIDIA Drivers (latest stable)
-    - Install Docker Engine & NVIDIA Container Toolkit
+    - Install Docker Engine
+    - Install **Ollama** (handled via Docker in current stack)
     - Configure `daemon.json` for proper log rotation
 
 ### 1.2 Production Docker Environment
@@ -51,12 +52,11 @@ This document outlines the step-by-step plan to upgrade the current demo setup i
 
 ### 2.1 Model Selection & optimization
 - [x] **Select Models**:
-    - [x] **Coding**: DeepSeek-Coder-V2
-    - [x] **General/Chat**: DeepSeek-R1-70B-AWQ (Quantized)
-    - [x] **Fast/Router**: Mistral-Small or Llama-3-8B
+    - [x] **Local General/Chat**: Qwen2.5-7B-Instruct (GGUF via Ollama)
+    - [x] **Cloud Fallback**: DeepSeek-R1-70B (via Groq/OpenAI for high-reasoning)
 - [x] **Optimization**:
-    - [x] Implement **AWQ/GPTQ Quantization** (4-bit/8-bit)
-    - [x] Configure **Tensor Parallelism** in vLLM (set for 1 GPU currently)
+    - [x] Implement **GGUF Quantization** (4-bit/5-bit) for CPU.
+    - [x] Configure **Ollama** for concurrent CPU request handling.
 
 ### 2.2 Advanced Embeddings
 - [x] **Upgrade Embedding Service**:
