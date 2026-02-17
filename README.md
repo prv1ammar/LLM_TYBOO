@@ -87,6 +87,8 @@ python src/rag_pipeline.py
 
 ```
 llm/
+├── README.md                    # Main project overview
+├── PRODUCTION_ROADMAP.md        # Detailed enterprise upgrade plan
 ├── docker-compose.yaml          # Infrastructure definition
 ├── config/
 │   └── lite-llm-config.yaml    # LiteLLM routing config

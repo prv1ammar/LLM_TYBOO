@@ -1,0 +1,32 @@
+name: Production Deployment
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted # Use your internal GPU worker
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Environment
+        run: |
+          if [ ! -f .env ]; then
+            cp .env.example .env
+            echo "⚠️  Created .env from template. Please update with production keys."
+          fi
+
+      - name: Deploy Infrastructure
+        run: |
+          docker-compose pull
+          docker-compose up -d --remove-orphans
+
+      - name: Health Check
+        run: |
+          sleep 10
+          curl -f http://localhost:8888/health || exit 1
+          echo "✅ Application is healthy!"

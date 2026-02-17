@@ -18,7 +18,14 @@ class VectorStore:
     def __init__(self, collection_name: str = "documents"):
         # For development: in-memory Qdrant
         # For production: connect to Qdrant server
-        self.client = QdrantClient(":memory:")  # Change to QdrantClient(url="http://localhost:6333") for production
+        qdrant_url = os.getenv("QDRANT_URL", "http://localhost:6333")
+        
+        # If QDRANT_URL is not set to a server, use in-memory
+        if not qdrant_url or qdrant_url == ":memory:":
+            self.client = QdrantClient(":memory:")
+        else:
+            self.client = QdrantClient(url=qdrant_url)
+            
         self.collection_name = collection_name
         self.embedding_service = EmbeddingService()
         

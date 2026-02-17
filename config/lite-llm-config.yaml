@@ -1,16 +1,37 @@
 model_list:
   - model_name: internal-llm
     litellm_params:
-      model: openai/deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+      model: openai/casperhansen/deepseek-r1-distill-llama-70b-awq
       api_base: http://vllm:8000/v1
       api_key: "not-needed"
 
   - model_name: internal-embedding
     litellm_params:
       model: openai/BAAI/bge-m3
-      api_base: http://tei:8080/v1
+      api_base: http://tei:80/v1
       api_key: "not-needed"
+
+  # Specialized routing example
+  - model_name: coding-assistant
+    litellm_params:
+      model: openai/casperhansen/deepseek-r1-distill-llama-70b-awq
+      api_base: http://vllm:8000/v1
+      api_key: "not-needed"
+    model_info:
+      id: "coding-v1"
+      mode: "chat"
 
 general_settings:
   master_key: your_key_here # Replace with a secure key
   store_model_usage: true
+  database_url: "postgresql://litellm:litellm_password@postgres:5432/litellm_db"
+
+litellm_settings:
+  callbacks: ['prometheus']
+  success_callback: ["database"] # Track every successful request in Postgres
+  failure_callback: ["database"]
+
+cache:
+  type: redis
+  host: redis
+  port: 6379

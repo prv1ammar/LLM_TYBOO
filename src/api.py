@@ -4,7 +4,7 @@ Production-ready API with authentication, rate limiting, and monitoring
 """
 import os
 from typing import List, Dict, Optional
-from fastapi import FastAPI, HTTPException, Depends, Header
+from fastapi import FastAPI, HTTPException, Depends, Header, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from production_rag import ProductionRAG
@@ -13,9 +13,6 @@ from dotenv import load_dotenv
 import asyncio
 
 load_dotenv()
-
-# API Configuration
-API_KEY = os.getenv("API_KEY", "your-secure-api-key-here")
 
 app = FastAPI(
     title="Self-Hosted AI API",
@@ -54,18 +51,36 @@ class IngestResponse(BaseModel):
     document_ids: List[str]
     count: int
 
-class AnalysisRequest(BaseModel):
-    document: str = Field(..., description="Document to analyze")
+from fastapi.security import OAuth2PasswordRequestForm
+from auth import create_access_token, get_current_user, verify_password, get_password_hash, ACCESS_TOKEN_EXPIRE_MINUTES
+from datetime import timedelta
 
-class ContentGenerationRequest(BaseModel):
-    prompt: str = Field(..., description="Content generation prompt")
-    context: Optional[str] = Field("", description="Additional context")
+# Mock Database for demo (In Phase 3.1 real Postgres would be used)
+FAKE_USERS_DB = {
+    "admin": {
+        "username": "admin",
+        "hashed_password": get_password_hash("password123"),
+    }
+}
 
-# Authentication
-async def verify_api_key(x_api_key: str = Header(...)):
-    if x_api_key != API_KEY:
-        raise HTTPException(status_code=401, detail="Invalid API key")
-    return x_api_key
+@app.post("/token", tags=["Auth"])
+async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = FAKE_USERS_DB.get(form_data.username)
+    if not user or not verify_password(form_data.password, user["hashed_password"]):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user["username"]}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
+
+# Verification dependency
+async def protect_endpoint(current_user: dict = Depends(get_current_user)):
+    return current_user
 
 # Health check
 @app.get("/health")
@@ -74,7 +89,7 @@ async def health_check():
     return {"status": "healthy", "service": "self-hosted-ai-api"}
 
 # RAG Endpoints
-@app.post("/rag/query", response_model=QueryResponse, dependencies=[Depends(verify_api_key)])
+@app.post("/rag/query", response_model=QueryResponse, dependencies=[Depends(protect_endpoint)], tags=["RAG"])
 async def query_rag(request: QueryRequest):
     """
     Query the RAG system with a question
@@ -91,7 +106,7 @@ async def query_rag(request: QueryRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Query failed: {str(e)}")
 
-@app.post("/rag/ingest", response_model=IngestResponse, dependencies=[Depends(verify_api_key)])
+@app.post("/rag/ingest", response_model=IngestResponse, dependencies=[Depends(protect_endpoint)], tags=["RAG"])
 async def ingest_documents(documents: List[DocumentRequest]):
     """
     Ingest documents into the knowledge base
@@ -106,31 +121,38 @@ async def ingest_documents(documents: List[DocumentRequest]):
         raise HTTPException(status_code=500, detail=f"Ingestion failed: {str(e)}")
 
 # Agent Endpoints
-@app.post("/agent/analyze", dependencies=[Depends(verify_api_key)])
-async def analyze_document(request: AnalysisRequest):
+@app.post("/agent/legal", dependencies=[Depends(protect_endpoint)], tags=["Agents"])
+async def legal_agent(request: QueryRequest):
     """
-    Analyze a business document
-    
-    Returns structured analysis with key points and sentiment
+    Query the Moroccan Legal Assistant (RAG-enabled)
     """
     try:
-        result = await orchestrator.analyze_document(request.document)
-        return result
+        result = await orchestrator.legal_consultation(request.question)
+        return {"answer": result}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Legal agent failed: {str(e)}")
 
-@app.post("/agent/generate", dependencies=[Depends(verify_api_key)])
-async def generate_content(request: ContentGenerationRequest):
+@app.post("/agent/hr", dependencies=[Depends(protect_endpoint)], tags=["Agents"])
+async def hr_agent(request: QueryRequest):
     """
-    Generate business content
-    
-    Creates professional content based on the prompt and context
+    Query the Moroccan HR Assistant (RAG-enabled)
     """
     try:
-        result = await orchestrator.generate_content(request.prompt, request.context)
-        return {"content": result}
+        result = await orchestrator.hr_support(request.question)
+        return {"answer": result}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"HR agent failed: {str(e)}")
+
+@app.post("/agent/it", dependencies=[Depends(protect_endpoint)], tags=["Agents"])
+async def it_agent(request: QueryRequest):
+    """
+    Query the IT Support Agent (Documentation-aware)
+    """
+    try:
+        result = await orchestrator.it_troubleshooting(request.question)
+        return {"answer": result}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"IT agent failed: {str(e)}")
 
 # System Info
 @app.get("/info")
@@ -138,18 +160,19 @@ async def system_info():
     """Get system information"""
     return {
         "service": "Self-Hosted AI Stack",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "features": [
-            "RAG with vector search",
-            "Multi-agent orchestration",
-            "Self-hosted LLM (DeepSeek-R1)",
+            "RAG with vector search (Qdrant)",
+            "Specialized Agents (Legal, HR, IT)",
+            "Self-hosted LLM (DeepSeek-R1-70B-AWQ)",
             "Self-hosted embeddings (BGE-M3)",
-            "Production-ready API"
+            "Observability (Prometheus/Grafana)",
+            "Usage Tracking (PostgreSQL)"
         ],
         "endpoints": {
             "rag": ["/rag/query", "/rag/ingest"],
-            "agents": ["/agent/analyze", "/agent/generate"],
-            "system": ["/health", "/info"]
+            "agents": ["/agent/legal", "/agent/hr", "/agent/it"],
+            "system": ["/health", "/info", "/docs"]
         }
     }
 

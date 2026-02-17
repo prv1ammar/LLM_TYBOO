@@ -43,134 +43,101 @@ class TaskDecomposition(BaseModel):
     subtasks: List[str]
     estimated_complexity: str
 
-# Specialized Agents
+from production_rag import ProductionRAG
+
+# specialized Agents
 class AgentOrchestrator:
-    """Orchestrates multiple specialized agents for complex workflows"""
+    """Orchestrates multiple specialized agents with RAG capabilities"""
     
     def __init__(self):
-        self.embedding_service = EmbeddingService()
+        self.rag = ProductionRAG(collection_name="knowledge_base")
         
-        # Analyst Agent - for document analysis
-        self.analyst = Agent(
+        # Legal Agent
+        self.legal_agent = Agent(
             model,
-            output_type=AnalysisResult,
-            system_prompt="""You are a professional business analyst for Moroccan enterprises.
-            Analyze documents and provide structured insights.
-            Be concise, accurate, and highlight key business implications."""
+            system_prompt="""You are a Moroccan Legal Assistant.
+            You specialize in Moroccan labor law, commercial codes, and compliance.
+            Always use the 'search_knowledge_base' tool to verify legal facts before answering."""
         )
         
-        # Planner Agent - for task decomposition
-        self.planner = Agent(
+        # HR Agent
+        self.hr_agent = Agent(
             model,
-            output_type=TaskDecomposition,
-            system_prompt="""You are a strategic planner.
-            Break down complex business tasks into actionable subtasks.
-            Consider resource constraints and prioritize effectively."""
+            system_prompt="""You are a Moroccan HR Assistant.
+            You help with internal policies, recruitment, and employee benefits.
+            Always use the 'search_knowledge_base' tool to check current company policies."""
         )
         
-        # Writer Agent - for content generation
-        self.writer = Agent(
+        # IT Support Agent
+        self.it_agent = Agent(
             model,
-            output_type=str,
-            system_prompt="""You are a professional business writer.
-            Create clear, professional content for Moroccan business contexts.
-            Use formal but accessible language."""
+            system_prompt="""You are a Technical Support Agent for Moroccan AI systems.
+            You help troubleshoot vLLM, Docker, and API connectivity issues.
+            Use the 'search_knowledge_base' tool to find technical documentation."""
         )
-    
-    async def analyze_document(self, document: str) -> AnalysisResult:
-        """Analyze a business document"""
-        result = await self.analyst.run(f"Analyze this document:\n\n{document}")
+
+        # Register tools for all agents
+        for agent in [self.legal_agent, self.hr_agent, self.it_agent]:
+            @agent.tool_plain
+            async def search_knowledge_base(query: str) -> str:
+                """Search the enterprise knowledge base for relevant documents."""
+                result = await self.rag.query(query, top_k=3)
+                return f"CONTEXT FROM KB:\n{result['answer']}"
+
+            @agent.tool_plain
+            async def send_email(recipient: str, subject: str, body: str) -> str:
+                """Send an email for official communication. Use for follow-ups or sharing references."""
+                # Mock implementation for demonstration
+                print(f"📧 [SIMULATED EMAIL] To: {recipient}, Subject: {subject}")
+                return f"Email sent to {recipient}"
+
+            @agent.tool_plain
+            async def post_to_slack(channel: str, message: str) -> str:
+                """Post a notification or alert to a Slack channel."""
+                # Mock implementation for demonstration
+                print(f"💬 [SIMULATED SLACK] Channel: #{channel}, Message: {message}")
+                return f"Posted to Slack channel #{channel}"
+
+    async def legal_consultation(self, query: str) -> str:
+        """Handle legal inquiries"""
+        result = await self.legal_agent.run(query)
         return result.data
-    
-    async def plan_task(self, task_description: str) -> TaskDecomposition:
-        """Break down a complex task"""
-        result = await self.planner.run(f"Create a plan for: {task_description}")
+
+    async def hr_support(self, query: str) -> str:
+        """Handle HR inquiries"""
+        result = await self.hr_agent.run(query)
         return result.data
-    
-    async def generate_content(self, prompt: str, context: str = "") -> str:
-        """Generate business content"""
-        full_prompt = f"{prompt}\n\nContext: {context}" if context else prompt
-        result = await self.writer.run(full_prompt)
+
+    async def it_troubleshooting(self, query: str) -> str:
+        """Handle IT support inquiries"""
+        result = await self.it_agent.run(query)
         return result.data
-    
-    async def workflow_example(self, business_goal: str) -> Dict:
-        """
-        Example of a multi-step workflow:
-        1. Plan the task
-        2. Generate content for each subtask
-        3. Analyze the results
-        """
-        print(f"🎯 Starting workflow for: {business_goal}\n")
-        
-        # Step 1: Plan
-        print("📋 Step 1: Planning...")
-        plan = await self.plan_task(business_goal)
-        print(f"   Main task: {plan.main_task}")
-        print(f"   Subtasks: {len(plan.subtasks)}")
-        print(f"   Complexity: {plan.estimated_complexity}\n")
-        
-        # Step 2: Execute subtasks
-        print("⚙️  Step 2: Executing subtasks...")
-        results = []
-        for i, subtask in enumerate(plan.subtasks[:3], 1):  # Limit to 3 for demo
-            print(f"   {i}. {subtask}")
-            content = await self.generate_content(
-                f"Provide a brief solution for: {subtask}",
-                context=business_goal
-            )
-            results.append({"subtask": subtask, "solution": content})
-        print()
-        
-        # Step 3: Analyze overall results
-        print("📊 Step 3: Analyzing results...")
-        combined_results = "\n\n".join([
-            f"Subtask: {r['subtask']}\nSolution: {r['solution']}"
-            for r in results
-        ])
-        analysis = await self.analyze_document(combined_results)
-        print(f"   Summary: {analysis.summary}")
-        print(f"   Sentiment: {analysis.sentiment}")
-        print(f"   Confidence: {analysis.confidence}\n")
-        
-        return {
-            "plan": plan,
-            "results": results,
-            "analysis": analysis
-        }
 
 # Example usage
 async def main():
+    print("🤖 Specialized Multi-Agent Demo\n")
     orchestrator = AgentOrchestrator()
     
-    # Example 1: Document Analysis
-    print("=" * 60)
-    print("Example 1: Document Analysis")
-    print("=" * 60 + "\n")
+    # 1. Legal Query
+    print("⚖️  Example 1: Legal Consultation")
+    legal_query = "What are the legal requirements for employee overtime in Morocco?"
+    legal_response = await orchestrator.legal_consultation(legal_query)
+    print(f"Query: {legal_query}")
+    print(f"Agent: {legal_response}\n")
     
-    sample_doc = """
-    Our company is expanding operations in Casablanca and Rabat.
-    We need to hire 50 new employees and establish 2 new offices.
-    Budget allocated: 5M MAD. Timeline: 6 months.
-    Key challenges: talent acquisition, office space, regulatory compliance.
-    """
-    
-    analysis = await orchestrator.analyze_document(sample_doc)
-    print(f"Summary: {analysis.summary}")
-    print(f"Key Points: {', '.join(analysis.key_points)}")
-    print(f"Sentiment: {analysis.sentiment}\n")
-    
-    # Example 2: Complex Workflow
-    print("=" * 60)
-    print("Example 2: Multi-Agent Workflow")
-    print("=" * 60 + "\n")
-    
-    workflow_result = await orchestrator.workflow_example(
-        "Launch a new AI-powered customer service system for our Moroccan clients"
-    )
-    
-    print("=" * 60)
-    print("✅ Workflow Complete!")
-    print("=" * 60)
+    # 2. HR Query
+    print("👥 Example 2: HR Support")
+    hr_query = "Please email the holiday policy summary to manager@company.ma"
+    hr_response = await orchestrator.hr_support(hr_query)
+    print(f"Query: {hr_query}")
+    print(f"Agent: {hr_response}\n")
+
+    # 3. IT Query
+    print("💻 Example 3: IT Troubleshooting")
+    it_query = "If the vLLM container is down, please post an alert to the #devops-alerts channel."
+    it_response = await orchestrator.it_troubleshooting(it_query)
+    print(f"Query: {it_query}")
+    print(f"Agent: {it_response}\n")
 
 if __name__ == "__main__":
     import asyncio

@@ -6,3 +6,7 @@ requests
 qdrant-client
 fastapi
 uvicorn[standard]
+pypdf
+langchain-text-splitters
+python-jose[cryptography]
+passlib[bcrypt]

@@ -18,6 +18,7 @@ A **complete, production-ready self-hosted AI infrastructure** with:
 
 ✅ **Documentation**
 - README.md - Project overview
+- PRODUCTION_ROADMAP.md - Detailed enterprise upgrade plan
 - DEPLOYMENT_GUIDE.md - Step-by-step setup
 - QUICK_START.md - Essential setup only
 - API_GUIDE.md - REST API examples
