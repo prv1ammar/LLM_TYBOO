@@ -9,7 +9,7 @@ This guide is for **Platform Owners** and **Business Administrators** who manage
 The primary interface for non-developers is the **Admin Dashboard**.
 
 *   **URL**: `http://<your-server-ip>/admin/`
-*   **Credentials**: See your System Administrator for your secure username/password.
+*   **Crede-ntials**: See your System Administrator for your secure username/password.
 
 ---
 
