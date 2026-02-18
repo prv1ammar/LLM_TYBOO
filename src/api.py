@@ -121,38 +121,17 @@ async def ingest_documents(documents: List[DocumentRequest]):
         raise HTTPException(status_code=500, detail=f"Ingestion failed: {str(e)}")
 
 # Agent Endpoints
-@app.post("/agent/legal", dependencies=[Depends(protect_endpoint)], tags=["Agents"])
-async def legal_agent(request: QueryRequest):
+@app.post("/agent/general", dependencies=[Depends(protect_endpoint)], tags=["Agents"])
+async def general_agent(request: QueryRequest):
     """
-    Query the Moroccan Legal Assistant (RAG-enabled)
-    """
-    try:
-        result = await orchestrator.legal_consultation(request.question)
-        return {"answer": result}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Legal agent failed: {str(e)}")
-
-@app.post("/agent/hr", dependencies=[Depends(protect_endpoint)], tags=["Agents"])
-async def hr_agent(request: QueryRequest):
-    """
-    Query the Moroccan HR Assistant (RAG-enabled)
+    Query the General Purpose AGATE Assistant
+    Handles all topics: Legal, HR, IT, General Knowledge
     """
     try:
-        result = await orchestrator.hr_support(request.question)
+        result = await orchestrator.run_agent(request.question)
         return {"answer": result}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"HR agent failed: {str(e)}")
-
-@app.post("/agent/it", dependencies=[Depends(protect_endpoint)], tags=["Agents"])
-async def it_agent(request: QueryRequest):
-    """
-    Query the IT Support Agent (Documentation-aware)
-    """
-    try:
-        result = await orchestrator.it_troubleshooting(request.question)
-        return {"answer": result}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"IT agent failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Agent failed: {str(e)}")
 
 # System Info
 @app.get("/info")
@@ -163,15 +142,15 @@ async def system_info():
         "version": "1.1.0",
         "features": [
             "RAG with vector search (Qdrant)",
-            "Specialized Agents (Legal, HR, IT)",
-            "Self-hosted LLM (DeepSeek-R1-70B-AWQ)",
+            "General Purpose AGATE Assistant (Unified)",
+            "Self-hosted LLM (Qwen2.5-7B)",
             "Self-hosted embeddings (BGE-M3)",
             "Observability (Prometheus/Grafana)",
             "Usage Tracking (PostgreSQL)"
         ],
         "endpoints": {
             "rag": ["/rag/query", "/rag/ingest"],
-            "agents": ["/agent/legal", "/agent/hr", "/agent/it"],
+            "agents": ["/agent/general"],
             "system": ["/health", "/info", "/docs"]
         }
     }
