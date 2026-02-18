@@ -54,9 +54,49 @@ if not st.session_state.token:
     st.stop()
 
 # Tabs
-tab1, tab2, tab3 = st.tabs(["📚 Knowledge Base", "👥 User Management", "📊 System Analytics"])
+tab1, tab2, tab3, tab4 = st.tabs(["💬 Agent Chat", "📚 Knowledge Base", "👥 User Management", "📊 System Analytics"])
 
 with tab1:
+    st.header("💬 General Purpose Enterprise Agent")
+    st.markdown("Ask anything about Legal, HR, IT, or Strategy. The agent will check the Knowledge Base if needed.")
+    
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    if prompt := st.chat_input("How can I handle employee overtime?"):
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.markdown(prompt)
+
+        with st.chat_message("assistant"):
+            with st.spinner("Thinking..."):
+                try:
+                    # In a real app we'd call the API endpoint
+                    # response = requests.post(f"{API_BASE_URL}/agent/general", json={"question": prompt}, headers={"Authorization": f"Bearer {st.session_state.token}"})
+                    # result = response.json()["answer"]
+                    
+                    # For demo purposes, we'll simulate the response if the API isn't running locally for the UI to hit
+                    # But the 'src/api.py' is updated so this is the correct pattern
+                     response = requests.post(
+                        f"{API_BASE_URL}/agent/general",
+                        json={"question": prompt, "top_k": 3, "include_sources": True},
+                        headers={"Authorization": f"Bearer {st.session_state.token}"}
+                    )
+                     if response.status_code == 200:
+                        result = response.json()["answer"]
+                     else:
+                        result = f"Error: {response.text}"
+                except Exception as e:
+                    result = f"Connection Error: {str(e)}"
+            
+            st.markdown(result)
+        st.session_state.messages.append({"role": "assistant", "content": result})
+
+with tab2:
     st.header("📚 Enterprise Knowledge Management")
     
     col1, col2 = st.columns([2, 1])
@@ -91,12 +131,13 @@ with tab1:
                     try:
                         from ingest import DataIngestor
                         ingestor = DataIngestor(collection_name="knowledge_base")
-                        # Wrap ingest call
+                        # Wrap ingest call - in production this would be an async task or API call
+                        # For now we simulate success as the ingestion pipeline is backend-side
                         st.success(f"File '{uploaded_file.name}' saved and ready for ingestion pipeline.")
                     except Exception as e:
-                        st.error(f"Ingestion failed: {str(e)}")
+                        st.error(f"Ingestion setup failed: {str(e)}")
 
-with tab2:
+with tab3:
     st.header("👥 User & Access Management")
     
     # Mock user management
@@ -110,7 +151,7 @@ with tab2:
     if st.button("Add New User"):
         st.info("User management system is ready for PostgreSQL database migration.")
 
-with tab3:
+with tab4:
     st.header("📊 System Usage Analytics")
     
     # Placeholder for Grafana integration or direct Postgres queries
