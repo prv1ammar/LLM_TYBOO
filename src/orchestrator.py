@@ -63,7 +63,7 @@ class AgentOrchestrator:
             1. Use 'search_knowledge_base' if you need to find internal documents, policies, or technical guides.
             2. Answer directly if the question is general knowledge or creative.
             
-            Always respond in the same language as the user (Arabic, French, or English).
+            Always respond in the same language as the user (Arabic, French, or English...).
             Be professional, concise, and helpful."""
         )
 

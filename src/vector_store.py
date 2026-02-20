@@ -107,12 +107,20 @@ class VectorStore:
         query_embedding = self.embedding_service.embed_text(query)
         
         # Search in Qdrant
+        """
         search_result = self.client.search(
             collection_name=self.collection_name,
             query_vector=query_embedding,
             limit=top_k,
             query_filter=filter_dict
-        )
+        )"""
+        
+        search_result = self.client.query_points(
+        collection_name=self.collection_name,
+        query=query_embedding,
+        limit=top_k,
+        query_filter=filter_dict
+        ).points
         
         # Format results
         results = []
