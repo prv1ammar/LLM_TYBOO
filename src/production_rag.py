@@ -91,7 +91,7 @@ Please provide a comprehensive answer based on the context above. Reference spec
         # Get answer from LLM
         response = await self.agent.run(prompt)
         
-        result = {"answer": response.data}
+        result = {"answer": response.output}
         
         if include_sources:
             result["sources"] = [

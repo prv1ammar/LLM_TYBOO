@@ -82,7 +82,7 @@ Question: {question}
 Answer based on the context above:"""
         
         result = await self.agent.run(prompt)
-        return result.data
+        return result.output
 
 # Example usage
 async def main():

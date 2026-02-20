@@ -31,7 +31,7 @@ agent = Agent(
 
 async def main():
     result = await agent.run("What are the advantages of self-hosting LLMs for our organization?")
-    print(result.data)
+    print(result.output)
 
 if __name__ == "__main__":
     import asyncio

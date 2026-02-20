@@ -182,7 +182,7 @@ async def process_job(job: Job):
             responses = []
             for i, msg in enumerate(messages):
                 result = await agent.run(msg)
-                responses.append(result.data)
+                responses.append(result.output)
                 job.progress = int((i + 1) / len(messages) * 100)
             job.result = {"responses": responses}
             
@@ -258,7 +258,7 @@ async def chat_completion(request: ChatRequest):
             system_prompt=request.system_prompt or "You are a helpful assistant."
         )
         result = await agent.run(request.message)
-        return ChatResponse(response=result.data)
+        return ChatResponse(response=result.output)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -268,7 +268,7 @@ async def text_completion(request: CompletionRequest):
     try:
         agent = Agent(model, system_prompt="Complete the following text:")
         result = await agent.run(request.prompt)
-        return CompletionResponse(completion=result.data)
+        return CompletionResponse(completion=result.output)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

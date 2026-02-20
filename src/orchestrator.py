@@ -89,7 +89,7 @@ class AgentOrchestrator:
     async def run_agent(self, query: str) -> str:
         """Handle any enterprise inquiry using the general agent"""
         result = await self.general_agent.run(query)
-        return result.data
+        return result.output
 
 # Example usage
 async def main():
