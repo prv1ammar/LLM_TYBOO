@@ -1,0 +1,274 @@
+version: "3.9"
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  LLM_TYBOO — CPU Edition
+#  Hardware: 10 cores / 24GB RAM / 124GB Storage
+#  Stack   : llama-cpp-python + BGE-M3 + Qdrant + LiteLLM + n8n
+#
+#  ⭐ Credentials pour n8n / LangChain / LiteLLM node :
+#     Base URL : http://YOUR_SERVER_IP:4000/v1
+#     API Key  : sk-tyboo-2025   (ou LITELLM_KEY dans .env)
+#     Model    : internal-llm
+# ══════════════════════════════════════════════════════════════════════════════
+
+networks:
+  llm-network:
+    driver: bridge
+
+volumes:
+  qdrant_data:
+  postgres_data:
+  n8n_data:
+  models_data:
+
+services:
+
+  # ── 1a. llm-14b — Qwen2.5-14B Q4_K_M ───────────────────────────────────
+  #  RAM: ~9GB | Threads: 7 | Port: 8000
+  #  Utilisé pour: RAG, analyse documents, code, tâches complexes
+  llm-14b:
+    image: ghcr.io/abetlen/llama-cpp-python:latest
+    container_name: llm-14b
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - models_data:/models
+    environment:
+      - MODEL=/models/qwen2.5-14b-instruct-q4_k_m.gguf
+      - HOST=0.0.0.0
+      - PORT=8000
+      - N_THREADS=7
+      - N_CTX=8192
+      - N_BATCH=512
+      - CHAT_FORMAT=chatml
+    networks:
+      - llm-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 15s
+      retries: 5
+      start_period: 120s
+
+  # ── 1b. llm-3b — Qwen2.5-3B Q4_K_M ─────────────────────────────────────
+  #  RAM: ~2GB | Threads: 3 | Port: 8001
+  #  Utilisé pour: chat simple, Q&A rapide, résumés courts
+  llm-3b:
+    image: ghcr.io/abetlen/llama-cpp-python:latest
+    container_name: llm-3b
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    volumes:
+      - models_data:/models
+    environment:
+      - MODEL=/models/qwen2.5-3b-instruct-q4_k_m.gguf
+      - HOST=0.0.0.0
+      - PORT=8001
+      - N_THREADS=3
+      - N_CTX=4096
+      - N_BATCH=256
+      - CHAT_FORMAT=chatml
+    networks:
+      - llm-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 15s
+      retries: 5
+      start_period: 60s
+
+  # ── 2. Téléchargement modèles GGUF (1 seule fois) ────────────────────────
+  #  14B Q4: ~8.7GB | 3B Q4: ~2GB | Total: ~10.7GB storage
+  model-downloader:
+    image: curlimages/curl:latest
+    container_name: model-downloader
+    restart: "no"
+    volumes:
+      - models_data:/models
+    command: >
+      sh -c "
+        if [ ! -f /models/qwen2.5-14b-instruct-q4_k_m.gguf ]; then
+          echo '⏳ Downloading Qwen2.5-14B Q4_K_M (~8.7GB)...';
+          curl -L --retry 5 -o /models/qwen2.5-14b-instruct-q4_k_m.gguf
+            'https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF/resolve/main/qwen2.5-14b-instruct-q4_k_m.gguf';
+          echo '✅ 14B downloaded.';
+        else
+          echo '✅ 14B already present.';
+        fi
+        if [ ! -f /models/qwen2.5-3b-instruct-q4_k_m.gguf ]; then
+          echo '⏳ Downloading Qwen2.5-3B Q4_K_M (~2GB)...';
+          curl -L --retry 5 -o /models/qwen2.5-3b-instruct-q4_k_m.gguf
+            'https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf';
+          echo '✅ 3B downloaded.';
+        else
+          echo '✅ 3B already present.';
+        fi
+        echo '✅ All models ready.'
+      "
+    networks:
+      - llm-network
+
+  # ── 3. Qdrant — Vector DB ────────────────────────────────────────────────
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    networks:
+      - llm-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── 4. PostgreSQL ─────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: litellm
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-litellm_password}
+      POSTGRES_DB: litellm_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - llm-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U litellm"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── 5. LiteLLM — Proxy OpenAI-Compatible ─────────────────────────────────
+  #  ⭐ C'est CE endpoint que n8n / LangChain / LiteLLM node utilisent
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    container_name: litellm
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./litellm_config.yaml:/app/config.yaml
+    command: ["--config", "/app/config.yaml", "--port", "4000"]
+    environment:
+      - DATABASE_URL=postgresql://litellm:${POSTGRES_PASSWORD:-litellm_password}@postgres:5432/litellm_db
+      - LITELLM_MASTER_KEY=${LITELLM_KEY:-sk-tyboo-2025}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      llm-14b:
+        condition: service_healthy
+      llm-3b:
+        condition: service_healthy
+    networks:
+      - llm-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # ── 6. API FastAPI ────────────────────────────────────────────────────────
+  api:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    container_name: api
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+    env_file:
+      - .env
+    depends_on:
+      qdrant:
+        condition: service_healthy
+      litellm:
+        condition: service_healthy
+    volumes:
+      - ./src:/app
+    networks:
+      - llm-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── 7. Dashboard Streamlit ────────────────────────────────────────────────
+  dashboard:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    container_name: dashboard
+    restart: unless-stopped
+    command: streamlit run dashboard.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    depends_on:
+      - api
+    volumes:
+      - ./src:/app
+    networks:
+      - llm-network
+
+  # ── 8. n8n ────────────────────────────────────────────────────────────────
+  #  Accès   : http://YOUR_SERVER_IP:5678
+  #  Dans n8n → Credentials → OpenAI-compatible :
+  #    Base URL : http://litellm:4000/v1
+  #    API Key  : sk-tyboo-2025
+  #    Model    : internal-llm
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=http://${SERVER_IP:-localhost}:5678
+      - GENERIC_TIMEZONE=Africa/Casablanca
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-tyboo-n8n-key-change-me-32chars}
+      - OPENAI_API_KEY=${LITELLM_KEY:-sk-tyboo-2025}
+      - OPENAI_API_BASE=http://litellm:4000/v1
+    volumes:
+      - n8n_data:/home/node/.n8n
+    depends_on:
+      litellm:
+        condition: service_healthy
+    networks:
+      - llm-network
+
+  # ── 9. Prometheus ─────────────────────────────────────────────────────────
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - llm-network
+
+  # ── 10. Grafana ───────────────────────────────────────────────────────────
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    networks:
+      - llm-network
