@@ -1,8 +1,8 @@
 """
-sdk/llm_client.py — Python SDK for LLM_TYBOO
-===============================================
+sdk/tython_client.py — Official Python SDK for Tython AI Platform
+===================================================================
 PURPOSE:
-  A clean Python client library for integrating LLM_TYBOO into any
+  A clean Python client library for integrating Tython into any
   external application without needing to know the internal architecture.
 
   Instead of writing raw HTTP calls with requests, you import this SDK
@@ -15,9 +15,9 @@ AUTHENTICATION:
 
 HOW TO USE:
   # Basic setup
-  from sdk.llm_client import LLMBackendClient
+  from tython import TythonClient
 
-  client = LLMBackendClient(
+  client = TythonClient(
       api_url="http://YOUR_SERVER_IP:8888",
       api_key="your-api-key-from-env"
   )
@@ -71,9 +71,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-class LLMBackendClient:
+class TythonClient:
     """
-    Python SDK for the LLM_TYBOO backend API.
+    Python SDK for the Tython backend API.
     Wraps all HTTP calls in simple, typed methods.
 
     All methods raise requests.HTTPError if the server returns an error.
@@ -366,15 +366,15 @@ class LLMBackendClient:
 
 def embed(texts: List[str], api_url: str = None, api_key: str = None) -> List[List[float]]:
     """Quick embed without instantiating a client manually."""
-    return LLMBackendClient(api_url, api_key).embed(texts)
+    return TythonClient(api_url, api_key).embed(texts)
 
 
 def chat(message: str, api_url: str = None, api_key: str = None) -> str:
     """Quick chat call without instantiating a client manually."""
-    return LLMBackendClient(api_url, api_key).chat(message)
+    return TythonClient(api_url, api_key).chat(message)
 
 
 def rag_query(question: str, collection: str = "default",
               api_url: str = None, api_key: str = None) -> Dict:
     """Quick RAG query without instantiating a client manually."""
-    return LLMBackendClient(api_url, api_key).rag_query(question, collection)
+    return TythonClient(api_url, api_key).rag_query(question, collection)
