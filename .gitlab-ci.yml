@@ -12,7 +12,7 @@ variables:
 # Step 0: Download models
 download_models:
   stage: prepare
-  image: docker/compose:2.17.3
+  image: docker:24.0.0-dind
   services:
     - docker:24.0.0-dind
   tags:
