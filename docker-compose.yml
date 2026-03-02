@@ -14,7 +14,7 @@ services:
   #  RAM: ~9GB | Threads: 7 | Port: 8000
   #  Utilisé pour: RAG, analyse documents, code, tâches complexes
   llm-14b:
-    image: jflachman/llama-cpp-python:v0.2.77-cpu
+    image: ghcr.io/abetlen/llama-cpp-python:latest
     container_name: llm-14b
     restart: unless-stopped
     ports:
@@ -40,7 +40,7 @@ services:
   #  RAM: ~2GB | Threads: 3 | Port: 8001
   #  Utilisé pour: chat simple, Q&A rapide, résumés courts
   llm-3b:
-    image: jflachman/llama-cpp-python:v0.2.77-cpu
+    image: ghcr.io/abetlen/llama-cpp-python:latest
     container_name: llm-3b
     restart: unless-stopped
     ports:
