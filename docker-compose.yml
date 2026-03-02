@@ -181,7 +181,7 @@ services:
     build:
       context: ./src
       dockerfile: Dockerfile
-    image: "${CI_REGISTRY_IMAGE}:tython-app-${CI_COMMIT_SHORT_SHA}"
+    image: "${CI_REGISTRY_IMAGE}:api-${CI_COMMIT_SHORT_SHA}"
     container_name: api
     restart: unless-stopped
     ports:
@@ -205,7 +205,10 @@ services:
 
   # ── 7. Dashboard Streamlit ────────────────────────────────────────────────
   dashboard:
-    image: "${CI_REGISTRY_IMAGE}:tython-app-${CI_COMMIT_SHORT_SHA}"
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    image: "${CI_REGISTRY_IMAGE}:dashboard-${CI_COMMIT_SHORT_SHA}"
     container_name: dashboard
     restart: unless-stopped
     command: streamlit run dashboard.py --server.port 8501 --server.address 0.0.0.0
