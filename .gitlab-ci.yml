@@ -29,7 +29,7 @@ build:
     - docker compose build -progress=plain api dashboard
     - docker compose push api dashboard
 
-
+#abc
 # Step 2: Deploy to VM
 deploy_to_vm:
   stage: deploy
