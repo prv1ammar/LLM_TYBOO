@@ -96,7 +96,7 @@ services:
 
     # ── 3. Qdrant — Vector DB ────────────────────────────────────────────────
   qdrant:
-    image: qdrant/qdrant:v1.2.2
+    image: qdrant/qdrant:latest
     container_name: qdrant
     restart: unless-stopped
     ports:
