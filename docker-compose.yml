@@ -44,12 +44,7 @@ services:
       - CHAT_FORMAT=chatml
     networks:
       - llm-network
-    healthcheck:
-      test: [ "CMD-SHELL", "python3 -c 'import urllib.request, sys; urllib.request.urlopen(\"http://127.0.0.1:8000/health\"); sys.exit(0)'" ]
-      interval: 30s
-      timeout: 15s
-      retries: 5
-      start_period: 120s
+
 
   # ── 1b. llm-3b — Qwen2.5-3B Q4_K_M ─────────────────────────────────────
   #  RAM: ~2GB | Threads: 3 | Port: 8001
@@ -72,12 +67,7 @@ services:
       - CHAT_FORMAT=chatml
     networks:
       - llm-network
-    healthcheck:
-      test: [ "CMD-SHELL", "python3 -c 'import urllib.request, sys; urllib.request.urlopen(\"http://127.0.0.1:8001/health\"); sys.exit(0)'" ]
-      interval: 30s
-      timeout: 15s
-      retries: 5
-      start_period: 60s
+
     # ── 2. Téléchargement modèles GGUF (1 seule fois) ────────────────────────
     #  14B Q4: ~8.7GB | 3B Q4: ~2GB | Total: ~10.7GB storage
     #model-downloader:
@@ -122,12 +112,7 @@ services:
       - qdrant_data:/qdrant/storage
     networks:
       - llm-network
-    healthcheck:
-      test: [ "CMD-SHELL", "python3 -c 'import urllib.request; urllib.request.urlopen(\"http://127.0.0.1:6333/healthz\")'" ]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 15s
+
 
   # ── 4. PostgreSQL ─────────────────────────────────────────────────────────
   postgres:
@@ -162,21 +147,9 @@ services:
     environment:
       - DATABASE_URL=postgresql://litellm:${POSTGRES_PASSWORD}@postgres:5432/litellm_db
       - LITELLM_MASTER_KEY=${LITELLM_KEY}
-    depends_on:
-      postgres:
-        condition: service_healthy
-      llm-14b:
-        condition: service_healthy
-      llm-3b:
-        condition: service_healthy
     networks:
       - llm-network
-    healthcheck:
-      test: [ "CMD", "python3", "-c", "import urllib.request, sys; urllib.request.urlopen('http://127.0.0.1:8001/v1/models'); sys.exit(0)" ]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 60s
+
 
   # ── 6. API FastAPI ────────────────────────────────────────────────────────
   api:
@@ -190,20 +163,10 @@ services:
       - "8888:8888"
     env_file:
       - .env
-    depends_on:
-      qdrant:
-        condition: service_healthy
-      litellm:
-        condition: service_healthy
     volumes:
       - ./src:/app
     networks:
       - llm-network
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8888/health" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
 
   # ── 7. Dashboard Streamlit ────────────────────────────────────────────────
   dashboard:
@@ -248,9 +211,6 @@ services:
       - OPENAI_API_BASE=http://litellm:4000/v1
     volumes:
       - n8n_data:/home/node/.n8n
-    depends_on:
-      litellm:
-        condition: service_healthy
     networks:
       - llm-network
 
