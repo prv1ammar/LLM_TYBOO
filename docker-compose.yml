@@ -14,7 +14,7 @@ services:
   #  RAM: ~9GB | Threads: 7 | Port: 8000
   #  Utilisé pour: RAG, analyse documents, code, tâches complexes
   llm-14b:
-    image: ghcr.io/abetlen/llama-cpp-python:latest
+    image: jflachman/llama-cpp-python:v0.2.77-cpu
     container_name: llm-14b
     restart: unless-stopped
     ports:
@@ -40,7 +40,7 @@ services:
   #  RAM: ~2GB | Threads: 3 | Port: 8001
   #  Utilisé pour: chat simple, Q&A rapide, résumés courts
   llm-3b:
-    image: ghcr.io/abetlen/llama-cpp-python:latest
+    image: jflachman/llama-cpp-python:v0.2.77-cpu
     container_name: llm-3b
     restart: unless-stopped
     ports:
@@ -96,7 +96,7 @@ services:
 
     # ── 3. Qdrant — Vector DB ────────────────────────────────────────────────
   qdrant:
-    image: qdrant/qdrant:latest
+    image: qdrant/qdrant:v1.2.2
     container_name: qdrant
     restart: unless-stopped
     ports:
@@ -148,7 +148,7 @@ services:
     build:
       context: ./src
       dockerfile: Dockerfile
-    image: "${CI_REGISTRY_IMAGE}:api-${CI_COMMIT_SHORT_SHA}"
+    image: "${CI_REGISTRY_IMAGE}:api-v1"
     container_name: api
     restart: unless-stopped
     ports:
@@ -165,7 +165,7 @@ services:
     build:
       context: ./src
       dockerfile: Dockerfile
-    image: "${CI_REGISTRY_IMAGE}:dashboard-${CI_COMMIT_SHORT_SHA}"
+    image: "${CI_REGISTRY_IMAGE}:dashboard-v1"
     container_name: dashboard
     restart: unless-stopped
     command: streamlit run dashboard.py --server.port 8501 --server.address 0.0.0.0

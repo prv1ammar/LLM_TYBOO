@@ -3,8 +3,8 @@ stages:
   - deploy
 
 variables:
-  API_IMAGE: "${CI_REGISTRY_IMAGE}:api-${CI_COMMIT_SHORT_SHA}"
-  DASHBOARD_IMAGE: "${CI_REGISTRY_IMAGE}:dashboard-${CI_COMMIT_SHORT_SHA}"
+  API_IMAGE: "${CI_REGISTRY_IMAGE}:api-v1"
+  DASHBOARD_IMAGE: "${CI_REGISTRY_IMAGE}:dashboard-v1"
 
 build:
   stage: build
