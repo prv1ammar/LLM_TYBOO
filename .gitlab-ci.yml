@@ -34,7 +34,6 @@ deploy_to_vm:
     - git config --global --add safe.directory /home/tythonai/litellm-tybo
   script:
     - cd /home/tythonai/litellm-tybo
-    - git pull origin main
     - docker compose pull api dashboard
     - docker compose up -d postgres qdrant llm-14b llm-3b litellm n8n prometheus grafana
     - docker compose up -d api dashboard
