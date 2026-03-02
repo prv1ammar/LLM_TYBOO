@@ -19,7 +19,6 @@ volumes:
   qdrant_data:
   postgres_data:
   n8n_data:
-  models_data:
 
 services:
 
@@ -33,7 +32,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - models_data:/models
+      - /home/tythonai/models:/models
     environment:
       - MODEL=/models/qwen2.5-14b-instruct-q4_k_m.gguf
       - HOST=0.0.0.0
@@ -61,7 +60,7 @@ services:
     ports:
       - "8001:8001"
     volumes:
-      - models_data:/models
+      - /home/tythonai/models:/models
     environment:
       - MODEL=/models/qwen2.5-3b-instruct-q4_k_m.gguf
       - HOST=0.0.0.0
@@ -81,36 +80,36 @@ services:
 
   # ── 2. Téléchargement modèles GGUF (1 seule fois) ────────────────────────
   #  14B Q4: ~8.7GB | 3B Q4: ~2GB | Total: ~10.7GB storage
-  model-downloader:
-    image: curlimages/curl:latest
-    container_name: model-downloader
-    restart: "no"
-    volumes:
-      - models_data:/models
-    command: >
-      sh -c "
-        set -e;
-
-        if [ ! -f /models/qwen2.5-14b-instruct-q4_k_m.gguf ]; then
-          echo '⏳ Downloading Qwen2.5-14B Q4_K_M (~8.7GB)...';
-          curl -fL --retry 5 -o /models/qwen2.5-14b-instruct-q4_k_m.gguf https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF/resolve/main/qwen2.5-14b-instruct-q4_k_m.gguf;
-          echo '✅ 14B downloaded.';
-        else
-          echo '✅ 14B already present.';
-        fi;
-
-        if [ ! -f /models/qwen2.5-3b-instruct-q4_k_m.gguf ]; then
-          echo '⏳ Downloading Qwen2.5-3B Q4_K_M (~2GB)...';
-          curl -fL --retry 5 -o /models/qwen2.5-3b-instruct-q4_k_m.gguf https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf;
-          echo '✅ 3B downloaded.';
-        else
-          echo '✅ 3B already present.';
-        fi;
-
-        echo '✅ All models ready.'
-      "
-    networks:
-      - llm-network
+  #model-downloader:
+   # image: curlimages/curl:latest
+    #container_name: model-downloader
+   # restart: "no"
+   # volumes:
+    #  - models_data:/models
+   # command: >
+#      sh -c "
+#        set -e;
+#
+#        if [ ! -f /models/qwen2.5-14b-instruct-q4_k_m.gguf ]; then
+#          echo '⏳ Downloading Qwen2.5-14B Q4_K_M (~8.7GB)...';
+#          curl -fL --retry 5 -o /models/qwen2.5-14b-instruct-q4_k_m.gguf https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF/resolve/main/qwen2.5-14b-instruct-q4_k_m.gguf;
+#          echo '✅ 14B downloaded.';
+#        else
+#          echo '✅ 14B already present.';
+#        fi;
+#
+#        if [ ! -f /models/qwen2.5-3b-instruct-q4_k_m.gguf ]; then
+#          echo '⏳ Downloading Qwen2.5-3B Q4_K_M (~2GB)...';
+#          curl -fL --retry 5 -o /models/qwen2.5-3b-instruct-q4_k_m.gguf https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf;
+#          echo '✅ 3B downloaded.';
+#        else
+#          echo '✅ 3B already present.';
+#        fi;
+#
+#        echo '✅ All models ready.'
+#      "
+#    networks:
+#      - llm-network
 
   # ── 3. Qdrant — Vector DB ────────────────────────────────────────────────
   qdrant:
