@@ -3,32 +3,15 @@ stages:
   - deploy
 
 variables:
-  CACHE_IMAGE: "${CI_REGISTRY_IMAGE}:tython-app-latest"
-  APP_IMAGE: "${CI_REGISTRY_IMAGE}:tython-app-${CI_COMMIT_SHORT_SHA}"
-  # Setting DOCKER_TLS_CERTDIR to empty disables TLS, required for tcp://docker:2375
-  DOCKER_TLS_CERTDIR: ""
-  # Use 'docker' as the hostname for the service
-  DOCKER_HOST: tcp://docker:2375
-  DOCKER_DRIVER: overlay2
-  DOCKER_BUILDKIT: 1
+  API_IMAGE: "${CI_REGISTRY_IMAGE}:api-${CI_COMMIT_SHORT_SHA}"
+  DASHBOARD_IMAGE: "${CI_REGISTRY_IMAGE}:dashboard-${CI_COMMIT_SHORT_SHA}"
 
 build:
   stage: build
-  image: docker:24.0.0-dind
-  services:
-    - name: docker:24.0.0-dind
-      alias: docker
-      # This command ensures the daemon starts without TLS
-      command: ["--tls=false"]
   tags:
     - litellm-tybo
   before_script:
-    - |
-      for i in {1..10}; do
-        docker info && break || sleep 5
-      done
     - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
-    - touch .env
     - echo "POSTGRES_USER=$POSTGRES_USER" >> .env
     - echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> .env
     - echo "POSTGRES_DB=$POSTGRES_DB" >> .env
@@ -37,19 +20,11 @@ build:
     - echo "N8N_ENCRYPTION_KEY=$N8N_ENCRYPTION_KEY" >> .env
     - echo "GRAFANA_PASSWORD=$GRAFANA_PASSWORD" >> .env
   script:
-    - docker pull $CACHE_IMAGE || true
-    - docker compose build --build-arg BUILDKIT_INLINE_CACHE=1 api
-    - docker tag $APP_IMAGE $CACHE_IMAGE
-    - docker push $APP_IMAGE
-    - docker push $CACHE_IMAGE
+    - docker compose build --progress=plain api dashboard
+    - docker compose push api dashboard
 
 deploy_to_vm:
   stage: deploy
-  image: docker:24.0.0-dind
-  services:
-    - name: docker:24.0.0-dind
-      alias: docker
-      command: ["--tls=false"]
   tags:
     - litellm-tybo
   needs:
@@ -57,9 +32,7 @@ deploy_to_vm:
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
   script:
-    - echo "Deploying to target path..."
-    # IMPORTANT: This cd only works if the runner has the host directory mounted.
-    # Otherwise, you should use SSH to deploy to the target VM.
-    - cd /home/tythonai/litellm-tybo || (echo "Target directory not found." && exit 1)
-    - docker compose pull
-    - docker compose up -d
+    - cd /home/tythonai/litellm-tybo
+    - docker compose pull api dashboard
+    - docker compose up -d llm-14b llm-3b qdrant postgres litellm n8n prometheus grafana
+    - docker compose up -d api dashboard
