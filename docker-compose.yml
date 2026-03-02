@@ -45,9 +45,9 @@ services:
     networks:
       - llm-network
     healthcheck:
-      test: [ "CMD", "python3", "-c", "import urllib.request, sys; urllib.request.urlopen('http://127.0.0.1:8000/v1/models'); sys.exit(0)" ]
+      test: [ "CMD-SHELL", "python3 -c 'import urllib.request, sys; urllib.request.urlopen(\"http://127.0.0.1:8000/health\"); sys.exit(0)'" ]
       interval: 30s
-      timeout: 10s
+      timeout: 15s
       retries: 5
       start_period: 120s
 
@@ -73,7 +73,7 @@ services:
     networks:
       - llm-network
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8001/health" ]
+      test: [ "CMD-SHELL", "python3 -c 'import urllib.request, sys; urllib.request.urlopen(\"http://127.0.0.1:8001/health\"); sys.exit(0)'" ]
       interval: 30s
       timeout: 15s
       retries: 5
@@ -123,10 +123,11 @@ services:
     networks:
       - llm-network
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:6333/healthz" ]
+      test: [ "CMD-SHELL", "python3 -c 'import urllib.request; urllib.request.urlopen(\"http://127.0.0.1:6333/healthz\")'" ]
       interval: 30s
       timeout: 10s
-      retries: 3
+      retries: 5
+      start_period: 15s
 
   # ── 4. PostgreSQL ─────────────────────────────────────────────────────────
   postgres:
