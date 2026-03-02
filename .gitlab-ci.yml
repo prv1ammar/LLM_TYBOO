@@ -9,7 +9,7 @@ variables:
 build:
   stage: build
   tags:
-    - litellm-tybo
+    - tybo-shell
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
     - echo "POSTGRES_USER=$POSTGRES_USER" >> .env
@@ -26,7 +26,7 @@ build:
 deploy_to_vm:
   stage: deploy
   tags:
-    - litellm-tybo
+    - tybo-shell
   needs:
     - build
   before_script:
