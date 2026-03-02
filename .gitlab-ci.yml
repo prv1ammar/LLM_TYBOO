@@ -36,3 +36,5 @@ deploy_to_vm:
     - docker compose pull api dashboard
     - docker compose up -d llm-14b llm-3b qdrant postgres litellm n8n prometheus grafana
     - docker compose up -d api dashboard
+
+#a
