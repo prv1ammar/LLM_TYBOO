@@ -93,9 +93,7 @@ services:
 
         if [ ! -f /models/qwen2.5-14b-instruct-q4_k_m.gguf ]; then
           echo '⏳ Downloading Qwen2.5-14B Q4_K_M (~8.7GB)...';
-          curl -fL --retry 5 \
-            -o /models/qwen2.5-14b-instruct-q4_k_m.gguf \
-            https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF/resolve/main/qwen2.5-14b-instruct-q4_k_m.gguf;
+          curl -fL --retry 5 -o /models/qwen2.5-14b-instruct-q4_k_m.gguf https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF/resolve/main/qwen2.5-14b-instruct-q4_k_m.gguf;
           echo '✅ 14B downloaded.';
         else
           echo '✅ 14B already present.';
@@ -103,9 +101,7 @@ services:
 
         if [ ! -f /models/qwen2.5-3b-instruct-q4_k_m.gguf ]; then
           echo '⏳ Downloading Qwen2.5-3B Q4_K_M (~2GB)...';
-          curl -fL --retry 5 \
-            -o /models/qwen2.5-3b-instruct-q4_k_m.gguf \
-            https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf;
+          curl -fL --retry 5 -o /models/qwen2.5-3b-instruct-q4_k_m.gguf https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf;
           echo '✅ 3B downloaded.';
         else
           echo '✅ 3B already present.';

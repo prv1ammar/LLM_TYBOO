@@ -1,42 +1,59 @@
-
-
-#docker compose run --rm model-downloader run this in vm before anything else to download the models
-
-
-
 stages:
+  - prepare
   - build
   - deploy
-variables:
 
+variables:
   API_IMAGE: "${CI_REGISTRY_IMAGE}:api-${CI_COMMIT_SHORT_SHA}"
   DASHBOARD_IMAGE: "${CI_REGISTRY_IMAGE}:dashboard-${CI_COMMIT_SHORT_SHA}"
+  DOCKER_HOST: tcp://docker:2376
+  DOCKER_TLS_CERTDIR: ""
 
+# Step 0: Download models
+download_models:
+  stage: prepare
+  image: docker/compose:2.17.3
+  services:
+    - docker:24.0.0-dind
+  tags:
+    - litellm-tybo
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+  script:
+    - docker compose run --rm model-downloader
+  rules:
+    - when: always
+
+# Step 1: Build Docker images
 build:
   stage: build
   image: docker:24.0.0-dind
   services:
     - docker:24.0.0-dind
-  variables:
-    DOCKER_HOST: tcp://docker:2376
-    DOCKER_TLS_CERTDIR: ""
   tags:
     - litellm-tybo
   before_script:
-      - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+    - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+    # Optional: create .env with CI variables
+    - echo "POSTGRES_USER=$POSTGRES_USER" >> .env
+    - echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> .env
+    - echo "POSTGRES_DB=$POSTGRES_DB" >> .env
+    - echo "LITELLM_KEY=$LITELLM_KEY" >> .env
+    - echo "SERVER_IP=$SERVER_IP" >> .env
+    - echo "N8N_ENCRYPTION_KEY=$N8N_ENCRYPTION_KEY" >> .env
+    - echo "GRAFANA_PASSWORD=$GRAFANA_PASSWORD" >> .env
   script:
     - docker compose build api dashboard
     - docker compose push api dashboard
+  needs:
+    - download_models
 
-
+# Step 2: Deploy to VM
 deploy_to_vm:
   stage: deploy
   image: docker:24.0.0-dind
   services:
     - docker:24.0.0-dind
-  variables:
-    DOCKER_HOST: tcp://docker:2376
-    DOCKER_TLS_CERTDIR: ""
   tags:
     - litellm-tybo
   needs:
