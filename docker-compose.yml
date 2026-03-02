@@ -89,22 +89,28 @@ services:
       - models_data:/models
     command: >
       sh -c "
+        set -e;
+
         if [ ! -f /models/qwen2.5-14b-instruct-q4_k_m.gguf ]; then
           echo '⏳ Downloading Qwen2.5-14B Q4_K_M (~8.7GB)...';
-          curl -L --retry 5 -o /models/qwen2.5-14b-instruct-q4_k_m.gguf
-            'https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF/resolve/main/qwen2.5-14b-instruct-q4_k_m.gguf';
+          curl -fL --retry 5 \
+            -o /models/qwen2.5-14b-instruct-q4_k_m.gguf \
+            https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF/resolve/main/qwen2.5-14b-instruct-q4_k_m.gguf;
           echo '✅ 14B downloaded.';
         else
           echo '✅ 14B already present.';
-        fi
+        fi;
+
         if [ ! -f /models/qwen2.5-3b-instruct-q4_k_m.gguf ]; then
           echo '⏳ Downloading Qwen2.5-3B Q4_K_M (~2GB)...';
-          curl -L --retry 5 -o /models/qwen2.5-3b-instruct-q4_k_m.gguf
-            'https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf';
+          curl -fL --retry 5 \
+            -o /models/qwen2.5-3b-instruct-q4_k_m.gguf \
+            https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf;
           echo '✅ 3B downloaded.';
         else
           echo '✅ 3B already present.';
-        fi
+        fi;
+
         echo '✅ All models ready.'
       "
     networks:
@@ -134,7 +140,7 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: litellm
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-litellm_password}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: litellm_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -158,8 +164,8 @@ services:
       - ./litellm_config.yaml:/app/config.yaml
     command: ["--config", "/app/config.yaml", "--port", "4000"]
     environment:
-      - DATABASE_URL=postgresql://litellm:${POSTGRES_PASSWORD:-litellm_password}@postgres:5432/litellm_db
-      - LITELLM_MASTER_KEY=${LITELLM_KEY:-sk-tyboo-2025}
+      - DATABASE_URL=postgresql://litellm:${POSTGRES_PASSWORD}@postgres:5432/litellm_db
+      - LITELLM_MASTER_KEY=${LITELLM_KEY}
     depends_on:
       postgres:
         condition: service_healthy
@@ -180,6 +186,7 @@ services:
     build:
       context: ./src
       dockerfile: Dockerfile
+    image: "${CI_REGISTRY_IMAGE}:api-${CI_COMMIT_SHORT_SHA}"
     container_name: api
     restart: unless-stopped
     ports:
@@ -206,6 +213,7 @@ services:
     build:
       context: ./src
       dockerfile: Dockerfile
+    image: "${CI_REGISTRY_IMAGE}:dashboard-${CI_COMMIT_SHORT_SHA}"
     container_name: dashboard
     restart: unless-stopped
     command: streamlit run dashboard.py --server.port 8501 --server.address 0.0.0.0
@@ -236,10 +244,10 @@ services:
       - N8N_HOST=0.0.0.0
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
-      - WEBHOOK_URL=http://${SERVER_IP:-localhost}:5678
+      - WEBHOOK_URL=http://${SERVER_IP}:5678
       - GENERIC_TIMEZONE=Africa/Casablanca
-      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-tyboo-n8n-key-change-me-32chars}
-      - OPENAI_API_KEY=${LITELLM_KEY:-sk-tyboo-2025}
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      - OPENAI_API_KEY=${LITELLM_KEY}
       - OPENAI_API_BASE=http://litellm:4000/v1
     volumes:
       - n8n_data:/home/node/.n8n
@@ -269,6 +277,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
     networks:
       - llm-network
