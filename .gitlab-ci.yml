@@ -26,10 +26,10 @@ build:
     - echo "N8N_ENCRYPTION_KEY=$N8N_ENCRYPTION_KEY" >> .env
     - echo "GRAFANA_PASSWORD=$GRAFANA_PASSWORD" >> .env
   script:
-    - docker compose build -progress=plain api dashboard
+    - docker compose build --progress=plain api dashboard
     - docker compose push api dashboard
 
-#abc
+
 # Step 2: Deploy to VM
 deploy_to_vm:
   stage: deploy
