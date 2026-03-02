@@ -44,11 +44,7 @@ services:
       - CHAT_FORMAT=chatml
     networks:
       - llm-network
-    healthcheck:
-      test: [ "CMD-SHELL", "exit 0" ]
-      interval: 10s
-      timeout: 5s
-      retries: 1
+
 
 
   # ── 1b. llm-3b — Qwen2.5-3B Q4_K_M ─────────────────────────────────────
@@ -72,11 +68,7 @@ services:
       - CHAT_FORMAT=chatml
     networks:
       - llm-network
-    healthcheck:
-      test: [ "CMD-SHELL", "exit 0" ]
-      interval: 10s
-      timeout: 5s
-      retries: 1
+
 
     # ── 2. Téléchargement modèles GGUF (1 seule fois) ────────────────────────
     #  14B Q4: ~8.7GB | 3B Q4: ~2GB | Total: ~10.7GB storage
@@ -122,11 +114,7 @@ services:
       - qdrant_data:/qdrant/storage
     networks:
       - llm-network
-    healthcheck:
-      test: [ "CMD-SHELL", "exit 0" ]
-      interval: 10s
-      timeout: 5s
-      retries: 1
+
 
 
   # ── 4. PostgreSQL ─────────────────────────────────────────────────────────
@@ -142,11 +130,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - llm-network
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U litellm" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+
 
   # ── 5. LiteLLM — Proxy OpenAI-Compatible ─────────────────────────────────
   #  ⭐ C'est CE endpoint que n8n / LangChain / LiteLLM node utilisent
