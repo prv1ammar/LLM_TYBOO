@@ -33,7 +33,9 @@ deploy_to_vm:
     - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
   script:
     - cd /home/tythonai/litellm-tybo
+    - git pull origin main
     - docker compose pull api dashboard
     - docker compose up -d postgres qdrant llm-14b llm-3b litellm n8n prometheus grafana
     - docker compose up -d api dashboard
 
+#Abc
