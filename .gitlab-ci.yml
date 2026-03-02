@@ -1,5 +1,4 @@
 stages:
-  - prepare
   - build
   - deploy
 
@@ -9,22 +8,6 @@ variables:
   DOCKER_HOST: tcp://docker:2376
   DOCKER_TLS_CERTDIR: ""
 
-# Step 0: Download models
-download_models:
-  stage: prepare
-  image: docker:24.0.0-dind
-  services:
-    - docker:24.0.0-dind
-  tags:
-    - litellm-tybo
-  before_script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
-  script:
-    - docker compose run --rm model-downloader
-  rules:
-    - when: always
-
-# Step 1: Build Docker images
 build:
   stage: build
   image: docker:24.0.0-dind
@@ -45,8 +28,7 @@ build:
   script:
     - docker compose build api dashboard
     - docker compose push api dashboard
-  needs:
-    - download_models
+
 
 # Step 2: Deploy to VM
 deploy_to_vm:
