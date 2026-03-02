@@ -148,7 +148,7 @@ services:
     build:
       context: ./src
       dockerfile: Dockerfile
-    image: "${CI_REGISTRY_IMAGE}:api-v1"
+    image: registry.tybotflow.com:443/root/litellm-tybo:api-v1
     container_name: api
     restart: unless-stopped
     ports:
@@ -165,7 +165,7 @@ services:
     build:
       context: ./src
       dockerfile: Dockerfile
-    image: "${CI_REGISTRY_IMAGE}:dashboard-v1"
+    image: registry.tybotflow.com:443/root/litellm-tybo:dashboard-v1
     container_name: dashboard
     restart: unless-stopped
     command: streamlit run dashboard.py --server.port 8501 --server.address 0.0.0.0
