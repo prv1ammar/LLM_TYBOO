@@ -3,10 +3,14 @@ stages:
   - deploy
 
 variables:
-  API_IMAGE: "${CI_REGISTRY_IMAGE}:api-${CI_COMMIT_SHORT_SHA}"
-  DASHBOARD_IMAGE: "${CI_REGISTRY_IMAGE}:dashboard-${CI_COMMIT_SHORT_SHA}"
-  DOCKER_HOST: tcp://docker:2376
+  # Using a :latest tag as a cache source to avoid rebuilding heavy layers every time
+  CACHE_IMAGE: "${CI_REGISTRY_IMAGE}:tython-app-latest"
+  APP_IMAGE: "${CI_REGISTRY_IMAGE}:tython-app-${CI_COMMIT_SHORT_SHA}"
+  # Fixed DOCKER_HOST: use 2375 when DOCKER_TLS_CERTDIR is disabled to fix DinD errors
+  DOCKER_HOST: tcp://docker:2375
   DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: overlay2
+  DOCKER_BUILDKIT: 1
 
 build:
   stage: build
@@ -17,7 +21,8 @@ build:
     - litellm-tybo
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
-    # Optional: create .env with CI variables
+    # Ensure .env exists with required dummy/CI values for the build process
+    - touch .env
     - echo "POSTGRES_USER=$POSTGRES_USER" >> .env
     - echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> .env
     - echo "POSTGRES_DB=$POSTGRES_DB" >> .env
@@ -26,11 +31,20 @@ build:
     - echo "N8N_ENCRYPTION_KEY=$N8N_ENCRYPTION_KEY" >> .env
     - echo "GRAFANA_PASSWORD=$GRAFANA_PASSWORD" >> .env
   script:
-    - docker compose build --progress=plain api dashboard
-    - docker compose push api dashboard
-
+    # 1. Pull the previous image to use its layers as cache
+    - docker pull $CACHE_IMAGE || true
+    # 2. Build with caching enabled (BUILDKIT_INLINE_CACHE=1)
+    # We only build 'api' because 'dashboard' now uses the same image (see docker-compose.yml)
+    - docker compose build --build-arg BUILDKIT_INLINE_CACHE=1 api
+    # 3. Tag the build image as 'latest' for the next run's cache
+    - docker tag $APP_IMAGE $CACHE_IMAGE
+    # 4. Push both versions to the registry
+    - docker push $APP_IMAGE
+    - docker push $CACHE_IMAGE
 
 # Step 2: Deploy to VM
+# Note: CD /home/tythonai/litellm-tybo assumes the Runner is on the target VM
+# and has filesystem access to that path. If this fails, switch to a Shell Executor.
 deploy_to_vm:
   stage: deploy
   image: docker:24.0.0-dind
@@ -43,7 +57,7 @@ deploy_to_vm:
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
   script:
-    - cd /home/tythonai/litellm-tybo
-    - docker compose pull api dashboard
-    - docker compose up -d llm-14b llm-3b qdrant postgres litellm n8n prometheus grafana
-    - docker compose up -d api dashboard
+    - echo "Deploying to target path..."
+    - cd /home/tythonai/litellm-tybo || (echo "Target directory not found. Please ensure the runner has host path access." && exit 1)
+    - docker compose pull
+    - docker compose up -d

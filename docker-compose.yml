@@ -20,6 +20,7 @@ volumes:
   postgres_data:
   n8n_data:
 
+
 services:
 
   # ── 1a. llm-14b — Qwen2.5-14B Q4_K_M ───────────────────────────────────
@@ -44,7 +45,7 @@ services:
     networks:
       - llm-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8000/health" ]
       interval: 30s
       timeout: 15s
       retries: 5
@@ -72,46 +73,45 @@ services:
     networks:
       - llm-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8001/health" ]
       interval: 30s
       timeout: 15s
       retries: 5
       start_period: 60s
-
-  # ── 2. Téléchargement modèles GGUF (1 seule fois) ────────────────────────
-  #  14B Q4: ~8.7GB | 3B Q4: ~2GB | Total: ~10.7GB storage
-  #model-downloader:
-   # image: curlimages/curl:latest
+    # ── 2. Téléchargement modèles GGUF (1 seule fois) ────────────────────────
+    #  14B Q4: ~8.7GB | 3B Q4: ~2GB | Total: ~10.7GB storage
+    #model-downloader:
+    # image: curlimages/curl:latest
     #container_name: model-downloader
-   # restart: "no"
-   # volumes:
+    # restart: "no"
+    # volumes:
     #  - models_data:/models
-   # command: >
-#      sh -c "
-#        set -e;
-#
-#        if [ ! -f /models/qwen2.5-14b-instruct-q4_k_m.gguf ]; then
-#          echo '⏳ Downloading Qwen2.5-14B Q4_K_M (~8.7GB)...';
-#          curl -fL --retry 5 -o /models/qwen2.5-14b-instruct-q4_k_m.gguf https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF/resolve/main/qwen2.5-14b-instruct-q4_k_m.gguf;
-#          echo '✅ 14B downloaded.';
-#        else
-#          echo '✅ 14B already present.';
-#        fi;
-#
-#        if [ ! -f /models/qwen2.5-3b-instruct-q4_k_m.gguf ]; then
-#          echo '⏳ Downloading Qwen2.5-3B Q4_K_M (~2GB)...';
-#          curl -fL --retry 5 -o /models/qwen2.5-3b-instruct-q4_k_m.gguf https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf;
-#          echo '✅ 3B downloaded.';
-#        else
-#          echo '✅ 3B already present.';
-#        fi;
-#
-#        echo '✅ All models ready.'
-#      "
-#    networks:
-#      - llm-network
+    # command: >
+    #      sh -c "
+    #        set -e;
+    #
+    #        if [ ! -f /models/qwen2.5-14b-instruct-q4_k_m.gguf ]; then
+    #          echo '⏳ Downloading Qwen2.5-14B Q4_K_M (~8.7GB)...';
+    #          curl -fL --retry 5 -o /models/qwen2.5-14b-instruct-q4_k_m.gguf https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF/resolve/main/qwen2.5-14b-instruct-q4_k_m.gguf;
+    #          echo '✅ 14B downloaded.';
+    #        else
+    #          echo '✅ 14B already present.';
+    #        fi;
+    #
+    #        if [ ! -f /models/qwen2.5-3b-instruct-q4_k_m.gguf ]; then
+    #          echo '⏳ Downloading Qwen2.5-3B Q4_K_M (~2GB)...';
+    #          curl -fL --retry 5 -o /models/qwen2.5-3b-instruct-q4_k_m.gguf https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf;
+    #          echo '✅ 3B downloaded.';
+    #        else
+    #          echo '✅ 3B already present.';
+    #        fi;
+    #
+    #        echo '✅ All models ready.'
+    #      "
+    #    networks:
+    #      - llm-network
 
-  # ── 3. Qdrant — Vector DB ────────────────────────────────────────────────
+    # ── 3. Qdrant — Vector DB ────────────────────────────────────────────────
   qdrant:
     image: qdrant/qdrant:latest
     container_name: qdrant
@@ -123,7 +123,7 @@ services:
     networks:
       - llm-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:6333/healthz"]
+      test: [ "CMD", "curl", "-f", "http://localhost:6333/healthz" ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -142,7 +142,7 @@ services:
     networks:
       - llm-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U litellm"]
+      test: [ "CMD-SHELL", "pg_isready -U litellm" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -157,7 +157,7 @@ services:
       - "4000:4000"
     volumes:
       - ./litellm_config.yaml:/app/config.yaml
-    command: ["--config", "/app/config.yaml", "--port", "4000"]
+    command: [ "--config", "/app/config.yaml", "--port", "4000" ]
     environment:
       - DATABASE_URL=postgresql://litellm:${POSTGRES_PASSWORD}@postgres:5432/litellm_db
       - LITELLM_MASTER_KEY=${LITELLM_KEY}
@@ -171,7 +171,7 @@ services:
     networks:
       - llm-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:4000/health" ]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -181,7 +181,7 @@ services:
     build:
       context: ./src
       dockerfile: Dockerfile
-    image: "${CI_REGISTRY_IMAGE}:api-${CI_COMMIT_SHORT_SHA}"
+    image: "${CI_REGISTRY_IMAGE}:tython-app-${CI_COMMIT_SHORT_SHA}"
     container_name: api
     restart: unless-stopped
     ports:
@@ -198,17 +198,14 @@ services:
     networks:
       - llm-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8888/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8888/health" ]
       interval: 30s
       timeout: 10s
       retries: 3
 
   # ── 7. Dashboard Streamlit ────────────────────────────────────────────────
   dashboard:
-    build:
-      context: ./src
-      dockerfile: Dockerfile
-    image: "${CI_REGISTRY_IMAGE}:dashboard-${CI_COMMIT_SHORT_SHA}"
+    image: "${CI_REGISTRY_IMAGE}:tython-app-${CI_COMMIT_SHORT_SHA}"
     container_name: dashboard
     restart: unless-stopped
     command: streamlit run dashboard.py --server.port 8501 --server.address 0.0.0.0
