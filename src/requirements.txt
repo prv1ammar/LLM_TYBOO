@@ -1,20 +1,26 @@
-fastapi>=0.111.0
-uvicorn[standard]>=0.29.0
-pydantic-ai>=0.0.14
-openai>=1.30.0
-python-dotenv>=1.0.0
-requests>=2.31.0
-httpx>=0.27.0
-qdrant-client>=1.9.0
-pypdf>=4.2.0
-langchain-text-splitters>=0.2.0
-python-jose[cryptography]>=3.3.0
-passlib[bcrypt]==1.7.4
-bcrypt==4.0.1
-streamlit>=1.35.0
-pandas>=2.2.0
-altair>=5.3.0
-jinja2>=3.1.0
-python-multipart>=0.0.9
-sentence-transformers>=3.0.0
-torch>=2.0.0
+
+# ── API / Web ─────────────────────────────────────────────
+fastapi
+uvicorn[standard]
+python-multipart
+python-jose[cryptography]
+passlib[bcrypt]
+
+# ── Base de données ───────────────────────────────────────
+psycopg2-binary          # binary = pas besoin de compiler libpq
+
+# ── LiteLLM Client (appels vers litellm:4000) ─────────────
+httpx                    # HTTP async pour appeler l'API LiteLLM
+openai                   # SDK compatible LiteLLM / OpenAI
+
+# ── Qdrant Client (vector DB) ─────────────────────────────
+qdrant-client            # pour RAG / embeddings
+
+# ── Dashboard Streamlit ───────────────────────────────────
+streamlit
+plotly                   # graphiques dans le dashboard
+
+# ── Utilitaires ───────────────────────────────────────────
+pydantic
+pydantic-settings        # pour lire le .env proprement
+python-dotenv
