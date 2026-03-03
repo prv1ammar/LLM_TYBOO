@@ -1,0 +1,40 @@
+model_list:
+  # ── LLM 14B — Qwen2.5-14B via llama-cpp (port 8000) ─────────────────────
+  # Utilisé pour: RAG, analyse, code, tâches complexes
+  # Alias "internal-llm" → par défaut dans n8n / LangChain
+  - model_name: internal-llm
+    litellm_params:
+      model: openai/local-model
+      api_base: http://llm-14b:8000/v1
+      api_key: "local"
+
+  # Alias explicite 14B
+  - model_name: internal-llm-14b
+    litellm_params:
+      model: openai/local-model
+      api_base: http://llm-14b:8000/v1
+      api_key: "local"
+
+  # ── LLM 3B — Qwen2.5-3B via llama-cpp (port 8001) ───────────────────────
+  # Utilisé pour: chat simple, Q&A rapide, résumés, classification
+  - model_name: internal-llm-3b
+    litellm_params:
+      model: openai/local-model
+      api_base: http://llm-3b:8001/v1
+      api_key: "local"
+
+  # ── Embeddings — BGE-M3 via l'API interne ────────────────────────────────
+  - model_name: internal-embedding
+    litellm_params:
+      model: openai/local-embedding
+      api_base: http://api:8888/v1
+      api_key: "local"
+
+litellm_settings:
+  drop_params: true
+  set_verbose: false
+  request_timeout: 600      # CPU = plus lent
+  stream_timeout: 600
+
+general_settings:
+  master_key: "sk-tyboo-2025"
