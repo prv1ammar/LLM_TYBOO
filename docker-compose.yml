@@ -146,8 +146,8 @@ services:
   # ── 6. API FastAPI ────────────────────────────────────────────────────────
   api:
     build:
-      context: ./src
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/Dockerfile
     image: registry.tybotflow.com:443/root/litellm-tybo:api-v1
     container_name: api
     restart: unless-stopped
@@ -163,12 +163,12 @@ services:
   # ── 7. Dashboard Streamlit ────────────────────────────────────────────────
   dashboard:
     build:
-      context: ./src
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/Dockerfile
     image: registry.tybotflow.com:443/root/litellm-tybo:dashboard-v1
     container_name: dashboard
     restart: unless-stopped
-    command: streamlit run dashboard.py --server.port 8501 --server.address 0.0.0.0
+    command: streamlit run src/dashboard.py --server.port 8501 --server.address 0.0.0.0
     ports:
       - "8501:8501"
     env_file:

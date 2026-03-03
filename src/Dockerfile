@@ -8,17 +8,19 @@ RUN apt-get update && apt-get install -y \
     curl gcc g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# 2. Install Python dependencies (changes when requirements.txt updates) a
-# We separate this from code copying to utilize Docker Layer Caching
-COPY requirements.txt .
+# 2. Install Python dependencies
+# Corrected path for root context
+COPY src/requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Pre-download BGE-M3 at build time (optional — also downloads at first request)
-# RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('BAAI/bge-m3')"
-
+# 3. Copy the entire project to /app
 COPY . .
+
+# 4. Install the 'tython' SDK in editable mode (so it's available globally)
+RUN pip install -e ./tython
 
 EXPOSE 8888
 
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8888", "--workers", "2"]
+# Change command to run from the root, pointing to src.api
+CMD ["uvicorn", "src.api:app", "--host", "0.0.0.0", "--port", "8888", "--workers", "2"]
