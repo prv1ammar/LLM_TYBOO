@@ -4,7 +4,8 @@ fastapi
 uvicorn[standard]
 python-multipart
 python-jose[cryptography]
-passlib[bcrypt]
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
 
 # ── Base de données ───────────────────────────────────────
 psycopg2-binary          # binary = pas besoin de compiler libpq
@@ -26,3 +27,4 @@ pydantic-ai
 sentence-transformers
 pydantic-settings        # pour lire le .env proprement
 python-dotenv
+pydantic_ai
