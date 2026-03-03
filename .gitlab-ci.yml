@@ -12,6 +12,8 @@ build:
     - tybo-shell
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+    - echo "ADMIN_USERNAME=$ADMIN_USERNAME" >> .env
+    - echo "ADMIN_PASSWORD=$ADMIN_PASSWORD" >> .env
     - echo "POSTGRES_USER=$POSTGRES_USER" >> .env
     - echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> .env
     - echo "POSTGRES_DB=$POSTGRES_DB" >> .env
@@ -31,6 +33,8 @@ deploy_to_vm:
     - build
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+    - sudo chown -R $(whoami):$(whoami) /home/tythonai/litellm-tybo
+    - sudo chmod -R 775 /home/tythonai/litellm-tybo
     - git config --global --add safe.directory /home/tythonai/litellm-tybo
   script:
     - cd /home/tythonai/litellm-tybo
