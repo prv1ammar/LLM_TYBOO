@@ -60,7 +60,7 @@ load_dotenv()
 # LiteLLM proxy — single entry point for all model calls
 # Docker internal: http://litellm:4000
 # Local dev:       http://localhost:4000
-LITELLM_URL = os.getenv("LITELLM_URL", "http://localhost:4000")
+LITELLM_URL = os.getenv("LITELLM_URL", "http://litellm:4000")
 LITELLM_KEY = os.getenv("LITELLM_KEY", "sk-tyboo-2025")
 
 

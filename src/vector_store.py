@@ -94,6 +94,7 @@ class VectorStore:
         self._initialize_collection()
 
     def _initialize_collection(self):
+        from qdrant_client.http.exceptions import UnexpectedResponse
         try:
             existing = [c.name for c in self.client.get_collections().collections]
             if self.collection_name not in existing:
@@ -104,6 +105,11 @@ class VectorStore:
                 print(f"Created Qdrant collection: {self.collection_name}")
             else:
                 print(f"Qdrant collection already exists, reusing: {self.collection_name}")
+        except UnexpectedResponse as e:
+            if e.status_code == 409:
+                print(f"Qdrant collection '{self.collection_name}' already exists (concurrency), reusing.")
+            else:
+                print(f"[ERROR] Qdrant error: {e}")
         except Exception as e:
             print(f"[WARN] Could not initialize Qdrant collection '{self.collection_name}': {e}")
 

@@ -22,5 +22,7 @@ plotly                   # graphiques dans le dashboard
 
 # ── Utilitaires ───────────────────────────────────────────
 pydantic
+pydantic-ai
+sentence-transformers
 pydantic-settings        # pour lire le .env proprement
 python-dotenv

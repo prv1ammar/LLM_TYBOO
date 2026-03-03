@@ -151,6 +151,8 @@ async def query_rag(request: QueryRequest):
                                          include_sources=request.include_sources)
         return QueryResponse(**result)
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"RAG query failed: {str(e)}")
 
 @app.post("/rag/ingest", response_model=IngestResponse, dependencies=[Depends(require_auth)], tags=["RAG"])
@@ -170,6 +172,8 @@ async def agent_general(request: QueryRequest):
         result = await orchestrator.run_agent(request.question)
         return {"answer": result}
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Agent failed: {str(e)}")
 
 
