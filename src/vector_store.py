@@ -94,21 +94,18 @@ class VectorStore:
         self._initialize_collection()
 
     def _initialize_collection(self):
-        """
-        Create the Qdrant collection if it doesn't already exist.
-
-        Collection settings:
-          - size=1024: matches BGE-M3 output dimensions
-          - distance=COSINE: measures angle between vectors, good for text similarity
-            (range: 0.0 = unrelated, 1.0 = identical meaning)
-        """
-        existing = [c.name for c in self.client.get_collections().collections]
-        if self.collection_name not in existing:
-            self.client.create_collection(
-                collection_name=self.collection_name,
-                vectors_config=VectorParams(size=1024, distance=Distance.COSINE)
-            )
-            print(f"Created Qdrant collection: {self.collection_name}")
+        try:
+            existing = [c.name for c in self.client.get_collections().collections]
+            if self.collection_name not in existing:
+                self.client.create_collection(
+                    collection_name=self.collection_name,
+                    vectors_config=VectorParams(size=1024, distance=Distance.COSINE),
+                )
+                print(f"Created Qdrant collection: {self.collection_name}")
+            else:
+                print(f"Qdrant collection already exists, reusing: {self.collection_name}")
+        except Exception as e:
+            print(f"[WARN] Could not initialize Qdrant collection '{self.collection_name}': {e}")
 
     def add_documents(self, documents: List[Dict]) -> List[str]:
         """
