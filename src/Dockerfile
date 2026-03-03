@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     curl gcc g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# 2. Install Python dependencies (changes when requirements.txt updates)
+# 2. Install Python dependencies (changes when requirements.txt updates) a
 # We separate this from code copying to utilize Docker Layer Caching
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
