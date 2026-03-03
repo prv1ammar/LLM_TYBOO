@@ -1,24 +1,26 @@
-# Using a smaller base image for faster pulls
+# Stage 1: build
+FROM python:3.11-alpine AS builder
+
+WORKDIR /app
+
+# Install build dependencies
+RUN apk add --no-cache gcc g++ musl-dev libffi-dev curl
+
+# Copy requirements and install
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Stage 2: runtime
 FROM python:3.11-alpine
 
 WORKDIR /app
 
-# 1. Install system dependencies (rarely change)
-RUN apt-get update && apt-get install -y \
-    curl gcc g++ \
-    && rm -rf /var/lib/apt/lists/*
+# Copy installed packages from builder
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 
-# 2. Install Python dependencies (changes when requirements.txt updates)
-# We separate this from code copying to utilize Docker Layer Caching
-COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
-
-# Pre-download BGE-M3 at build time (optional — also downloads at first request)
-# RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('BAAI/bge-m3')"
-
+# Copy application code
 COPY . .
 
+# Expose port and define command
 EXPOSE 8888
-
 CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8888", "--workers", "2"]
