@@ -1,11 +1,52 @@
-.env
-*.gguf
+# Python
 __pycache__/
 *.pyc
-.ingest_registry.json
-src/documents/*
-!src/documents/.gitkeep
-n8n_data/
-models_data/
-qdrant_data/
-postgres_data/
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Environnements virtuels
+venv/
+.venv/
+env/
+.env/
+
+# Git
+.git/
+.gitignore
+
+# Variables d'environnement (sécurité !)
+.env
+.env.*
+
+# Logs
+*.log
+logs/
+
+# Archives inutiles
+*.rar
+*.zip
+*.tar.gz
+
+# Modèles IA — MONTER EN VOLUME, NE PAS COPIER !
+models/
+*.bin
+*.safetensors
+*.gguf
+*.pt
+*.pth
+*.ckpt
+
+# Cache HuggingFace
+.cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Node (si frontend dans le même repo)
+node_modules/
