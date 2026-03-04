@@ -18,7 +18,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY src .
 
 # 4. Install the 'tython' SDK in editable mode (so it's available globally)
-RUN pip install -e ./tython
+RUN pip install -e /app/tython
 
 EXPOSE 8888
 
