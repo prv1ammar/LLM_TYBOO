@@ -156,7 +156,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./src:/app
+      - ./src:/app/src
     networks:
       - llm-network
 
@@ -176,7 +176,7 @@ services:
     depends_on:
       - api
     volumes:
-      - ./src:/app
+      - ./src:/app/src
     networks:
       - llm-network
 

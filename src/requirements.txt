@@ -27,4 +27,6 @@ pydantic-ai
 sentence-transformers
 pydantic-settings        # pour lire le .env proprement
 python-dotenv
+
+
 pydantic_ai
