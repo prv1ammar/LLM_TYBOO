@@ -205,8 +205,6 @@ services:
     restart: unless-stopped
     ports:
       - "9090:9090"
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
       - llm-network
 
