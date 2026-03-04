@@ -12,8 +12,6 @@ build:
     - tybo-shell
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
-    - echo "ADMIN_USERNAME=$ADMIN_USERNAME" >> .env
-    - echo "ADMIN_PASSWORD=$ADMIN_PASSWORD" >> .env
     - echo "POSTGRES_USER=$POSTGRES_USER" >> .env
     - echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> .env
     - echo "POSTGRES_DB=$POSTGRES_DB" >> .env
@@ -21,7 +19,6 @@ build:
     - echo "SERVER_IP=$SERVER_IP" >> .env
     - echo "N8N_ENCRYPTION_KEY=$N8N_ENCRYPTION_KEY" >> .env
     - echo "GRAFANA_PASSWORD=$GRAFANA_PASSWORD" >> .env
-    - echo "DATABASE_URL=$DATABASE_URL" >> .env
   script:
     - docker compose build --progress=plain api dashboard
     - docker compose push api dashboard
@@ -41,4 +38,4 @@ deploy_to_vm:
     - docker compose up -d postgres qdrant llm-14b llm-3b litellm n8n prometheus grafana
     - docker compose up -d api dashboard
 
-#Abcded
+#Abc

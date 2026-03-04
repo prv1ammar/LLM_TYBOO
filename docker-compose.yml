@@ -34,6 +34,8 @@ services:
     healthcheck:
       test: [ "NONE" ]
 
+
+
   # ── 1b. llm-3b — Qwen2.5-3B Q4_K_M ─────────────────────────────────────
   #  RAM: ~2GB | Threads: 3 | Port: 8001
   #  Utilisé pour: chat simple, Q&A rapide, résumés courts
@@ -57,6 +59,8 @@ services:
       - llm-network
     healthcheck:
       test: [ "NONE" ]
+
+
     # ── 2. Téléchargement modèles GGUF (1 seule fois) ────────────────────────
     #  14B Q4: ~8.7GB | 3B Q4: ~2GB | Total: ~10.7GB storage
     #model-downloader:
@@ -104,6 +108,8 @@ services:
     healthcheck:
       test: [ "NONE" ]
 
+
+
   # ── 4. PostgreSQL ─────────────────────────────────────────────────────────
   postgres:
     image: postgres:15-alpine
@@ -117,6 +123,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - llm-network
+
 
   # ── 5. LiteLLM — Proxy OpenAI-Compatible ─────────────────────────────────
   #  ⭐ C'est CE endpoint que n8n / LangChain / LiteLLM node utilisent
@@ -135,10 +142,11 @@ services:
     networks:
       - llm-network
 
+
   # ── 6. API FastAPI ────────────────────────────────────────────────────────
   api:
     build:
-      context: .
+      context: ./src
       dockerfile: Dockerfile
     image: registry.tybotflow.com:443/root/litellm-tybo:api-v1
     container_name: api
@@ -148,19 +156,19 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/app
+      - ./src:/app
     networks:
       - llm-network
 
   # ── 7. Dashboard Streamlit ────────────────────────────────────────────────
   dashboard:
     build:
-      context: .
+      context: ./src
       dockerfile: Dockerfile
     image: registry.tybotflow.com:443/root/litellm-tybo:dashboard-v1
     container_name: dashboard
     restart: unless-stopped
-    command: streamlit run /app/src/dashboard.py --server.port 8501 --server.address 0.0.0.0
+    command: streamlit run dashboard.py --server.port 8501 --server.address 0.0.0.0
     ports:
       - "8501:8501"
     env_file:
@@ -168,7 +176,7 @@ services:
     depends_on:
       - api
     volumes:
-      - .:/app
+      - ./src:/app
     networks:
       - llm-network
 
@@ -205,6 +213,8 @@ services:
     restart: unless-stopped
     ports:
       - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
       - llm-network
 
