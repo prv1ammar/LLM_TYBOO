@@ -147,7 +147,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: src/Dockerfile
+      dockerfile: Dockerfile
     image: registry.tybotflow.com:443/root/litellm-tybo:api-v1
     container_name: api
     restart: unless-stopped
@@ -164,7 +164,7 @@ services:
   dashboard:
     build:
       context: .
-      dockerfile: src/Dockerfile
+      dockerfile: Dockerfile
     image: registry.tybotflow.com:443/root/litellm-tybo:dashboard-v1
     container_name: dashboard
     restart: unless-stopped
