@@ -1,0 +1,25 @@
+model_list:
+  # ── Qwen2.5-14B (Slow, High Quality) ────────────────────────────────────────
+  - model_name: internal-llm-14b
+    litellm_params:
+      model: openai/local
+      api_base: http://llm-14b:8000/v1
+      api_key: local
+
+  # ── Qwen2.5-3B (Fast, Simple Tasks) ─────────────────────────────────────────
+  - model_name: internal-llm-3b
+    litellm_params:
+      model: openai/local
+      api_base: http://llm-3b:8001/v1
+      api_key: local
+
+  # ── Default Alias (14B) ─────────────────────────────────────────────────────
+  - model_name: internal-llm
+    litellm_params:
+      model: openai/local
+      api_base: http://llm-14b:8000/v1
+      api_key: local
+
+litellm_settings:
+  drop_params: True
+  set_verbose: True

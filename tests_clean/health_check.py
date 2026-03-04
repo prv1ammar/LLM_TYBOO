@@ -49,13 +49,12 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "s
 load_dotenv()
 
 # Service URLs — these match the Docker Compose service names and ports
-LLM_14B_URL = os.getenv("LLM_14B_URL", "http://localhost:8000")
-LLM_3B_URL  = os.getenv("LLM_3B_URL",  "http://localhost:8001")
-QDRANT_URL  = os.getenv("QDRANT_URL",  "http://localhost:6333")
-LITELLM_URL = os.getenv("LITELLM_URL", "http://localhost:4000")
+# Production DevOps URLs
+API_URL     = "https://llm-api.tybot.ma"
+DASHBOARD_URL = "https://llm.tybot.ma"
+LITELLM_URL = "https://llm-api.tybot.ma/litellm" # Assuming the proxy is mapped here, or DevOps can provide specific LiteLLM URL
 LITELLM_KEY = os.getenv("LITELLM_KEY", "sk-tyboo-2025")
-API_URL     = "http://localhost:8888"
-N8N_URL     = "http://localhost:5678"
+N8N_URL     = "https://n8n.tybot.ma" # Adjust if different
 
 
 def check_http(label: str, url: str, path: str = "/health", headers: dict = None) -> bool:
@@ -148,19 +147,16 @@ def check_litellm_inference() -> bool:
 
 
 def main():
-    print("LLM_TYBOO Health Check — Dual Model CPU Edition")
+    print("LLM_TYBOO Health Check — Production Deployment")
     print("=" * 58)
 
     # Run all checks and collect results
     results = {
-        "llama-cpp LLM 14B":    check_http("llama-cpp LLM 14B", LLM_14B_URL),
-        "llama-cpp LLM 3B":     check_http("llama-cpp LLM 3B",  LLM_3B_URL),
         "sentence-transformers": check_embeddings(),
-        "Qdrant":               check_http("Qdrant", QDRANT_URL, "/healthz"),
-        "LiteLLM proxy":        check_http("LiteLLM proxy", LITELLM_URL),
-        "LiteLLM inference":    check_litellm_inference(),
-        "FastAPI":              check_http("FastAPI API", API_URL),
-        "n8n":                  check_http("n8n", N8N_URL, "/healthz"),
+        "FastAPI API":           check_http("FastAPI API (Live)", API_URL, "/health"),
+        "FastAPI Docs":          check_http("FastAPI Docs (Live)", API_URL, "/docs"),
+        "Dashboard":             check_http("Streamlit Dashboard", DASHBOARD_URL, "/"),
+        "n8n":                   check_http("n8n (Automation)", N8N_URL, "/healthz"),
     }
 
     print("=" * 58)

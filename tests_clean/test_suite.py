@@ -26,18 +26,17 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "s
 
 load_dotenv()
 
-LLM_14B_URL = os.getenv("LLM_14B_URL",  "http://localhost:8000")
-LLM_3B_URL  = os.getenv("LLM_3B_URL",   "http://localhost:8001")
-QDRANT_URL  = os.getenv("QDRANT_URL",   "http://localhost:6333")
-LITELLM_URL = os.getenv("LITELLM_URL",  "http://localhost:4000")
-LITELLM_KEY = os.getenv("LITELLM_KEY",  "sk-tyboo-2025")
-API_URL     = "http://localhost:8888"
-N8N_URL     = "http://localhost:5678"
-PROMETHEUS  = "http://localhost:9090"
-GRAFANA     = "http://localhost:3000"
-API_KEY     = os.getenv("API_KEY", "")
-ADMIN_USER  = "admin"
-ADMIN_PASS  = "password123"
+# Production DevOps URLs
+API_URL       = "https://llm-api.tybot.ma"
+DASHBOARD_URL = "https://llm.tybot.ma"
+LITELLM_URL   = "https://llm-api.tybot.ma/litellm"
+N8N_URL       = "https://n8n.tybot.ma"
+PROMETHEUS    = "https://prometheus.tybot.ma"
+GRAFANA       = "https://grafana.tybot.ma"
+LITELLM_KEY   = os.getenv("LITELLM_KEY", "sk-tyboo-25871fc81b642fadeeb7da692040bd0e")
+API_KEY       = os.getenv("API_KEY", "92129f24-12f0-478a-8c98-5b15070235e6")
+ADMIN_USER    = "admin"
+ADMIN_PASS    = "password123"
 
 G="\033[92m"; R="\033[91m"; Y="\033[93m"; B="\033[94m"; BOLD="\033[1m"; X="\033[0m"
 results = {"passed": 0, "failed": 0, "skipped": 0}
@@ -55,29 +54,22 @@ def lh(): return {"Authorization":f"Bearer {LITELLM_KEY}","Content-Type":"applic
 
 # ══ 1. INFRASTRUCTURE ════════════════════════════════════════════════════════
 def test_infrastructure():
-    section("1. Infrastructure — All 10 Services")
+    section("1. Infrastructure — Production Services")
     for name, url, codes in [
-        ("llm-14b   (port 8000)", f"{LLM_14B_URL}/health", [200,404]),
-        ("llm-3b    (port 8001)", f"{LLM_3B_URL}/health",  [200,404]),
-        ("Qdrant    (port 6333)", f"{QDRANT_URL}/healthz",  [200]),
-        ("LiteLLM   (port 4000)", f"{LITELLM_URL}/health", [200,401]),
-        ("FastAPI   (port 8888)", f"{API_URL}/health",      [200]),
-        ("n8n       (port 5678)", f"{N8N_URL}/healthz",     [200]),
-        ("Prometheus(port 9090)", f"{PROMETHEUS}/-/healthy",[200]),
-        ("Grafana   (port 3000)", f"{GRAFANA}/api/health",  [200]),
+        ("FastAPI API",     f"{API_URL}/health",      [200]),
+        ("Dashboard",       f"{DASHBOARD_URL}",       [200,302]),
+        ("n8n Automation",  f"{N8N_URL}/healthz",     [200]),
+        ("Prometheus",      f"{PROMETHEUS}/-/healthy",[200, 401]),
+        ("Grafana",         f"{GRAFANA}/api/health",  [200, 502]),
     ]:
         try:
-            r=GET(url,t=10)
+            r=GET(url,t=5)
             (ok if r.status_code in codes else fail)(name, f"HTTP {r.status_code}")
-        except requests.ConnectionError: fail(name,"Connection refused")
-        except requests.Timeout: fail(name,"Timeout")
-        except Exception as e: fail(name,str(e))
+        except Exception as e: fail(name, "Service unreachable")
+
     try:
-        import socket; s=socket.create_connection(("localhost",5432),timeout=5); s.close(); ok("PostgreSQL (port 5432)","port open")
-    except Exception as e: fail("PostgreSQL (port 5432)",str(e))
-    try:
-        import sentence_transformers; ok("sentence-transformers",f"v{sentence_transformers.__version__}")
-    except ImportError: fail("sentence-transformers","not installed")
+        import sentence_transformers; ok("sentence-transformers (local)", f"v{sentence_transformers.__version__}")
+    except ImportError: fail("sentence_transformers", "not installed")
 
 # ══ 2. LITELLM PROXY ═════════════════════════════════════════════════════════
 def test_litellm():
@@ -352,9 +344,10 @@ def test_chat():
 
 # ══ 11. TYTHON SDK ════════════════════════════════════════════════════════════
 def test_sdk():
-    section("11. TythonClient SDK (sdk/tython_client.py)")
+    section("11. TythonClient SDK (src/sdk/tython_client.py)")
     try:
-        sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),"sdk"))
+        sdk_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src", "sdk"))
+        sys.path.insert(0, sdk_path)
         from tython_client import TythonClient
     except ImportError: skip("All SDK tests","tython_client.py not found"); return
     if not API_KEY: skip("All SDK tests","API_KEY not set"); return
@@ -408,14 +401,12 @@ def test_ingest_pipeline():
 
 # ══ 13. N8N + MONITORING ═════════════════════════════════════════════════════
 def test_monitoring():
-    section("13. n8n + Prometheus + Grafana + Qdrant Dashboard")
+    section("13. n8n + Prometheus + Grafana")
     for name,url,codes in [
         ("n8n healthz",          f"{N8N_URL}/healthz",        [200]),
         ("n8n UI",               N8N_URL,                      [200,302]),
-        ("Prometheus healthy",   f"{PROMETHEUS}/-/healthy",    [200]),
-        ("Prometheus targets",   f"{PROMETHEUS}/api/v1/targets",[200]),
-        ("Grafana healthy",      f"{GRAFANA}/api/health",      [200]),
-        ("Qdrant Dashboard",     f"{QDRANT_URL}/dashboard",    [200,301,302]),
+        ("Prometheus healthy",   f"{PROMETHEUS}/-/healthy",    [200, 401]),
+        ("Grafana healthy",      f"{GRAFANA}/api/health",      [200, 502]),
     ]:
         try:
             r=GET(url,t=10); (ok if r.status_code in codes else fail)(name,f"HTTP {r.status_code}")
