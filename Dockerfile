@@ -14,8 +14,7 @@ COPY src/requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# 3. Copy the entire project to /app
-COPY src .
+COPY . /app
 
 # 4. Install the 'tython' SDK in editable mode (so it's available globally)
 RUN pip install -e /app/tython
