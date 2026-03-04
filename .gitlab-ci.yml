@@ -19,6 +19,7 @@ build:
     - echo "SERVER_IP=$SERVER_IP" >> .env
     - echo "N8N_ENCRYPTION_KEY=$N8N_ENCRYPTION_KEY" >> .env
     - echo "GRAFANA_PASSWORD=$GRAFANA_PASSWORD" >> .env
+    - echo "API_KEY=$API_KEY" >> .env
   script:
     - docker compose build --progress=plain api dashboard
     - docker compose push api dashboard
