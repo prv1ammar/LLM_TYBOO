@@ -20,6 +20,13 @@ model_list:
       api_base: http://llm-14b:8000/v1
       api_key: local
 
+  # ── Embedding Model (BGE-M3) ────────────────────────────────────────────────
+  - model_name: internal-embedding
+    litellm_params:
+      model: openai/bge-m3
+      api_base: http://api:8888/v1
+      api_key: local
+
 litellm_settings:
   drop_params: True
   set_verbose: True
