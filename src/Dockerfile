@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
 # We separate this from code copying to utilize Docker Layer Caching
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
     pip install --no-cache-dir -r requirements.txt
 
 # Pre-download BGE-M3 at build time (optional — also downloads at first request)
