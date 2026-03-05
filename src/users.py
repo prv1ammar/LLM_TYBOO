@@ -40,6 +40,7 @@ import psycopg2
 import psycopg2.extras
 from typing import Optional, List, Dict
 from auth import get_password_hash
+import time
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -55,42 +56,54 @@ def get_conn():
 def init_users_table():
     """
     Create the tyboo_users table if it doesn't exist yet.
-    Called once at API startup — safe to call multiple times (idempotent).
-    Also seeds the default admin user if the table is empty.
+    Retries multiple times to wait for Postgres to become ready.
     """
-    conn = get_conn()
-    try:
-        with conn.cursor() as cur:
-            # Create table
-            cur.execute("""
-                CREATE TABLE IF NOT EXISTS tyboo_users (
-                    username        TEXT PRIMARY KEY,
-                    hashed_password TEXT NOT NULL,
-                    role            TEXT NOT NULL DEFAULT 'user',
-                    is_active       BOOLEAN NOT NULL DEFAULT TRUE,
-                    created_at      TIMESTAMP DEFAULT NOW()
-                )
-            """)
-            conn.commit()
+    max_retries = 5
+    for attempt in range(1, max_retries + 1):
+        try:
+            conn = get_conn()
+            try:
+                with conn.cursor() as cur:
+                    # Create table
+                    cur.execute("""
+                        CREATE TABLE IF NOT EXISTS tyboo_users (
+                            username        TEXT PRIMARY KEY,
+                            hashed_password TEXT NOT NULL,
+                            role            TEXT NOT NULL DEFAULT 'user',
+                            is_active       BOOLEAN NOT NULL DEFAULT TRUE,
+                            created_at      TIMESTAMP DEFAULT NOW()
+                        )
+                    """)
+                    conn.commit()
 
-            # Seed admin user if table is empty
-            cur.execute("SELECT COUNT(*) FROM tyboo_users")
-            count = cur.fetchone()[0]
-            if count == 0:
-                admin_username = os.getenv("ADMIN_USERNAME", "admin")
-                admin_password = os.getenv("ADMIN_PASSWORD", "password123")
-                cur.execute(
-                    """INSERT INTO tyboo_users (username, hashed_password, role)
-                       VALUES (%s, %s, 'admin')
-                       ON CONFLICT (username) DO NOTHING""",
-                    (admin_username, get_password_hash(admin_password))
-                )
-                conn.commit()
-                print(f"[Users] Seeded default admin user: '{admin_username}'")
-            else:
-                print(f"[Users] tyboo_users table ready — {count} user(s) found")
-    finally:
-        conn.close()
+                    # Seed admin user if table is empty
+                    cur.execute("SELECT COUNT(*) FROM tyboo_users")
+                    count = cur.fetchone()[0]
+                    if count == 0:
+                        admin_username = os.getenv("ADMIN_USERNAME", "admin")
+                        admin_password = os.getenv("ADMIN_PASSWORD", "password123")
+                        cur.execute(
+                            """INSERT INTO tyboo_users (username, hashed_password, role)
+                               VALUES (%s, %s, 'admin')
+                               ON CONFLICT (username) DO NOTHING""",
+                            (admin_username, get_password_hash(admin_password))
+                        )
+                        conn.commit()
+                        print(f"[Users] Seeded default admin user: '{admin_username}'", flush=True)
+                    else:
+                        print(f"[Users] tyboo_users table ready — {count} user(s) found", flush=True)
+            finally:
+                conn.close()
+            return  # Success, exit retry loop
+        except psycopg2.OperationalError as e:
+            print(f"[Users] DB not ready on attempt {attempt}/{max_retries}. Waiting...", flush=True)
+            if attempt == max_retries:
+                print(f"[WARN] Failed to initialize users table after {max_retries} attempts: {e}", flush=True)
+                raise
+            time.sleep(2)
+        except Exception as e:
+            print(f"[WARN] Could not initialize users table: {e}", flush=True)
+            break
 
 
 def get_user(username: str) -> Optional[Dict]:
