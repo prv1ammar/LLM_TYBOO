@@ -31,7 +31,7 @@ if [ ! -f ~/models/qwen2.5-3b-instruct-q4_k_m.gguf ]; then
     echo "⏳ Downloading Qwen2.5-3B Q4_K_M (~2GB)..."
     curl -L -f --retry 5 \
          -o ~/models/qwen2.5-3b-instruct-q4_k_m.gguf \
-         "https://huggingface.co/lmstudio-community/Qwen2.5-3B-Instruct-GGUF/resolve/main/Qwen2.5-3B-Instruct-Q4_K_M.GGUF"
+         "https://huggingface.co/lmstudio-community/Qwen2.5-3B-Instruct-GGUF/resolve/main/Qwen2.5-3B-Instruct-Q4_K_M.gguf"
 else
     echo "✅ 3B Model already exists."
 fi
