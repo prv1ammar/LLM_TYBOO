@@ -1,0 +1,42 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  API_IMAGE: "${CI_REGISTRY_IMAGE}:api-v1"
+  DASHBOARD_IMAGE: "${CI_REGISTRY_IMAGE}:dashboard-v1"
+
+build:
+  stage: build
+  tags:
+    - tybo-shell
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+    - echo "POSTGRES_USER=$POSTGRES_USER" >> .env
+    - echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> .env
+    - echo "POSTGRES_DB=$POSTGRES_DB" >> .env
+    - echo "LITELLM_KEY=$LITELLM_KEY" >> .env
+    - echo "SERVER_IP=$SERVER_IP" >> .env
+    - echo "N8N_ENCRYPTION_KEY=$N8N_ENCRYPTION_KEY" >> .env
+    - echo "GRAFANA_PASSWORD=$GRAFANA_PASSWORD" >> .env
+    - echo "API_KEY=$API_KEY" >> .env
+  script:
+    - docker compose build --progress=plain api dashboard
+    - docker compose push api dashboard
+
+deploy_to_vm:
+  stage: deploy
+  tags:
+    - tybo-shell
+  needs:
+    - build
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+    - git config --global --add safe.directory /home/tythonai/litellm-tybo
+  script:
+    - cd /home/tythonai/litellm-tybo
+    - docker compose pull api dashboard
+    - docker compose up -d postgres qdrant llm-14b llm-3b litellm n8n prometheus grafana
+    - docker compose up -d api dashboard
+    - docker image prune -f
+#Abdedesdssa
