@@ -1,12 +1,12 @@
 model_list:
-  # ── Qwen2.5-14B (Slow, High Quality) ────────────────────────────────────────
+  # ── Qwen2.5-3B (CPU "Complex" Model - Fast & Reliable) ──────────────────────
   - model_name: internal-llm-14b
     litellm_params:
       model: openai/local
       api_base: http://llm-14b:8000/v1
       api_key: local
 
-  # ── Qwen2.5-3B (Fast, Simple Tasks) ─────────────────────────────────────────
+  # ── Qwen2.5-0.5B (CPU "Fast" Model - Ultra-lightweight) ─────────────────────
   - model_name: internal-llm-3b
     litellm_params:
       model: openai/local

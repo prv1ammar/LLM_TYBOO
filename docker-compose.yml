@@ -10,9 +10,8 @@ volumes:
 
 services:
 
-  # ── 1a. llm-14b — Qwen2.5-14B Q4_K_M ───────────────────────────────────
-  #  RAM: ~9GB | Threads: 7 | Port: 8000
-  #  Utilisé pour: RAG, analyse documents, code, tâches complexes
+  # ── 1a. llm-14b — Switched to Qwen3.5-0.8B ─────────────────────────────
+  #  RAM: ~1GB | Threads: 4 | Port: 8000
   llm-14b:
     image: ghcr.io/abetlen/llama-cpp-python:latest
     container_name: llm-14b
@@ -22,11 +21,11 @@ services:
     volumes:
       - /home/litellm-tybo/models:/models
     environment:
-      - MODEL=/models/qwen2.5-14b-instruct-q4_k_m.gguf
+      - MODEL=/models/Qwen3.5-0.8B-Q4_K_M.gguf
       - HOST=0.0.0.0
       - PORT=8000
       - N_THREADS=4
-      - N_CTX=8192
+      - N_CTX=32768
       - N_BATCH=512
       - CHAT_FORMAT=chatml
     networks:
@@ -34,9 +33,8 @@ services:
     healthcheck:
       test: [ "NONE" ]
 
-  # ── 1b. llm-3b — Qwen2.5-3B Q4_K_M ─────────────────────────────────────
-  #  RAM: ~2GB | Threads: 3 | Port: 8001
-  #  Utilisé pour: chat simple, Q&A rapide, résumés courts
+  # ── 1b. llm-3b — Switched to Qwen3-0.6B ───────────────────────────────
+  #  RAM: ~0.8GB | Threads: 2 | Port: 8001
   llm-3b:
     image: ghcr.io/abetlen/llama-cpp-python:latest
     container_name: llm-3b
@@ -46,50 +44,43 @@ services:
     volumes:
       - /home/litellm-tybo/models:/models
     environment:
-      - MODEL=/models/qwen2.5-3b-instruct-q4_k_m.gguf
+      - MODEL=/models/Qwen3-0.6B-Q4_K_M.gguf
       - HOST=0.0.0.0
       - PORT=8001
       - N_THREADS=2
-      - N_CTX=4096
+      - N_CTX=32768
       - N_BATCH=256
       - CHAT_FORMAT=chatml
     networks:
       - llm-network
     healthcheck:
       test: [ "NONE" ]
-    # ── 2. Téléchargement modèles GGUF (1 seule fois) ────────────────────────
-    #  14B Q4: ~8.7GB | 3B Q4: ~2GB | Total: ~10.7GB storage
-    #model-downloader:
-    # image: curlimages/curl:latest
-    #container_name: model-downloader
-    # restart: "no"
-    # volumes:
-    #  - models_data:/models
-    # command: >
-    #      sh -c "
-    #        set -e;
-    #
-    #        if [ ! -f /models/qwen2.5-14b-instruct-q4_k_m.gguf ]; then
-    #          echo '⏳ Downloading Qwen2.5-14B Q4_K_M (~8.7GB)...';
-    #          curl -fL --retry 5 -o /models/qwen2.5-14b-instruct-q4_k_m.gguf https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF/resolve/main/qwen2.5-14b-instruct-q4_k_m.gguf;
-    #          echo '✅ 14B downloaded.';
-    #        else
-    #          echo '✅ 14B already present.';
-    #        fi;
-    #
-    #        if [ ! -f /models/qwen2.5-3b-instruct-q4_k_m.gguf ]; then
-    #          echo '⏳ Downloading Qwen2.5-3B Q4_K_M (~2GB)...';
-    #          curl -fL --retry 5 -o /models/qwen2.5-3b-instruct-q4_k_m.gguf https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf;
-    #          echo '✅ 3B downloaded.';
-    #        else
-    #          echo '✅ 3B already present.';
-    #        fi;
-    #
-    #        echo '✅ All models ready.'
-    #      "
-    #    networks:
-    #      - llm-network
-
+    # ── 2. Téléchargement modèles GGUF ───────────────────────────────────────
+    #  Qwen3.5-0.8B: ~530MB | Qwen3-0.6B: ~400MB
+    model-downloader:
+      image: curlimages/curl:latest
+      container_name: model-downloader
+      restart: "no"
+      volumes:
+        - /home/litellm-tybo/models:/models
+      command: >
+        sh -c "
+          set -e;
+          
+          if [ ! -f /models/Qwen3.5-0.8B-Q4_K_M.gguf ]; then
+            echo '⏳ Downloading Qwen3.5-0.8B Q4_K_M...';
+            curl -fL --retry 5 -o /models/Qwen3.5-0.8B-Q4_K_M.gguf https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/main/Qwen3.5-0.8B-Q4_K_M.gguf;
+          fi;
+          
+          if [ ! -f /models/Qwen3-0.6B-Q4_K_M.gguf ]; then
+            echo '⏳ Downloading Qwen3-0.6B Q4_K_M...';
+            curl -fL --retry 5 -o /models/Qwen3-0.6B-Q4_K_M.gguf https://huggingface.co/unsloth/Qwen3-0.6B-GGUF/resolve/main/Qwen3-0.6B-Q4_K_M.gguf;
+          fi;
+          
+          echo '✅ Qwen3/3.5 Models ready.'
+        "
+      networks:
+        - llm-network
     # ── 3. Qdrant — Vector DB ────────────────────────────────────────────────
   qdrant:
     image: qdrant/qdrant:latest
