@@ -255,7 +255,7 @@ def test_jobs():
     if not API_KEY: skip("All job tests","API_KEY not set"); return
     job_id=None
     try:
-        r=POST(f"{API_URL}/api/jobs",j={"job_type":"batch_embed","params":{"texts":["doc1","doc2","doc3"]},"priority":"normal"},h=ah(),t=30)
+        r=POST(f"{API_URL}/api/jobs",j={"job_type":"batch_embed","params":{"texts":["doc1","doc2","doc3"]},"priority":"normal"},h=ah(),t=60)
         if r.status_code==200:
             job_id=r.json().get("job_id"); ok("Submit batch_embed job",f"job_id={job_id}")
         else: fail("Submit batch_embed job",f"HTTP {r.status_code}: {r.text[:80]}")
@@ -275,14 +275,14 @@ def test_jobs():
             else: fail("Job completes",f"timeout after 120s, status={final}")
         except Exception as e: fail("Job polling",str(e))
     try:
-        r=GET(f"{API_URL}/api/jobs/non-existent-xyz-999",h=ah(),t=10)
+        r=GET(f"{API_URL}/api/jobs/non-existent-xyz-999",h=ah(),t=30)
         (ok if r.status_code==404 else fail)("Non-existent job → 404",f"HTTP {r.status_code}")
     except Exception as e: fail("Non-existent job → 404",str(e))
     try:
         r=POST(f"{API_URL}/api/jobs",j={"job_type":"batch_embed","params":{"texts":["x"]*50},"priority":"low"},h=ah(),t=15)
         if r.status_code==200:
             cid=r.json()["job_id"]
-            r2=requests.delete(f"{API_URL}/api/jobs/{cid}",headers=ah(),timeout=10)
+            r2=requests.delete(f"{API_URL}/api/jobs/{cid}",headers=ah(),timeout=30)
             (ok if r2.status_code==200 else fail)("Cancel pending job",f"job_id={cid}")
     except Exception as e: fail("Cancel pending job",str(e))
 

@@ -221,11 +221,27 @@ def get_rag_backend(collection: str) -> ProductionRAG:
 # ── Public / JWT Routes ───────────────────────────────────────────────────────
 @app.post("/token", tags=["Auth"])
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = get_user(form_data.username)
-    if not user or not verify_password(form_data.password, user["hashed_password"]):
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-    token = create_access_token(data={"sub": user["username"]})
-    return {"access_token": token, "token_type": "bearer"}
+    try:
+        print(f"[AUTH] Login attempt for user: {form_data.username}")
+        user = get_user(form_data.username)
+        if not user:
+            print(f"[AUTH] User not found: {form_data.username}")
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+        
+        if not verify_password(form_data.password, user["hashed_password"]):
+            print(f"[AUTH] Invalid password for: {form_data.username}")
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+        
+        token = create_access_token(data={"sub": user["username"]})
+        print(f"[AUTH] Login successful for: {form_data.username}")
+        return {"access_token": token, "token_type": "bearer"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        print(f"[ERROR] Login failed: {str(e)}")
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Internal Auth Error: {str(e)}")
 
 @app.get("/health", tags=["System"])
 async def health():

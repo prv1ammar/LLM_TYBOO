@@ -22,4 +22,4 @@ COPY . .
 
 EXPOSE 8888
 
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8888", "--workers", "2"]
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8888", "--workers", "1"]
