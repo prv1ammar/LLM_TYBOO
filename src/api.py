@@ -101,6 +101,7 @@ jobs_db: Dict[str, Job] = {}
 job_queue: asyncio.Queue = asyncio.Queue()
 
 async def process_job(job: Job):
+    print(f"[JOB] Starting {job.job_type} ({job.job_id})")
     job.status = JobStatus.RUNNING
     job.started_at = datetime.utcnow()
     try:
@@ -133,7 +134,11 @@ async def process_job(job: Job):
             raise ValueError(f"Unknown job type: '{job.job_type}'")
         job.status = JobStatus.COMPLETED
         job.progress = 100
+        print(f"[JOB] Completed {job.job_id}")
     except Exception as e:
+        import traceback
+        print(f"[JOB] Failed {job.job_id}: {str(e)}")
+        traceback.print_exc()
         job.status = JobStatus.FAILED
         job.error = str(e)
     finally:
@@ -274,11 +279,16 @@ async def openai_embeddings(request: Dict):
 
 @app.post("/api/chat", dependencies=[Depends(verify_api_key)], tags=["Machine"])
 async def api_chat(request: Dict):
-    msg = request.get("message", "")
-    model, _ = get_model_for_chat(msg)
-    agent = Agent(model, system_prompt=request.get("system_prompt", "You are a helpful assistant."))
-    res = await agent.run(msg)
-    return {"response": res.output}
+    try:
+        msg = request.get("message", "")
+        model, label = get_model_for_chat(msg)
+        print(f"[API] Chat routing to {label}")
+        agent = Agent(model, system_prompt=request.get("system_prompt", "You are a helpful assistant."))
+        res = await agent.run(msg)
+        return {"response": res.output}
+    except Exception as e:
+        print(f"[ERROR] API Chat: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/complete", dependencies=[Depends(verify_api_key)], tags=["Machine"])
 async def api_complete(request: Dict):
@@ -308,15 +318,33 @@ async def api_submit_job(request: JobSubmitRequest):
 
 @app.get("/api/jobs/{job_id}", response_model=JobResponse, dependencies=[Depends(verify_api_key)], tags=["Jobs"])
 async def api_get_job(job_id: str):
-    if job_id not in jobs_db: raise HTTPException(404, "Job not found")
+    if job_id not in jobs_db:
+        raise HTTPException(status_code=404, detail="Job not found in this worker instance")
     j = jobs_db[job_id]
     return JobResponse(job_id=j.job_id, status=j.status, progress=j.progress, result=j.result, error=j.error,
                        created_at=j.created_at, started_at=j.started_at, completed_at=j.completed_at)
 
+@app.delete("/api/jobs/{job_id}", dependencies=[Depends(verify_api_key)], tags=["Jobs"])
+async def api_delete_job(job_id: str):
+    if job_id not in jobs_db:
+        raise HTTPException(status_code=404, detail="Job not found")
+    j = jobs_db[job_id]
+    if j.status in [JobStatus.PENDING, JobStatus.RUNNING]:
+        j.status = JobStatus.CANCELLED
+        return {"message": "Job cancelled", "job_id": job_id}
+    return {"message": f"Job already {j.status}", "job_id": job_id}
+
 @app.post("/api/agent/analyze", dependencies=[Depends(verify_api_key)], tags=["Agent"])
 async def api_analyze_doc(body: Dict):
-    res = await orchestrator.analyze_document(body["document"], body.get("instructions"))
-    return res.model_dump() if hasattr(res, "model_dump") else res
+    try:
+        print(f"[API] Analyzing document ({len(body.get('document',''))} chars)")
+        res = await orchestrator.analyze_document(body["document"], body.get("instructions"))
+        return res.model_dump() if hasattr(res, "model_dump") else res
+    except Exception as e:
+        import traceback
+        print(f"[ERROR] Document Analysis: {str(e)}")
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Document analysis failed: {str(e)}")
 
 @app.post("/api/agent/generate", dependencies=[Depends(verify_api_key)], tags=["Agent"])
 async def api_generate(body: Dict):

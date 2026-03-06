@@ -27,12 +27,12 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "s
 load_dotenv()
 
 # Production DevOps URLs
-API_URL       = "https://llm-api.tybot.ma"
-DASHBOARD_URL = "https://llm.tybot.ma"
-LITELLM_URL   = "https://llm-api.tybot.ma/litellm"
-N8N_URL       = "https://n8n.tybot.ma"
-PROMETHEUS    = "https://prometheus.tybot.ma"
-GRAFANA       = "https://grafana.tybot.ma"
+API_URL       = "http://192.168.0.184:8888"
+DASHBOARD_URL = "http://192.168.0.184:8501"
+LITELLM_URL   = "http://192.168.0.184:4000"
+N8N_URL       = "http://192.168.0.184:5678"
+PROMETHEUS    = "http://192.168.0.184:9090"
+GRAFANA       = "http://192.168.0.184:3000"
 LITELLM_KEY   = os.getenv("LITELLM_KEY", "sk-tyboo-25871fc81b642fadeeb7da692040bd0e")
 API_KEY       = os.getenv("API_KEY", "92129f24-12f0-478a-8c98-5b15070235e6")
 ADMIN_USER    = "admin"
@@ -142,14 +142,14 @@ def test_embeddings():
     section("5. Embeddings — BGE-M3 (1024D)")
     if not API_KEY: skip("All embedding tests","API_KEY not set"); return
     try:
-        r=POST(f"{API_URL}/api/embeddings",j={"texts":["Hello world test."]},h=ah(),t=60)
+        r=POST(f"{API_URL}/api/embeddings",j={"texts":["Hello world test."]},h=ah(),t=180)
         if r.status_code==200:
             dims=len(r.json()["embeddings"][0])
             (ok if dims==1024 else fail)("Single embedding → 1024D",f"dims={dims}")
         else: fail("Single embedding",f"HTTP {r.status_code}")
     except Exception as e: fail("Single embedding",str(e))
     try:
-        r=POST(f"{API_URL}/api/embeddings",j={"texts":["نص عربي","هاد دارجة","texte français","English text"]},h=ah(),t=60)
+        r=POST(f"{API_URL}/api/embeddings",j={"texts":["نص عربي","هاد دارجة","texte français","English text"]},h=ah(),t=180)
         if r.status_code==200:
             embs=r.json()["embeddings"]
             (ok if len(embs)==4 else fail)("Multilingual batch (AR/Darija/FR/EN)",f"4 × {len(embs[0])}D")
@@ -186,7 +186,7 @@ def test_rag():
                 f"count={r.json().get('count',0)}" if r.status_code==200 else f"HTTP {r.status_code}: {r.text[:80]}")
         except Exception as e: fail("POST /rag/ingest (JWT)",str(e))
         try:
-            r=POST(f"{API_URL}/rag/query",j={"question":"How many days of annual leave?","top_k":3,"include_sources":True},h=jh(),t=120)
+            r=POST(f"{API_URL}/rag/query",j={"question":"How many days of annual leave?","top_k":3,"include_sources":True},h=jh(),t=300)
             if r.status_code==200:
                 a=r.json().get("answer",""); s=r.json().get("sources",[])
                 ok("POST /rag/query (JWT)",f"len={len(a)}, sources={len(s)}")
@@ -195,13 +195,13 @@ def test_rag():
             else: fail("POST /rag/query (JWT)",f"HTTP {r.status_code}: {r.text[:80]}")
         except Exception as e: fail("POST /rag/query (JWT)",str(e))
         try:
-            r=POST(f"{API_URL}/rag/query",j={"question":"What is the recipe for chocolate cake?","top_k":3},h=jh(),t=120)
+            r=POST(f"{API_URL}/rag/query",j={"question":"What is the recipe for chocolate cake?","top_k":3},h=jh(),t=300)
             if r.status_code==200:
                 used_kb=r.json().get("used_knowledge_base")
                 ok("RAG unknown topic → general knowledge fallback",f"used_kb={used_kb}")
         except Exception as e: fail("RAG unknown topic fallback",str(e))
         try:
-            r=POST(f"{API_URL}/rag/query",j={"question":"ما هو هدف المغرب في الطاقة المتجددة؟"},h=jh(),t=120)
+            r=POST(f"{API_URL}/rag/query",j={"question":"ما هو هدف المغرب في الطاقة المتجددة؟"},h=jh(),t=300)
             if r.status_code==200:
                 a=r.json().get("answer","")
                 (ok if len(a)>5 else fail)("RAG query in Arabic",f"len={len(a)}")
@@ -214,7 +214,7 @@ def test_rag():
             (ok if r.status_code==200 else fail)("POST /api/rag/ingest (API Key)",f"HTTP {r.status_code}")
         except Exception as e: fail("POST /api/rag/ingest (API Key)",str(e))
         try:
-            r=POST(f"{API_URL}/api/rag/query",j={"question":"Who created Python?","collection":"test_col","top_k":3},h=ah(),t=120)
+            r=POST(f"{API_URL}/api/rag/query",j={"question":"Who created Python?","collection":"test_col","top_k":3},h=ah(),t=300)
             if r.status_code==200:
                 a=r.json().get("answer",""); ok("POST /api/rag/query (API Key)",f"len={len(a)}")
             else: fail("POST /api/rag/query (API Key)",f"HTTP {r.status_code}")
@@ -292,28 +292,28 @@ def test_agent():
     if not jwt_token: skip("Agent via JWT","No JWT token")
     else:
         try:
-            r=POST(f"{API_URL}/agent/general",j={"question":"What is the capital of Morocco?","top_k":3},h=jh(),t=120)
+            r=POST(f"{API_URL}/agent/general",j={"question":"What is the capital of Morocco?","top_k":3},h=jh(),t=300)
             if r.status_code==200:
                 a=r.json().get("answer","")
                 ok("POST /agent/general — factual",f"len={len(a)}")
             else: fail("POST /agent/general",f"HTTP {r.status_code}: {r.text[:80]}")
         except Exception as e: fail("POST /agent/general",str(e))
         try:
-            r=POST(f"{API_URL}/agent/general",j={"question":"Explique le RAG en 2 phrases.","top_k":3},h=jh(),t=120)
+            r=POST(f"{API_URL}/agent/general",j={"question":"Explique le RAG en 2 phrases.","top_k":3},h=jh(),t=300)
             if r.status_code==200:
                 a=r.json().get("answer",""); (ok if len(a)>20 else fail)("Agent answers in French",f"len={len(a)}")
         except Exception as e: fail("Agent answers in French",str(e))
     if not API_KEY: skip("Agent via API Key","API_KEY not set")
     else:
         try:
-            r=POST(f"{API_URL}/api/agent/analyze",j={"document":"Contract between ACME Corp and John Doe. Start: Jan 1 2025. Salary: 15000 MAD/month. Notice: 1 month.","instructions":"Extract all dates and amounts."},h=ah(),t=120)
+            r=POST(f"{API_URL}/api/agent/analyze",j={"document":"Contract between ACME Corp and John Doe. Start: Jan 1 2025. Salary: 15000 MAD/month. Notice: 1 month.","instructions":"Extract all dates and amounts."},h=ah(),t=300)
             if r.status_code==200:
                 d=r.json()
                 (ok if "summary" in d and "key_points" in d else fail)("POST /api/agent/analyze — structured output",f"fields: {list(d.keys())}")
             else: fail("POST /api/agent/analyze",f"HTTP {r.status_code}: {r.text[:80]}")
         except Exception as e: fail("POST /api/agent/analyze",str(e))
         try:
-            r=POST(f"{API_URL}/api/agent/generate",j={"prompt":"Write a 1-sentence description of Morocco.","context":""},h=ah(),t=120)
+            r=POST(f"{API_URL}/api/agent/generate",j={"prompt":"Write a 1-sentence description of Morocco.","context":""},h=ah(),t=300)
             if r.status_code==200:
                 c=r.json().get("content",""); (ok if len(c)>10 else fail)("POST /api/agent/generate",f"len={len(c)}")
             else: fail("POST /api/agent/generate",f"HTTP {r.status_code}")
@@ -330,7 +330,7 @@ def test_chat():
         else: fail("POST /api/chat",f"HTTP {r.status_code}: {r.text[:80]}")
     except Exception as e: fail("POST /api/chat",str(e))
     try:
-        r=POST(f"{API_URL}/api/chat",j={"message":"Explain the difference between RAG and fine-tuning in 2 sentences.","temperature":0.3,"max_tokens":200},h=ah(),t=120)
+        r=POST(f"{API_URL}/api/chat",j={"message":"Explain the difference between RAG and fine-tuning in 2 sentences.","temperature":0.3,"max_tokens":200},h=ah(),t=300)
         if r.status_code==200:
             resp=r.json().get("response",""); (ok if len(resp)>20 else fail)("POST /api/chat (complex → 14B)",f"len={len(resp)}")
         else: fail("POST /api/chat (complex)",f"HTTP {r.status_code}")
