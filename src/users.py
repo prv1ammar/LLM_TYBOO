@@ -114,19 +114,23 @@ def get_user(username: str) -> Optional[Dict]:
         Dict with username, hashed_password, role, is_active
         None if user doesn't exist or is inactive
     """
-    conn = get_conn()
     try:
-        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
-            cur.execute(
-                "SELECT username, hashed_password, role, is_active FROM tyboo_users WHERE username = %s",
-                (username,)
-            )
-            row = cur.fetchone()
-            if row and row["is_active"]:
-                return dict(row)
-            return None
-    finally:
-        conn.close()
+        conn = get_conn()
+        try:
+            with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+                cur.execute(
+                    "SELECT username, hashed_password, role, is_active FROM tyboo_users WHERE username = %s",
+                    (username,)
+                )
+                row = cur.fetchone()
+                if row and row["is_active"]:
+                    return dict(row)
+                return None
+        finally:
+            conn.close()
+    except Exception as e:
+        print(f"[ERROR] get_user failed: {str(e)}", flush=True)
+        raise
 
 
 def list_users() -> List[Dict]:

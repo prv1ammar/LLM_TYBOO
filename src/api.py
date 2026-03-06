@@ -107,13 +107,13 @@ async def process_job(job: Job):
     try:
         if job.job_type == "batch_embed":
             texts = job.params.get("texts", [])
-            embeddings = embedding_service.embed_batch(texts)
+            embeddings = await asyncio.to_thread(embedding_service.embed_batch, texts)
             job.result = {"embeddings": embeddings, "count": len(embeddings)}
         elif job.job_type == "batch_rag_ingest":
             documents = job.params.get("documents", [])
             collection = job.params.get("collection", "default")
             rag = get_rag_backend(collection)
-            doc_ids = rag.ingest_documents(documents)
+            doc_ids = await rag.ingest_documents(documents)
             job.result = {"document_ids": doc_ids, "count": len(doc_ids)}
         elif job.job_type == "analyze_document":
             document = job.params.get("document", "")
@@ -245,7 +245,14 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
 
 @app.get("/health", tags=["System"])
 async def health():
-    return {"status": "healthy", "service": "llm-tyboo-api"}
+    db_status = "online"
+    try:
+        from users import get_conn
+        conn = get_conn()
+        conn.close()
+    except Exception as e:
+        db_status = f"offline: {str(e)}"
+    return {"status": "healthy", "service": "llm-tyboo-api", "database": db_status}
 
 @app.get("/info", tags=["System"])
 async def info():
@@ -262,7 +269,7 @@ async def query_rag(request: QueryRequest):
 @app.post("/rag/ingest", response_model=IngestResponse, dependencies=[Depends(require_auth)], tags=["RAG"])
 async def ingest_documents(documents: List[DocumentRequest]):
     docs = [{"text": d.text, "metadata": d.metadata} for d in documents]
-    ids = rag_system.ingest_documents(docs)
+    ids = await rag_system.ingest_documents(docs)
     return {"document_ids": ids, "count": len(ids)}
 
 @app.post("/agent/general", dependencies=[Depends(require_auth)], tags=["Agent"])
@@ -274,7 +281,7 @@ async def agent_general(request: QueryRequest):
 @app.post("/api/embeddings", dependencies=[Depends(verify_api_key)], tags=["Machine"])
 async def api_embeddings(request: Dict):
     texts = request.get("texts", [])
-    embs = embedding_service.embed_batch(texts)
+    embs = await asyncio.to_thread(embedding_service.embed_batch, texts)
     return {"embeddings": embs, "count": len(embs)}
 
 @app.post("/v1/embeddings", tags=["OpenAI"])
@@ -282,7 +289,7 @@ async def openai_embeddings(request: Dict):
     """OpenAI-compatible embedding endpoint for BGE-M3"""
     inputs = request.get("input", [])
     if isinstance(inputs, str): inputs = [inputs]
-    embs = embedding_service.embed_batch(inputs)
+    embs = await asyncio.to_thread(embedding_service.embed_batch, inputs)
     data = []
     for i, vec in enumerate(embs):
         data.append({"object": "embedding", "index": i, "embedding": vec})
@@ -321,7 +328,7 @@ async def api_rag_query(request: Dict):
 @app.post("/api/rag/ingest", dependencies=[Depends(verify_api_key)], tags=["Machine"])
 async def api_rag_ingest(request: Dict):
     rag = get_rag_backend(request.get("collection", "default"))
-    ids = rag.ingest_documents(request.get("documents", []))
+    ids = await rag.ingest_documents(request.get("documents", []))
     return {"document_ids": ids, "count": len(ids)}
 
 @app.post("/api/jobs", dependencies=[Depends(verify_api_key)], tags=["Jobs"])

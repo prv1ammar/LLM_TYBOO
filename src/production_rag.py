@@ -49,6 +49,7 @@ HOW TO USE:
 """
 
 import os
+import asyncio
 from typing import List, Dict
 from pydantic_ai import Agent
 from vector_store import VectorStore
@@ -96,25 +97,8 @@ Be precise, structured, and complete in your responses.
 Always respond in the same language the user used in their question."""
         )
 
-    def ingest_documents(self, documents: List[Dict]) -> List[str]:
-        """
-        Add documents to the knowledge base.
-
-        This is a thin wrapper around VectorStore.add_documents().
-        See vector_store.py for full details on the format.
-
-        Args:
-            documents: List of {"text": "...", "metadata": {...}} dicts.
-
-        Returns:
-            List of UUID strings — one per document stored.
-
-        Usage:
-            ids = rag.ingest_documents([
-                {"text": "Article 3: ...", "metadata": {"source": "contract.pdf", "page": 1}},
-            ])
-        """
-        return self.vector_store.add_documents(documents)
+    async def ingest_documents(self, documents: List[Dict]) -> List[str]:
+        return await asyncio.to_thread(self.vector_store.add_documents, documents)
 
     async def query(
         self,
@@ -156,7 +140,7 @@ Always respond in the same language the user used in their question."""
               "No KB docs found. Question: ... Answer from general knowledge."
         """
         # Step 1: Retrieve candidate documents from Qdrant
-        candidates = self.vector_store.search(question, top_k=top_k)
+        candidates = await asyncio.to_thread(self.vector_store.search, question, top_k=top_k)
 
         # Step 2: Filter by relevance threshold
         relevant = [r for r in candidates if r["score"] >= relevance_threshold]
