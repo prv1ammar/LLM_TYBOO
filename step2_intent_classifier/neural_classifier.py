@@ -9,8 +9,8 @@ from pathlib import Path
 from collections import Counter
 random.seed(42); np.random.seed(42)
 
-DATA_DIR=Path(__file__).parent/"data"
-MODEL_PATH=Path(__file__).parent/"models"/"raven_cnn.pkl"
+DATA_DIR=Path(__file__).parent.parent/"data"
+MODEL_PATH=Path(__file__).parent.parent/"models"/"raven_cnn.pkl"
 INTENTS=["question_info","complaint","transaction","support","off_topic","emergency"]
 N_CLS=len(INTENTS)
 ITAGS={"question_info":["banking","faq"],"complaint":["banking","frustrated","requires_human"],
