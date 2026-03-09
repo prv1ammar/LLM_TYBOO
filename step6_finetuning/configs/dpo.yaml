@@ -1,0 +1,38 @@
+# RAVEN — Stage 2 : DPO Config
+# Base  : SFT-merged model (outputs/raven-*/sft/merged)
+# GPU   : T4 (8GB+ VRAM) — DPO est plus léger que SFT
+
+lora_dpo:
+  r:              8                 # plus léger — DPO ajuste finement
+  lora_alpha:     16
+  lora_dropout:   0.05
+  bias:           "none"
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj                        # DPO = attention only, pas MLP
+
+training:
+  epochs:                     1     # 1 epoch DPO suffit — risque d'overfitting sinon
+  per_device_train_batch_size: 2    # DPO nécessite chosen + rejected → 2x la mémoire
+  gradient_accumulation_steps: 8
+  learning_rate:              5.0e-5  # LR bas pour DPO — ajustement fin
+  lr_scheduler_type:          "cosine"
+  warmup_ratio:               0.05
+  bf16:                       true
+  max_length:                 1024
+  max_prompt_length:          512
+  beta:                       0.1   # DPO temperature — 0.1 = modéré
+
+data:
+  file:        "dpo_all.jsonl"
+  val_split:   0.05
+  pairs:       30000               # 5000 paires × 6 intents
+
+# Pourquoi beta=0.1 ?
+# beta faible  (0.05) = colle plus aux préférences mais risque d'oublier SFT
+# beta modéré  (0.1)  = bon équilibre qualité/rétention (recommandé)
+# beta élevé   (0.5)  = conservative, peu d'impact DPO
+
+# T4 (~1-2h) | A100 (~20-30min)
