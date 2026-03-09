@@ -158,14 +158,44 @@ class Adam:
             p-=lrt*self.m[k]/(np.sqrt(self.v[k])+self.eps)
 
 # ── DATA ─────────────────────────────────────────────────────
+def _rule_label(text):
+    """Label a user message using RULES (same as inference-time rules)."""
+    for intent,pat in RULES:
+        if pat.search(text):
+            if intent=="off_topic" and _BANKING_CTX.search(text):
+                continue
+            return intent
+    return None
+
 def load_data():
+    """
+    Load Step-1 data (turns format) OR flat {text, intent} format.
+    For turns data: extract user messages + auto-label via rules.
+    Keeps only samples where a rule fires (high confidence).
+    """
     texts,labels=[],[]
     for f in sorted(DATA_DIR.rglob("*.jsonl")):
         with open(f,encoding="utf-8") as fp:
             for line in fp:
                 line=line.strip()
                 if not line:continue
-                try:obj=json.loads(line);texts.append(obj["text"]);labels.append(INTENTS.index(obj["intent"]))
+                try:
+                    obj=json.loads(line)
+                    # Format A: flat {text, intent}
+                    if "text" in obj and "intent" in obj:
+                        if obj["intent"] in INTENTS:
+                            texts.append(obj["text"])
+                            labels.append(INTENTS.index(obj["intent"]))
+                    # Format B: Step-1 turns {id, lang, turns, ...}
+                    elif "turns" in obj:
+                        for turn in obj["turns"]:
+                            if turn.get("role")!="user":continue
+                            msg=turn.get("content","").strip()
+                            if len(msg)<5:continue
+                            intent=_rule_label(msg)
+                            if intent is not None:
+                                texts.append(msg)
+                                labels.append(INTENTS.index(intent))
                 except:pass
     print(f"[Data] {len(texts):,} — {dict(Counter(labels))}");return texts,labels
 
