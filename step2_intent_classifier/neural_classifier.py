@@ -361,5 +361,5 @@ if __name__=="__main__":
     else:
         print("="*65+"\n  RAVEN — TextCNN (CPU-Optimized)\n"+"="*65)
         clf=CNNClassifier()
-        clf.fit(epochs=60,batch=64,lr=3e-3,D=48,F=128,drop=0.35,vocab=5000,aug_factor=12)
+        clf.fit(epochs=20,batch=256,lr=3e-3,D=48,F=128,drop=0.35,vocab=5000,aug_factor=0)
         clf.save();demo(clf);print();clf.benchmark(2000)
