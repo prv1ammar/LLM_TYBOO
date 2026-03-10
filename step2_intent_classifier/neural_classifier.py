@@ -124,8 +124,15 @@ class TextCNN:
         # embedding
         self.dE[:]=0;np.add.at(self.dE,self._ids,dx)
 
-    def predict_proba(self,ids):
-        x=self.forward(ids,tr=False);e=np.exp(x-x.max(-1,keepdims=True));return e/e.sum(-1,keepdims=True)
+    def predict_proba(self,ids,bsz=512):
+        if ids.ndim==1: ids=ids.reshape(1,-1)
+        res=[]
+        for i in range(0,len(ids),bsz):
+            xb=ids[i:i+bsz]
+            x=self.forward(xb,tr=False)
+            e=np.exp(x-x.max(-1,keepdims=True)); p=e/e.sum(-1,keepdims=True)
+            res.append(p)
+        return np.vstack(res)
 
     def zero(self):
         self.dE[:]=0
