@@ -204,6 +204,14 @@ def load_data():
                                 texts.append(msg)
                                 labels.append(INTENTS.index(intent))
                 except:pass
+    
+    # Shuffle and cap at 50,000 to drastically speed up training (since accuracy hits 100% immediately anyway)
+    if len(texts) > 50000:
+        c = list(zip(texts, labels))
+        random.shuffle(c)
+        texts, labels = zip(*c[:50000])
+        texts, labels = list(texts), list(labels)
+        
     print(f"[Data] {len(texts):,} — {dict(Counter(labels))}");return texts,labels
 
 def augment(texts,labels,factor=12):
@@ -368,5 +376,5 @@ if __name__=="__main__":
     else:
         print("="*65+"\n  RAVEN — TextCNN (CPU-Optimized)\n"+"="*65)
         clf=CNNClassifier()
-        clf.fit(epochs=20,batch=256,lr=3e-3,D=48,F=128,drop=0.35,vocab=5000,aug_factor=0)
+        clf.fit(epochs=5,batch=256,lr=3e-3,D=48,F=128,drop=0.35,vocab=5000,aug_factor=0)
         clf.save();demo(clf);print();clf.benchmark(2000)
