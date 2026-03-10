@@ -32,7 +32,7 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=ravenpass
       - LOG_DIR=/app/logs
-      - INTENT_MODEL=models/qwen_intent_finetuned
+      - INTENT_MODEL=models/raven_cnn.pkl
       - LLM_MODEL=Qwen/Qwen2.5-0.5B-Instruct
     volumes:
       - ./logs:/app/logs

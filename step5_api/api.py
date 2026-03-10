@@ -36,7 +36,24 @@ except ImportError:
 # Import RAVEN steps
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from step2_intent_classifier.classifier import IntentClassifier, IntentResult
+from step2_intent_classifier.neural_classifier import CNNClassifier
+
+class IntentResult:
+    def __init__(self, data):
+        self.intent = data.get("intent", "off_topic")
+        self.tags = data.get("tags", [])
+        self.lang = data.get("lang", "unknown")
+        self.confidence = data.get("confidence", 0.0)
+
+class IntentClassifierWrapper:
+    def __init__(self, model_path):
+        import os
+        if not os.path.exists(model_path):
+            raise FileNotFoundError(f"Missing intent model: {model_path}")
+        self.model = CNNClassifier.load(model_path)
+    def classify(self, text):
+        return IntentResult(self.model.predict(text))
+
 from step3_guardrails.guardrails import GuardrailPipeline, ScanResult
 from step4_summarizer.summarizer import ConversationSummarizer, SummaryStore
 
@@ -49,7 +66,7 @@ class Config:
     REDIS_HOST     = "localhost"
     REDIS_PORT     = 6379
     LOG_DIR        = "logs"
-    INTENT_MODEL   = "models/qwen_intent_finetuned"
+    INTENT_MODEL   = "models/raven_cnn.pkl"
     LLM_MODEL      = "Qwen/Qwen2.5-0.5B-Instruct"   # main chat model
     LLM_MODEL_BIG  = "Qwen/Qwen2.5-1.5B-Instruct"   # fallback / summarizer
     MAX_HISTORY    = 20  # max turns sent to LLM
@@ -262,10 +279,10 @@ def get_guardrail() -> GuardrailPipeline:
     return _guardrail
 
 
-def get_classifier() -> IntentClassifier:
+def get_classifier() -> IntentClassifierWrapper:
     global _classifier
     if _classifier is None:
-        _classifier = IntentClassifier(Config.INTENT_MODEL)
+        _classifier = IntentClassifierWrapper(Config.INTENT_MODEL)
     return _classifier
 
 
