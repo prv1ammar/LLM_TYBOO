@@ -281,7 +281,8 @@ _DA_LATIN = re.compile(
     r'\b(bghit|kifash|dyal|dyali|machi|bzzaf|ndkhol|n7awel|3ajjlu|3yit|'
     r'za3fan|wach|rajfana|ghda|l7sab|9awwed|mkhtar9|khdamach|ma9darsh|'
     r'chhal|chno|nsedd|nkhed|kayna|ndir|srqo|flous|daba|3br|bla|sta7ya|'
-    r'mazal|wsalch|hadchi|kifash|nsit|m9ful|nftah|ndkhol)\b', re.I
+    r'mazal|wsalch|hadchi|kifash|nsit|m9ful|nftah|ndkhol|had|mrdnni|dima|'
+    r'habsa|ana|f7ala|5atira|db|eafak|eta9ni)\b', re.I
 )
 _BANKING_CTX = re.compile(
     r'\b(bank|banka|compte|account|carte|card|crédit|credit|virement|'
