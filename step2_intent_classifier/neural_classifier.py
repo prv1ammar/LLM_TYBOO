@@ -460,9 +460,16 @@ def _compute_segmentation_tags(text: str, intent: str, lang: str):
             signal_tags.append(tag)
             
     # Taxonomy tags from TAG_SIGNALS_GEN
+    # ── FIX: Filter out generic pollution words (medium, low, etc) ──
+    pollution_words = {'medium', 'low', 'high', 'yes', 'no', 'none', 'other', 'basic', 'standard', 'open'}
     for tag, pat in TAG_SIGNALS_GEN:
-        if tag not in signal_tags and pat.search(text):
-            signal_tags.append(tag)
+        if tag not in signal_tags:
+            # Only match if the signal is NOT a generic word, or the text is a multi-word match
+            match = pat.search(text)
+            if match:
+                matched_text = match.group(0).lower().strip()
+                if matched_text not in pollution_words or len(text.split()) < 3:
+                     signal_tags.append(tag)
 
     # Emergency always gets fraud_signal if rules match
     if RULES[0][1].search(text) and "fraud_signal" not in signal_tags:
@@ -1087,19 +1094,21 @@ class CNNClassifier:
         
         # If signal tags suggest a different intent, override
         for t in signal_tags:
-            if t in tag_to_intent and float(prob.max()) < 0.90:
+            if t in tag_to_intent:
                 new_intent = tag_to_intent[t]
-                if intent != new_intent:
+                # FIX: Certain strong tags (feedback, emergency) override even if confidence is 1.0
+                strong_tags = {'feedback:positive', 'feedback:negative', 'urgency:high', 'need:security'}
+                if intent != new_intent and (float(prob.max()) < 0.95 or t in strong_tags):
                     intent = new_intent
                     hi = INTENTS.index(intent)
                     prob[:] = 0.0
                     prob[hi] = 1.0
                     # Re-compute full tags with the new intent base
                     tags, _ = _compute_segmentation_tags(text, intent, lang)
-                break
+                    break 
         
         # Fallback for completely random NN predictions when no rules match
-        if float(prob.max()) < 0.65 and intent == 'emergency':
+        if float(prob.max()) < 0.60 and intent == 'emergency':
             intent = 'off_topic' 
             tags, _ = _compute_segmentation_tags(text, intent, lang)
 
