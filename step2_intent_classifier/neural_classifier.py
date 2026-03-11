@@ -613,13 +613,36 @@ _SEED = {
         "money disappeared from my account without my permission",
         "someone took everything from my account, help!",
     ],
+    "off_topic_social": [
+        "nta wa333r asahbi",
+        "tarak top wallah",
+        "lah yr7m lwalidin",
+        "tbarkallah 3lik",
+        "you are the best",
+        "service top bzzaf",
+        "chokran bzzaf 3la kolshi",
+        "amazing work guys",
+        "c'est magnifique ce que vous faites",
+        "bravo pour l'intelligence artificielle",
+        "nari 3la service wa3r",
+        "khoya rak top",
+        "allah ybarek fik",
+        "merci beaucoup pour votre aide",
+    ]
 }
 
 def _load_seed():
     """Return seed texts+labels (always available, no file needed)."""
     texts, labels = [], []
     for intent, examples in _SEED.items():
-        idx = INTENTS.index(intent)
+        # Map sub-categories to main intents
+        mapping = {
+            "off_topic_social": "off_topic"
+        }
+        main_intent = mapping.get(intent, intent)
+        if main_intent not in INTENTS: continue
+        
+        idx = INTENTS.index(main_intent)
         for t in examples:
             texts.append(t)
             labels.append(idx)
@@ -648,7 +671,8 @@ _DA_LATIN = re.compile(
     r'za3fan|wach|rajfana|ghda|l7sab|9awwed|mkhtar9|khdamach|ma9darsh|'
     r'chhal|chno|nsedd|nkhed|kayna|ndir|srqo|flous|daba|3br|bla|sta7ya|'
     r'mazal|wsalch|hadchi|kifash|nsit|m9ful|nftah|ndkhol|had|mrdnni|dima|'
-    r'habsa|ana|f7ala|5atira|db|eafak|eta9ni)\b', re.I
+    r'habsa|ana|f7ala|5atira|db|eafak|eta9ni|wa333r|waer|wa3r|asahbi|'
+    r'tarak|wallah|chokran|tbarkallah|top|khoya|rak|lwalidin|allah|ybarek)\b', re.I
 )
 _BANKING_CTX = re.compile(
     r'\b(bank|banka|compte|account|carte|card|crédit|credit|virement|'
