@@ -5,6 +5,7 @@ with open('taxonomy.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 lines = []
+lines.append("import re")
 lines.append("TAG_SIGNALS_GEN = [")
 tags_seen = set()
 for item in data:
@@ -13,11 +14,15 @@ for item in data:
     tags_seen.add(tag)
     
     val = tag.split(':')[-1].strip().lower()
-    val = re.sub(r'[^a-z0-9]', '.*', val)
-    if val:
-        regex_str = f"r'{val}'"
-    else:
-        regex_str = "r'()'"
+    # clean up value
+    val = re.sub(r'\s+', ' ', val)
+    if not val or val == '-' or len(val) < 2: 
+        continue 
+        
+    # Use word boundaries to avoid matching substrings
+    val_escaped = re.escape(val)
+    # Special handling for common small strings to ensure they are whole words
+    regex_str = f"r'\\b{val_escaped}\\b'"
     
     lines.append(f"    ('{tag}', re.compile({regex_str}, re.I)),")
 
