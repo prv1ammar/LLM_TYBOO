@@ -47,7 +47,7 @@ TAG_SIGNALS = [
     ("intent:integration",    re.compile(r'(integrat|api\b|webhook|connect|lier.*système|ربط)', re.I)),
     ("intent:research",       re.compile(r'(comment|c.est quoi|what is|how (do|can|long|much)|chhal.*waqt|kifash|كم يستغرق|هل يمكن|puis-je|wash ymken)', re.I)),
     # ── Needs ────────────────────────────────────────────────────────
-    ("need:security",         re.compile(r'(sécurité|securit|أمان|protect|encrypt|bloquer|geler|freeze|fraud|srak|hack|piraté|mkhtar9|srqo)', re.I)),
+    ("need:security",         re.compile(r'(sécurité|securit|أمان|protect|encrypt|bloquer|geler|freeze|fraud|srak|hack|piraté|mkhtar9|srqo|5atira|khater)', re.I)),
     ("need:performance",      re.compile(r'(lent|slow|plante|crash|freeze|bug|ne charge pas|لا يعمل|بطيء|مشكل تقني)', re.I)),
     ("need:automation",       re.compile(r'(automat|automatiser|تلقائي|workflow|répétitif)', re.I)),
     ("need:migration",        re.compile(r'(migrat|transférer.*données|export|import.*compte)', re.I)),
@@ -627,7 +627,7 @@ def _load_seed():
 
 # ── RULES ────────────────────────────────────────────────────
 RULES = [
-    ("emergency",    re.compile(r'(vol[eé]|srak|srqo|stolen|hack|piraté|mkhtar9|fraud|احتيال|سرق|اختراق|bloqu|block|gel|freeze|9awwed|pris mon argent|took.*money|took everything|dkhlu.*l7sab|سحب كل|HELP.*account|AIDEZ.*argent|3AJJLU|quelqu.un.*pris.*argent|a pris mon argent|someone hacked|money.*disappeared|مخترق)', re.I)),
+    ("emergency",    re.compile(r'(vol[eé]|srak|srqo|stolen|hack|piraté|mkhtar9|fraud|احتيال|سرق|اختراق|bloqu|block|gel|freeze|9awwed|pris mon argent|took.*money|took everything|dkhlu.*l7sab|سحب كل|HELP.*account|AIDEZ.*argent|3AJJLU|quelqu.un.*pris.*argent|a pris mon argent|someone hacked|money.*disappeared|مخترق|5atira|khater)', re.I)),
     ("off_topic",    re.compile(r'(météo|weather|tbard|lbard|cuisine|recette|couscous|tajine|blague|joke(?!.*bank)|\bmatch\b|télé|tarikh|تاريخ|طقس|نكتة|learn arabic|learn.*language|apprendre.*langue|best.*restaurant|rajfana|best way to learn|tell me about)', re.I)),
     ("support",      re.compile(r'(ma khdamach|ne fonctionne pas|not working|لا يعمل|session expired|mot de passe|password|nsit.*code|bloqué|m9ful|locked|OTP|erreur|error|خطأ|plante|crashes)', re.I)),
     ("transaction",  re.compile(r'(virer|virement|7awel|n7awel|payer.*facture|nkhed.*fatura|pay.*bill|facture|fatura|فاتورة|loyer|rent(?!.*balance)|إيجار|dépôt|deposit|إيداع|rembours|nsedd|سداد|recharger|nchar9|شحن|\bwire\s+\d)', re.I)),
