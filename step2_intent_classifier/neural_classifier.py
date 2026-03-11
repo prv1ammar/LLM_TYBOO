@@ -1117,9 +1117,16 @@ class CNNClassifier:
         }
         
         # If signal tags suggest a different intent, override
+        banking_context = any(w in text.lower() for w in ['wire', 'virement', 'payer', 'transfert', 'facture', 'bill', 'pay', 'loyered'])
+        
         for t in signal_tags:
             if t in tag_to_intent:
                 new_intent = tag_to_intent[t]
+                
+                # Context Awareness: Don't jump to emergency for urgent transactions
+                if t == 'urgency:high' and banking_context:
+                    continue 
+
                 # FIX: Certain strong tags (feedback, emergency) override even if confidence is 1.0
                 strong_tags = {'feedback:positive', 'feedback:negative', 'urgency:high', 'need:security'}
                 if intent != new_intent and (float(prob.max()) < 0.95 or t in strong_tags):
@@ -1130,7 +1137,15 @@ class CNNClassifier:
                     # Re-compute full tags with the new intent base
                     tags, _ = _compute_segmentation_tags(text, intent, lang)
                     break 
-        
+
+        # FINAL OVERRIDE: If the static RULES say it's Off-Topic or Emergency, believe the rules!
+        rule_intent = _rule_label(text)
+        if rule_intent in ['off_topic', 'emergency'] and intent != rule_intent:
+             # Rules are the "safety net" for intelligence
+             intent = rule_intent
+             hi = INTENTS.index(intent)
+             prob[:] = 0.0; prob[hi] = 1.0
+             tags, _ = _compute_segmentation_tags(text, intent, lang)        
         # Fallback for completely random NN predictions when no rules match
         if float(prob.max()) < 0.60 and intent == 'emergency':
             intent = 'off_topic' 
