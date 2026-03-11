@@ -1,0 +1,3179 @@
+[
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "age category",
+    "Tag": "age: - 18",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "date naissance ou age timeStamp",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "age category",
+    "Tag": "age:18-24",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "age category",
+    "Tag": "age:25-34",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "age category",
+    "Tag": "age:35-44",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "age category",
+    "Tag": "age:45-54",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "age category",
+    "Tag": "age:55-64",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "age category",
+    "Tag": "age: + 65",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Gender",
+    "Tag": "gender:male",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "Ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Gender",
+    "Tag": "gender:female",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "Ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Gender",
+    "Tag": "gender:Other",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "Ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Education",
+    "Tag": "education:highschool",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Education",
+    "Tag": "education:bachelor",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Education",
+    "Tag": "education:master",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Education",
+    "Tag": "education:phd",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Education",
+    "Tag": "education:college",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Country",
+    "Tag": "country:fr",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Country",
+    "Tag": "country:ma",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Country",
+    "Tag": "country:es",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Country",
+    "Tag": "country:us",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "City",
+    "Tag": "city:casablanca",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "City",
+    "Tag": "city:rabat",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "City",
+    "Tag": "city:paris",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "City",
+    "Tag": "city: 100 Pays 200 Villes ",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Language",
+    "Tag": "language:fr",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Language",
+    "Tag": "language:ar",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Language",
+    "Tag": "language:en",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Demographics",
+    "Tag Category": "Language",
+    "Tag": "language:esp",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "ok",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "personality",
+    "Tag": "personality:analytical",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "personality",
+    "Tag": "personality:creative",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "personality",
+    "Tag": "personality: Social",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "personality",
+    "Tag": "personality: Procedural",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "preference",
+    "Tag": "preference:premium",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "preference",
+    "Tag": "preference:lowcost",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "preference",
+    "Tag": "preference: Innovative",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "preference",
+    "Tag": "preference: quality",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "interest",
+    "Tag": "interest: IT&AI&Automation",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "interest",
+    "Tag": "interest: Technology&innovation",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "interest",
+    "Tag": "interest:properties",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "interest",
+    "Tag": "interest: physics & biology",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "interest",
+    "Tag": "interest: Art&design",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "interest",
+    "Tag": "interest: cars&plane",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "ajouter des interet en fonction des clients",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "motivation:performance",
+    "Tag": "motivation:performance",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "motivation:simplicity",
+    "Tag": "motivation:simplicity",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "attitude:early-adopter",
+    "Tag": "attitude:early-adopter",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "attitude:late-adopter",
+    "Tag": "attitude:late-adopter",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "expectation:quality",
+    "Tag": "expectation:quality",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "expectation:speed",
+    "Tag": "expectation:speed",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "style:premium",
+    "Tag": "style:premium",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "Psychographics & Preferences",
+    "Tag Category": "style:basic",
+    "Tag": "style:basic",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "User Role & Permissions",
+    "Tag Category": "role",
+    "Tag": "role: guest",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "User Role & Permissions",
+    "Tag Category": "role",
+    "Tag": "role: authenticated",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "User Role & Permissions",
+    "Tag Category": "role",
+    "Tag": "role: indentified",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "User Role & Permissions",
+    "Tag Category": "role",
+    "Tag": "role : possibly identfied",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "User Role & Permissions",
+    "Tag Category": "access",
+    "Tag": "access: role based",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Identity & Profile",
+    "Segment": "User Role & Permissions",
+    "Tag Category": "access",
+    "Tag": "access:guest based",
+    "Unnamed: 4": "Ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "company-size",
+    "Tag": "company-size:1-10",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "company-size",
+    "Tag": "company-size:10-50",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "company-size",
+    "Tag": "company-size:50-200",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "company-size:",
+    "Tag": "company-size:200-1000",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "company-size:",
+    "Tag": "company-size:1000+",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "revenue",
+    "Tag": "revenue:1m",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "revenue",
+    "Tag": "revenue:5m",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "revenue",
+    "Tag": "revenue:20m+",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "market",
+    "Tag": "market:local",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "market:",
+    "Tag": "market:regional",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "market",
+    "Tag": "market:global",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "growth",
+    "Tag": "growth:fast",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "growth",
+    "Tag": "growth:stable",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "ownership",
+    "Tag": "ownership:private",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "ownership",
+    "Tag": "ownership:public",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "model",
+    "Tag": "model:b2b",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "model",
+    "Tag": "model: b2g",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "model:b2c",
+    "Tag": "model:b2c",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "model",
+    "Tag": "model:service",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "model",
+    "Tag": "model: integration",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Company Attributes",
+    "Tag Category": "model",
+    "Tag": "model: distribution",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "industry",
+    "Tag": "industry:finance",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "industry",
+    "Tag": "industry:health",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "industry",
+    "Tag": "industry:retail",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "industry",
+    "Tag": "industry:manufacturing",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "industry:telco",
+    "Tag": "industry:telco",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "industry",
+    "Tag": "industry: Service",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "industry",
+    "Tag": "industry:primary sectors",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "industry:insurance",
+    "Tag": "industry:insurance",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "industry:education",
+    "Tag": "industry:education",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "industry:transport",
+    "Tag": "industry:transport",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "industry:energy",
+    "Tag": "industry:energy",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "industry:agriculture",
+    "Tag": "industry:agriculture",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "regulation",
+    "Tag": "regulation:gdpr",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "regulation",
+    "Tag": "regulation:hipaa",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "sector:public",
+    "Tag": "sector:public",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Industry & Vertical",
+    "Tag Category": "sector:private",
+    "Tag": "sector:private",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "role:cto",
+    "Tag": "role:cto",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "role:ceo",
+    "Tag": "role:ceo",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "role:cfo",
+    "Tag": "role:cfo",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "role:cmo",
+    "Tag": "role:cmo",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "role:product-manager",
+    "Tag": "role:product-manager",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "role:developer",
+    "Tag": "role:developer",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "role:data-analyst",
+    "Tag": "role:data-analyst",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "role:designer",
+    "Tag": "role:designer",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "role:consultant",
+    "Tag": "role:consultant",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "role:engineer",
+    "Tag": "role:engineer",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "role:administrator",
+    "Tag": "role:administrator",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "seniority",
+    "Tag": "seniority:executive",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "seniority",
+    "Tag": "seniority:director",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "seniority",
+    "Tag": "seniority:manager",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "seniority",
+    "Tag": "seniority:staff",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "department:it",
+    "Tag": "department:it",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "department:finance",
+    "Tag": "department:finance",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Job Role & Seniority",
+    "Tag Category": "department:marketing",
+    "Tag": "department:marketing",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "buyer role",
+    "Tag": "buyer:buyer",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "buyer role",
+    "Tag": "buyer:no",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "buyer role",
+    "Tag": "buyer: influencer",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "buyer role",
+    "Tag": "buyer: recommender",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "buyer role",
+    "Tag": "buyer: initiator",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "buyer role",
+    "Tag": "buyer: decider",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "buyer role",
+    "Tag": "buyer role: End user",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "budget",
+    "Tag": "budget:low",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "budget",
+    "Tag": "budget:medium",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "budget",
+    "Tag": "budget:high",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "budget:none",
+    "Tag": "budget:none",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "authority",
+    "Tag": "authority:high",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "authority",
+    "Tag": "authority:medium",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "authority",
+    "Tag": "authority:low",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "authority",
+    "Tag": "authority:none",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "need",
+    "Tag": "need:urgent",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "need",
+    "Tag": "need:medium",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "need",
+    "Tag": "need:low",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "need",
+    "Tag": "need:none",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "timing",
+    "Tag": "timing:now",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "timing",
+    "Tag": "timing:3months",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "timing",
+    "Tag": "timing:6months",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "timing",
+    "Tag": "timing : none",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "fit",
+    "Tag": "fit:strong",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "fit",
+    "Tag": "fit:weak",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "fit",
+    "Tag": "fit:medium",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Firmographics",
+    "Segment": "Buying Center Role (BANT)",
+    "Tag Category": "fit",
+    "Tag": "fit: none",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "sessions:daily",
+    "Tag": "sessions:daily",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "sessions:weekly",
+    "Tag": "sessions:weekly",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "sessions:monthly",
+    "Tag": "sessions:monthly",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "usage:low",
+    "Tag": "usage:low",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "usage:medium",
+    "Tag": "usage:medium",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "usage:high",
+    "Tag": "usage:high",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "active:7days",
+    "Tag": "active:7days",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "active:30days",
+    "Tag": "active:30days",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "events:10+",
+    "Tag": "events:10+",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "events:100+",
+    "Tag": "events:100+",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "engagement:power-user",
+    "Tag": "engagement:power-user",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "engagement:occasional",
+    "Tag": "engagement:occasional",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "login:",
+    "Tag": "login:frequent",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "login",
+    "Tag": "login:rare",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "consumption",
+    "Tag": "consumption:high",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "consumption",
+    "Tag": "consumption:low",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "stickiness",
+    "Tag": "stickiness:high",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "stickiness",
+    "Tag": "stickiness:low",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "depth",
+    "Tag": "depth:shallow",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Product Usage Intensity",
+    "Tag Category": "depth",
+    "Tag": "depth:deep",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Feature Adoption",
+    "Tag Category": "feature-depth",
+    "Tag": "feature-depth:basic",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Feature Adoption",
+    "Tag Category": "feature-depth",
+    "Tag": "feature-depth:medium",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Feature Adoption",
+    "Tag Category": "Feature Adoption",
+    "Tag": "adoption:features 1",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Feature Adoption",
+    "Tag Category": "Feature Adoption",
+    "Tag": "adoption:features 2",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Feature Adoption",
+    "Tag Category": "Feature Adoption",
+    "Tag": "adoption:features 3",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Feature Adoption",
+    "Tag Category": "Feature Adoption",
+    "Tag": "adoption:features 4",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Feature Adoption",
+    "Tag Category": "Feature Adoption",
+    "Tag": "adoption:features 5",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Feature Adoption",
+    "Tag Category": "Feature Adoption",
+    "Tag": "adoption:features 6",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Feature Adoption",
+    "Tag Category": "Feature Adoption",
+    "Tag": "adoption:features 7",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "email",
+    "Tag": "email:opened",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "email",
+    "Tag": "email:clicked",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "email",
+    "Tag": "email:ignored",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "push",
+    "Tag": "push:enabled",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "push",
+    "Tag": "push:disabled",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "web",
+    "Tag": "web:active",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "web",
+    "Tag": "web:inactive",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "loyalty",
+    "Tag": "loyalty:high",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "loyalty",
+    "Tag": "loyalty:medium",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "loyalty",
+    "Tag": "loyalty:low",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "promotion",
+    "Tag": "promotion:responsive",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "promotion",
+    "Tag": "promotion:unresponsive",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "event",
+    "Tag": "event:attendee",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "event",
+    "Tag": "event:absent",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "social",
+    "Tag": "social:active",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "social",
+    "Tag": "social:inactive",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "support",
+    "Tag": "support:active",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "support",
+    "Tag": "support:inactive",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "feedback",
+    "Tag": "feedback:positive",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Engagement Level",
+    "Tag Category": "feedback",
+    "Tag": "feedback:negative",
+    "Unnamed: 4": "ok",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:lead",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "Lifecycle est la plus importante \u00e0 impl\u00e9menter et idendifier classifier",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:mql (marketing qualified)",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:sql (sales qualified)",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:prospect",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:customer",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:active",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:inactive",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:churn-risk",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:churned",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:advocate",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:expansion",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:onboarding",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:nurturing",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:upsell",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:renewal",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:lost",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:win",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:opportunity",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:trial",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Lifecycle Stage",
+    "Tag Category": "stage",
+    "Tag": "stage:evaluation",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "channel",
+    "Tag": "channel:email",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "fiche client et user info en plus du tag",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "channel",
+    "Tag": "channel:sms",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "channel",
+    "Tag": "channel:push",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "channel",
+    "Tag": "channel:whatsapp",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "channel",
+    "Tag": "channel:webChat",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "channel",
+    "Tag": "channel: Instagram",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "channel",
+    "Tag": "channel: Facebook",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "channel",
+    "Tag": "channel: Telegram",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "channel",
+    "Tag": "channel: BooForms",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "channel",
+    "Tag": "channel: LandingPage",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "channel",
+    "Tag": "channel: others",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "device",
+    "Tag": "device:mobile",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "device",
+    "Tag": "device:desktop",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "os",
+    "Tag": "os:ios",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "os",
+    "Tag": "os:android",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "traffic",
+    "Tag": "traffic:direct",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "traffic",
+    "Tag": "traffic:organic",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "traffic",
+    "Tag": "traffic:paid",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "traffic",
+    "Tag": "traffic:referral",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "source",
+    "Tag": "source:campaign",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "source",
+    "Tag": "source:ads",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "source",
+    "Tag": "source: outbound",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "source",
+    "Tag": "source: influencer",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Behavioral & Engagement",
+    "Segment": "Channel Interaction",
+    "Tag Category": "source",
+    "Tag": "source:newsletter",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "recency",
+    "Tag": "recency:7d",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "recency",
+    "Tag": "recency:30d",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "recency",
+    "Tag": "recency:90d",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "recency",
+    "Tag": "recency:180d",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "frequency",
+    "Tag": "frequency:1-5",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "frequency",
+    "Tag": "frequency:5-10",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "frequency",
+    "Tag": "frequency:10+",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "monetary:low",
+    "Tag": "monetary:low",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "monetary:medium",
+    "Tag": "monetary:medium",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "monetary:high",
+    "Tag": "monetary:high",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "rfm class",
+    "Tag": "rfm:vip",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "rfm class",
+    "Tag": "rfm:at-risk",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "rfm class",
+    "Tag": "rfm:new",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "rfm class",
+    "Tag": "rfm:champion",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "rfm class",
+    "Tag": "rfm:inactive",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "cycle",
+    "Tag": "cycle:short",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "cycle",
+    "Tag": "cycle:medium",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "cycle",
+    "Tag": "cycle:long",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "value",
+    "Tag": "value:high",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "value",
+    "Tag": "value:low",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "RFM",
+    "Tag Category": "value",
+    "Tag": "value:Medium",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "purchase",
+    "Tag": "purchase:one-time",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "purchase",
+    "Tag": "purchase:repeat",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "purchase",
+    "Tag": "purchase:reccurent",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "cart",
+    "Tag": "cart: fill",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "cart",
+    "Tag": "cart:abandoned",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "cart",
+    "Tag": "cart:completed",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "price-sensitivity:high",
+    "Tag": "price-sensitivity:high",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "price-sensitivity:low",
+    "Tag": "price-sensitivity:low",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "product:core",
+    "Tag": "product:core",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "product:addons",
+    "Tag": "product:addons",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "discount:user",
+    "Tag": "discount:user",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "discount:non-user",
+    "Tag": "discount:non-user",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "refund:yes",
+    "Tag": "refund:yes",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "refund:no",
+    "Tag": "refund:no",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "returning:yes",
+    "Tag": "returning:yes",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "returning:no",
+    "Tag": "returning:no",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "purchase:seasonal",
+    "Tag": "purchase:seasonal",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "purchase:impulse",
+    "Tag": "purchase:impulse",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "purchase:planned",
+    "Tag": "purchase:planned",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "basket:high",
+    "Tag": "basket:high",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "basket:low",
+    "Tag": "basket:low",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Purchase Behavior",
+    "Tag Category": "purchase:subscription",
+    "Tag": "purchase:subscription",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "tier:bronze",
+    "Tag": "tier:bronze",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "tier:silver",
+    "Tag": "tier:silver",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "tier:gold",
+    "Tag": "tier:gold",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "tier:platinum",
+    "Tag": "tier:platinum",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "profitability:low",
+    "Tag": "profitability:low",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "profitability:high",
+    "Tag": "profitability:high",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "margin:positive",
+    "Tag": "margin:positive",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "margin:negative",
+    "Tag": "margin:negative",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "customer-lifetime:short",
+    "Tag": "customer-lifetime:short",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "customer-lifetime:long",
+    "Tag": "customer-lifetime:long",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "renewal-likelihood:high",
+    "Tag": "renewal-likelihood:high",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "renewal-likelihood:low",
+    "Tag": "renewal-likelihood:low",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "growth:high",
+    "Tag": "growth:high",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "growth:low",
+    "Tag": "growth:low",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "tier:enterprise",
+    "Tag": "tier:enterprise",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "tier:startup",
+    "Tag": "tier:startup",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "value:premium",
+    "Tag": "value:premium",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "value:standard",
+    "Tag": "value:standard",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "loyalty:long-term",
+    "Tag": "loyalty:long-term",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Transactional & Revenue",
+    "Segment": "Customer Value Tier",
+    "Tag Category": "loyalty:new",
+    "Tag": "loyalty:new",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "intent:buy",
+    "Tag": "intent:buy",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "intent:research",
+    "Tag": "intent:research",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "intent:compare",
+    "Tag": "intent:compare",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "urgency:high",
+    "Tag": "urgency:high",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "urgency:medium",
+    "Tag": "urgency:medium",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "urgency:low",
+    "Tag": "urgency:low",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "fit:strong",
+    "Tag": "fit:strong",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "fit:medium",
+    "Tag": "fit:medium",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "fit:weak",
+    "Tag": "fit:weak",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "readiness:now",
+    "Tag": "readiness:now",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "readiness:later",
+    "Tag": "readiness:later",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "interest:productA",
+    "Tag": "interest:productA",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "interest:productB",
+    "Tag": "interest:productB",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "intent:demo",
+    "Tag": "intent:demo",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "intent:trial",
+    "Tag": "intent:trial",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "intent:upgrade",
+    "Tag": "intent:upgrade",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "intent:renew",
+    "Tag": "intent:renew",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "intent:contact",
+    "Tag": "intent:contact",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "intent:pricing",
+    "Tag": "intent:pricing",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Customer Intent Signals",
+    "Tag Category": "intent:integration",
+    "Tag": "intent:integration",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "pain:manual-process",
+    "Tag": "pain:manual-process",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "pain:slow-ops",
+    "Tag": "pain:slow-ops",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "pain:data-silos",
+    "Tag": "pain:data-silos",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "pain:pipeline",
+    "Tag": "pain:pipeline",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "need:automation",
+    "Tag": "need:automation",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "need:ai",
+    "Tag": "need:ai",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "need:integration",
+    "Tag": "need:integration",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "need:insights",
+    "Tag": "need:insights",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "need:training",
+    "Tag": "need:training",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "need:governance",
+    "Tag": "need:governance",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "priority:high",
+    "Tag": "priority:high",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "priority:medium",
+    "Tag": "priority:medium",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "priority:low",
+    "Tag": "priority:low",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "pain:complexity",
+    "Tag": "pain:complexity",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "pain:errors",
+    "Tag": "pain:errors",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "pain:overcost",
+    "Tag": "pain:overcost",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "need:migration",
+    "Tag": "need:migration",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "need:security",
+    "Tag": "need:security",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "need:performance",
+    "Tag": "need:performance",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Pain Points & Needs",
+    "Tag Category": "need:scalability",
+    "Tag": "need:scalability",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "predict:churn-high",
+    "Tag": "predict:churn-high",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "predict:churn-medium",
+    "Tag": "predict:churn-medium",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "predict:churn-low",
+    "Tag": "predict:churn-low",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "predict:upsell-high",
+    "Tag": "predict:upsell-high",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "predict:upsell-low",
+    "Tag": "predict:upsell-low",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "predict:conversion-high",
+    "Tag": "predict:conversion-high",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "predict:conversion-low",
+    "Tag": "predict:conversion-low",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "score:loyalty",
+    "Tag": "score:loyalty",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "score:engagement",
+    "Tag": "score:engagement",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "score:health",
+    "Tag": "score:health",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "risk:high",
+    "Tag": "risk:high",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "risk:medium",
+    "Tag": "risk:medium",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "risk:low",
+    "Tag": "risk:low",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "opportunity:high",
+    "Tag": "opportunity:high",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "opportunity:medium",
+    "Tag": "opportunity:medium",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "opportunity:low",
+    "Tag": "opportunity:low",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "forecast:positive",
+    "Tag": "forecast:positive",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "forecast:negative",
+    "Tag": "forecast:negative",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "propensity:buy",
+    "Tag": "propensity:buy",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  },
+  {
+    "Family": "Needs & Predictive",
+    "Segment": "Predictive Scores",
+    "Tag Category": "propensity:upgrade",
+    "Tag": "propensity:upgrade",
+    "Unnamed: 4": "",
+    "Tag ou fiche client enrichie": "",
+    "AI Enrichissement (plus tard)": ""
+  }
+]
