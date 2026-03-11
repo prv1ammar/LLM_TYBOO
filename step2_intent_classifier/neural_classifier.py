@@ -20,13 +20,97 @@ MODEL_PATH = Path(__file__).parent.parent / "models" / "raven_cnn.pkl"
 INTENTS    = ["question_info","complaint","transaction","support","off_topic","emergency"]
 N_CLS      = len(INTENTS)
 ITAGS      = {
-    "question_info": ["banking","faq"],
-    "complaint":     ["banking","frustrated","requires_human"],
-    "transaction":   ["banking","transfer","form_needed"],
-    "support":       ["banking"],
+    # Base segmentation tags per intent (from Tybot SmartContact taxonomy)
+    "question_info": ["intent:research", "intent:pricing"],
+    "complaint":     ["feedback:negative", "stage:churn-risk", "urgency:medium", "requires_human"],
+    "transaction":   ["intent:buy", "stage:customer"],
+    "support":       ["support:active", "need:performance"],
     "off_topic":     [],
-    "emergency":     ["banking","urgent","fraud_signal","requires_human"],
+    "emergency":     ["urgency:high", "risk:high", "stage:churn-risk", "fraud_signal", "requires_human"],
 }
+
+# ── SEGMENTATION SIGNAL RULES (Tybot SmartContact taxonomy) ──────────
+# Each entry: (tag, compiled_regex)
+# Applied at inference to enrich output with fine-grained segmentation tags
+TAG_SIGNALS = [
+    # ── Urgency ─────────────────────────────────────────────────────
+    ("urgency:high",          re.compile(r'(urgent|3ajjlu|9awwed bsre3a|vite|immediately|right now|daba|asap|sos|help|عاجل|الآن|فوراً|بسرعة)', re.I)),
+    ("urgency:low",           re.compile(r'(whenever|pas pressé|no rush|ma kaynch mochkil|machi mosta3jil)', re.I)),
+    # ── Intent signals ──────────────────────────────────────────────
+    ("intent:pricing",        re.compile(r'(prix|price|tarif|frais|fees|combien|chhal|كم|تكلف|coût|cost|plafond)', re.I)),
+    ("intent:upgrade",        re.compile(r'(upgrade|améliorer|changer.*pack|passer.*offre|تطوير|monter.*en gamme)', re.I)),
+    ("intent:renew",          re.compile(r'(renew|renouvell|تجديد|prolonger)', re.I)),
+    ("intent:demo",           re.compile(r'\b(demo|démonstration|تجربة.*مجانية|essai.*gratuit)\b', re.I)),
+    ("intent:trial",          re.compile(r'\b(trial|essai|تجربة)\b', re.I)),
+    ("intent:contact",        re.compile(r'(contacter|joindre|appeler|call.*center|تواصل|رقم.*هاتف)', re.I)),
+    ("intent:compare",        re.compile(r'(compar|vs\b|versus|مقارنة|mieux que|meilleur)', re.I)),
+    ("intent:integration",    re.compile(r'(integrat|api\b|webhook|connect|lier.*système|ربط)', re.I)),
+    ("intent:research",       re.compile(r'(comment|c.est quoi|what is|how (do|can|long|much)|chhal.*waqt|kifash|كم يستغرق|هل يمكن|puis-je|wash ymken)', re.I)),
+    # ── Needs ────────────────────────────────────────────────────────
+    ("need:security",         re.compile(r'(sécurité|securit|أمان|protect|encrypt|bloquer|geler|freeze|fraud|srak|hack|piraté|mkhtar9|srqo)', re.I)),
+    ("need:performance",      re.compile(r'(lent|slow|plante|crash|freeze|bug|ne charge pas|لا يعمل|بطيء|مشكل تقني)', re.I)),
+    ("need:automation",       re.compile(r'(automat|automatiser|تلقائي|workflow|répétitif)', re.I)),
+    ("need:migration",        re.compile(r'(migrat|transférer.*données|export|import.*compte)', re.I)),
+    # ── Pain points ──────────────────────────────────────────────────
+    ("pain:errors",           re.compile(r'(erreur|error|bug|خطأ|wrong|mauvais.*code|code faux)', re.I)),
+    ("pain:slow-ops",         re.compile(r'(lent|slow|des jours|des semaines|3 jours|mazal.*ma wsalch|تأخر|ça prend trop)', re.I)),
+    ("pain:complexity",       re.compile(r'(compliqué|complex|difficile|ma fhemtch|je comprends pas|ما فهمتش)', re.I)),
+    ("pain:overcost",         re.compile(r'(cher|expensive|trop de frais|trop cher|غالي|رسوم عالية)', re.I)),
+    # ── Feedback ─────────────────────────────────────────────────────
+    ("feedback:negative",     re.compile(r'(nul|terrible|inacceptable|machi radi|za3fan|mécontent|غير راض|awful|horrible|déplorable|disgraceful|bla sta7ya)', re.I)),
+    ("feedback:positive",     re.compile(r'\b(merci|شكرا|thank|excellent|parfait|mzn|bien|good|super|bravo|génial)\b', re.I)),
+    # ── Lifecycle stage ──────────────────────────────────────────────
+    ("stage:churn-risk",      re.compile(r'(quitter|annuler|résilier|fermer.*compte|close.*account|cancel|ghadi nmchi|safi bghit nmchi)', re.I)),
+    ("stage:onboarding",      re.compile(r'(nouveau.*compte|premier.*connexion|first.*login|nfta7.*compte|bda.*nesta3mel)', re.I)),
+    ("stage:renewal",         re.compile(r'(renouvell|renew|تجديد|expir|échéance|fin.*contrat)', re.I)),
+    # ── RFM signals ──────────────────────────────────────────────────
+    ("rfm:at-risk",           re.compile(r'(plusieurs.*fois|ça fait.*jours|منذ.*أيام|depuis.*semaines|still not|mazal.*machi)', re.I)),
+    # ── Channel ──────────────────────────────────────────────────────
+    ("channel:whatsapp",      re.compile(r'(whatsapp|wsp|واتساب)', re.I)),
+    ("channel:webChat",       re.compile(r'(chat|tchat|live chat)', re.I)),
+    # ── Priority ─────────────────────────────────────────────────────
+    ("priority:high",         re.compile(r'(urgent|asap|3ajjlu|immédiatement|عاجل|tout de suite|right now)', re.I)),
+    ("priority:low",          re.compile(r'(quand vous pouvez|no rush|machi mosta3jil|في وقت فراغكم)', re.I)),
+]
+
+# Language → segmentation language tag
+_LANG_TO_TAG = {
+    "french":  "language:fr",
+    "arabic":  "language:ar",
+    "english": "language:en",
+    "darija":  "language:ar",   # Darija = Moroccan Arabic dialect
+}
+
+def _compute_segmentation_tags(text: str, intent: str, lang: str) -> list:
+    """
+    Returns enriched segmentation tags from Tybot SmartContact taxonomy.
+    Combines intent base tags + language tag + signal-based tags.
+    """
+    tags = list(ITAGS.get(intent, []))
+
+    # Language tag (segmentation standard)
+    lang_tag = _LANG_TO_TAG.get(lang)
+    if lang_tag:
+        tags.append(lang_tag)
+    # Keep granular lang tag for Darija (useful for routing)
+    if lang == "darija":
+        tags.append("lang:darija")
+
+    # Code-switching detection
+    if (len(re.findall(r'[\u0600-\u06ff]', text)) > 0
+            and re.search(r'[a-zA-Z]{3,}', text)):
+        tags.append("code_switching")
+
+    # Signal-based tags from TAG_SIGNALS
+    for tag, pat in TAG_SIGNALS:
+        if tag not in tags and pat.search(text):
+            tags.append(tag)
+
+    # Emergency always gets fraud_signal
+    if RULES[0][1].search(text) and "fraud_signal" not in tags:
+        tags.append("fraud_signal")
+
+    return list(dict.fromkeys(tags))  # deduplicate, preserve order
 
 # ── SYNTHETIC SEED DATA (embedded — no external file needed) ─────────
 # Guarantees all 6 intents exist even if user JSONL files are missing them
@@ -620,18 +704,12 @@ class CNNClassifier:
         prob = self.model.predict_proba(ids)[0]
         intent, prob = apply_rules(text, INTENTS[prob.argmax()], prob)
         lang = detect_lang(text)
-        tags = list(ITAGS.get(intent, []))
-        tags.append(f"lang:{lang}")
-        if RULES[0][1].search(text) and "fraud_signal" not in tags:
-            tags.append("fraud_signal")
-        if (len(re.findall(r'[\u0600-\u06ff]', text)) > 0
-                and re.search(r'[a-zA-Z]{3,}', text)):
-            tags.append("code_switching")
-        ms = (time.perf_counter() - t0) * 1000
+        tags = _compute_segmentation_tags(text, intent, lang)
+        ms   = (time.perf_counter() - t0) * 1000
         return {
             "intent":       intent,
             "confidence":   round(float(prob.max()), 4),
-            "tags":         list(dict.fromkeys(tags)),
+            "tags":         tags,
             "lang":         lang,
             "inference_ms": round(ms, 2),
             "all_intents":  {k: round(float(p), 4)
