@@ -141,11 +141,11 @@ def apply_lora(model, cfg: dict):
 #  TRAINING STAGES
 # ══════════════════════════════════════════════════════════════
 
-def train_sft(model_id: str, out_name: str, epochs=1, batch=1, lr=1e-4, dry_run=False):
+def train_sft(model_id: str, out_name: str, epochs=1, batch=1, lr=1e-4, dry_run=False, samples=500):
     from transformers import TrainingArguments
     from trl import SFTTrainer, SFTConfig
 
-    n_samples = 100 if dry_run else 500 # Very small for CPU
+    n_samples = 100 if dry_run else samples
     sft_out = OUT_DIR / out_name / "sft"
     sft_out.mkdir(parents=True, exist_ok=True)
 
@@ -197,11 +197,11 @@ def train_sft(model_id: str, out_name: str, epochs=1, batch=1, lr=1e-4, dry_run=
     tok.save_pretrained(merged_path)
     return merged_path
 
-def train_dpo(sft_model_path: str, out_name: str, epochs=1, batch=1, lr=5e-5, dry_run=False):
+def train_dpo(sft_model_path: str, out_name: str, epochs=1, batch=1, lr=5e-5, dry_run=False, samples=200):
     from transformers import AutoTokenizer, AutoModelForCausalLM, TrainingArguments
     from trl import DPOTrainer, DPOConfig
     
-    n_samples = 50 if dry_run else 200
+    n_samples = 50 if dry_run else (samples // 2)
     dpo_out = OUT_DIR / out_name / "dpo"
     dpo_out.mkdir(parents=True, exist_ok=True)
 
@@ -249,19 +249,20 @@ def train_dpo(sft_model_path: str, out_name: str, epochs=1, batch=1, lr=5e-5, dr
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--stage",   default="both", choices=["sft","dpo","both"])
-    p.add_argument("--dry-run", action="store_true", default=True) # Default to dry run for safety
+    p.add_argument("--dry-run", action="store_true", default=False)
+    p.add_argument("--samples", type=int, default=500)
     args = p.parse_args()
 
     model_id, out_name = resolve_model()
     sft_merged = None
 
     if args.stage in ("sft", "both"):
-        sft_merged = train_sft(model_id, out_name, dry_run=args.dry_run)
+        sft_merged = train_sft(model_id, out_name, dry_run=args.dry_run, samples=args.samples)
     
     if args.stage in ("dpo", "both"):
         path = sft_merged or str(OUT_DIR / out_name / "sft" / "merged")
         if os.path.exists(path):
-            train_dpo(path, out_name, dry_run=args.dry_run)
+            train_dpo(path, out_name, dry_run=args.dry_run, samples=args.samples)
         else:
             print(f"[Error] SFT model not found at {path}")
 
