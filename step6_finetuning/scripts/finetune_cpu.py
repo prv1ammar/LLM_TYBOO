@@ -171,7 +171,9 @@ def train_sft(model_id: str, out_name: str, epochs=1, batch=1, lr=1e-4, dry_run=
         bf16 = False,
         fp16 = False,
         logging_steps = 10,
-        save_strategy = "no",
+        save_strategy = "steps",
+        save_steps = 500,
+        save_total_limit = 2,
         report_to = "none",
         dataset_text_field="text",
     )
@@ -226,6 +228,9 @@ def train_dpo(sft_model_path: str, out_name: str, epochs=1, batch=1, lr=5e-5, dr
         use_cpu = True,
         bf16 = False,
         fp16 = False,
+        save_strategy = "steps",
+        save_steps = 500,
+        save_total_limit = 2,
         report_to = "none"
     )
 
