@@ -143,7 +143,7 @@ def apply_lora(model, cfg: dict):
 
 def train_sft(model_id: str, out_name: str, epochs=1, batch=1, lr=1e-4, dry_run=False):
     from transformers import TrainingArguments
-    from trl import SFTTrainer
+    from trl import SFTTrainer, SFTConfig
 
     n_samples = 100 if dry_run else 500 # Very small for CPU
     sft_out = OUT_DIR / out_name / "sft"
@@ -161,25 +161,24 @@ def train_sft(model_id: str, out_name: str, epochs=1, batch=1, lr=1e-4, dry_run=
     ds_train = split["train"].map(fmt, remove_columns=split["train"].column_names)
     ds_val   = split["test"].map(fmt,  remove_columns=split["test"].column_names)
 
-    args = TrainingArguments(
+    args = SFTConfig(
         output_dir = str(sft_out / "checkpoints"),
         num_train_epochs = epochs,
         per_device_train_batch_size = batch,
         gradient_accumulation_steps = 4,
         learning_rate = lr,
-        no_cuda = True, # Force CPU
         use_cpu = True,
         bf16 = False,
         fp16 = False,
         logging_steps = 10,
         save_strategy = "no",
-        report_to = "none"
+        report_to = "none",
+        dataset_text_field="text",
     )
     
     trainer = SFTTrainer(
         model=mod, args=args,
-        train_dataset=ds_train, eval_dataset=ds_val, tokenizer=tok,
-        dataset_text_field="text", max_seq_length=512, # Shorter for CPU memory
+        train_dataset=ds_train, eval_dataset=ds_val, processing_class=tok,
     )
 
     t0 = time.time()
@@ -224,16 +223,13 @@ def train_dpo(sft_model_path: str, out_name: str, epochs=1, batch=1, lr=5e-5, dr
         per_device_train_batch_size = batch,
         gradient_accumulation_steps = 4,
         learning_rate = lr,
-        no_cuda = True,
         use_cpu = True,
         bf16 = False,
         fp16 = False,
-        max_length = 512,
-        max_prompt_length = 256,
         report_to = "none"
     )
 
-    trainer = DPOTrainer(model=mod, ref_model=None, args=dpo_config, train_dataset=ds_train, eval_dataset=ds_val, tokenizer=tok)
+    trainer = DPOTrainer(model=mod, ref_model=None, args=dpo_config, train_dataset=ds_train, eval_dataset=ds_val, processing_class=tok)
     
     t0 = time.time()
     trainer.train()
