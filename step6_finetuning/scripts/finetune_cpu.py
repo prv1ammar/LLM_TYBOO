@@ -96,7 +96,7 @@ def format_sft_text(example, tokenizer):
     return {"text": text}
 
 def format_dpo_example(example, tokenizer):
-    system = example.get("system", "You are RAVEN, a banking assistant.")
+    system = example.get("system", "You are RAVEN, an intelligent local assistant.")
     prompt_msgs = [{"role":"system","content":system},{"role":"user","content":example["prompt"]}]
     chosen_msgs = prompt_msgs + [{"role":"assistant","content":example["chosen"]}]
     rejected_msgs = prompt_msgs + [{"role":"assistant","content":example["rejected"]}]
