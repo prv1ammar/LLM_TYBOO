@@ -51,12 +51,14 @@ data/
 
 ```bash
 python -c "
+
 import json
 for lang in ['en', 'fr', 'ar']:
     data = json.load(open(f'data/conversations_{lang}.json'))
     print(f'{lang}: {len(data)} samples')
     print('Sample:', data[0]['messages'][0]['content'][:80])
     print()
+    
 "
 ```
 

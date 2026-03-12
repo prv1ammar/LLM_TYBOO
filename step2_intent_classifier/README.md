@@ -1,31 +1,54 @@
-# Step 2 — Intent Classifier (Fine-tuning)
+# Step 2 — Intent Classifier (TextCNN)
 
 **Location:** `step2_intent_classifier/`  
-**Where to run:** ☁️ Google Colab (GPU required)  
-**Goal:** Fine-tune a multilingual model to classify user intents
+**Where to run:** ☁️ Google Colab (T4 GPU recommended)  
+**Goal:** Train a multilingual TextCNN model that classifies user intent and assigns segmentation tags from any message in English, French, Arabic, or Darija.
 
 ---
 
 ## What it does
 
-- Takes conversations from Step 1 as training data
-- Fine-tunes `xlm-roberta-base` (or similar multilingual model)
-- Classifies these intents from any user message:
+- Loads a balanced CSV dataset (100K rows) from Google Drive
+- Enriches tags using the official segmentation taxonomy (`Segmentation_TybotSmartContact.xlsx`)
+- Trains a custom **TextCNN** architecture with dual output heads (intent + tags)
+- Classifies these 12 intents from any user message:
 
 | Intent | Description |
 |--------|-------------|
-| `info_seeking` | User wants information or explanation |
-| `creative` | Creative writing, poetry, stories |
-| `problem_solving` | Debugging, planning, fixing |
-| `casual_chat` | Greetings, small talk |
-| `sensitive` | Touchy or controversial topics |
-| `harmful` | Dangerous or harmful requests |
+| `request` | User is asking for something specific |
+| `interest` | User is exploring or curious about products |
+| `negotiation` | User is trying to get a better deal or price |
+| `confirmation` | User wants to verify or confirm something |
+| `emotional_expression` | User expresses stress, frustration, or anxiety |
+| `reminder` | User is following up on an unresolved issue |
+| `acknowledgment` | User confirms they understood |
+| `persuasion` | User is applying pressure or making a deal |
+| `salutation` | Greetings and farewells |
+| `social` | Small talk and casual conversation |
+| `feedback` | User shares an opinion about the service |
+| `follow_up` | User checks status of a previous request |
 
-- Saves the fine-tuned model to `models/qwen_intent_finetuned/`
+- Assigns segmentation tags from 350 official tags (demographics, behavioral, transactional, predictive)
+- Saves the trained model as both `.pt` and `.pkl` 
 
 ---
 
-## How to run on Google Colab
+## Architecture
+
+```
+Embedding(vocab=10,000, dim=64)
+→ Conv1D(kernels=3,4,5 × 192 filters) → GlobalMaxPool → concat(576)
+→ Dropout(0.35) → Linear(576→576) → ReLU → Dropout
+├── intent_head : Linear(576 → 12)   → CrossEntropyLoss(label_smooth=0.1)
+└── tags_head   : Linear(576 → N_TAGS) → BCEWithLogitsLoss
+```
+
+**Tokenizer:** char trigrams + word tokens, Arabic normalization, vocab=10K, seq_len=96  
+**Languages:** English, French, Arabic (MSA), Moroccan Darija
+
+---
+
+## How to run
 
 ### Step-by-step
 
@@ -34,62 +57,126 @@
 - Click **New Notebook**
 - Go to **Runtime → Change runtime type → GPU (T4)**
 
-**2. Upload your data**
+**2. Mount Google Drive**
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+```
+
+**3. Upload required files to your Drive**
+
+Place these files in `/content/drive/MyDrive/RAVEN/`:
+- `IIbalanced_shuffled_dataset.csv` — training data (100K rows)
+- `Segmentation_TybotSmartContact.xlsx` — official tag taxonomy
+
+**4. Upload the training script**
 ```python
 from google.colab import files
 uploaded = files.upload()
-# Upload: data/conversations_en.json, conversations_fr.json, etc.
+# Upload: raven_cnn.py
 ```
 
-**3. Upload the classifier script**
-```python
-from google.colab import files
-uploaded = files.upload()
-# Upload: step2_intent_classifier/classifier.py
-```
+**5. Update paths at the top of `raven_cnn.py`**
 
-**4. Install dependencies**
+
+**6. Install dependencies**
 ```bash
-!pip install transformers datasets scikit-learn torch accelerate
+!pip install torch pandas scikit-learn numpy openpyxl
 ```
 
-**5. Run the classifier training**
+**7. Run the training**
 ```bash
-!python classifier.py
+!python raven_cnn.py
 ```
 
-**6. Download the trained model**
+Training takes ~15–25 minutes on a T4 GPU.
+
+**8. Output files saved to Drive**
+
+| File | Description |
+|------|-------------|
+| `raven_cnn_torch.pt` | PyTorch state dict (for long-term use) |
+| `raven_cnn_torch.pkl` | Full pickled model (for easy deployment) |
+
+---
+
+
+
+---
+
+## Load and use the model
+
+### From `.pkl` (easiest)
 ```python
-import shutil
-from google.colab import files
-shutil.make_archive('qwen_intent_finetuned', 'zip', 'models/qwen_intent_finetuned')
-files.download('qwen_intent_finetuned.zip')
+import pickle, torch
+
+with open("raven_cnn_torch.pkl", "rb") as f:
+    payload = pickle.load(f)
+
+model          = payload["model"].eval()
+tok            = payload["tok"]
+intent_encoder = payload["intent_encoder"]
+TAG_VOCAB      = payload["tag_vocab"]
+```
+
+### From HuggingFace
+```python
+from huggingface_hub import hf_hub_download
+import pickle
+
+path = hf_hub_download("your_username/raven-intent-classifier", "raven_cnn_torch.pkl")
+with open(path, "rb") as f:
+    payload = pickle.load(f)
+
+model          = payload["model"].eval()
+tok            = payload["tok"]
+intent_encoder = payload["intent_encoder"]
+TAG_VOCAB      = payload["tag_vocab"]
+```
+
+### Run inference
+```python
+predict("I need to block my card right now")
+predict("bghit n7awel flous l compte dyal khoya")
+predict("أريد إيقاف بطاقتي فوراً")
+predict("je voudrais réinitialiser mon mot de passe")
 ```
 
 ---
 
-## Transfer the model to the VM
-
-After downloading from Colab, unzip and transfer to the VM:
+## Transfer model to VM
 
 ```bash
-# Unzip locally
-unzip qwen_intent_finetuned.zip -d models/qwen_intent_finetuned
-
-# Transfer to VM
-scp -r models/qwen_intent_finetuned litellm-tybo@192.168.0.184:~/LLM_TYBOO/models/
+# Download .pkl from Drive or HuggingFace, then transfer to VM
+scp raven_cnn_torch.pkl litellm-tybo@192.168.0.184:~/LLM_TYBOO/models/
 # password: litellm-tybo123
 ```
 
 ---
 
-## Test the classifier locally
+## Test locally
 
 ```bash
-cd c:\Users\info\Downloads\raven
+cd c:\Users\admin\Desktop\NOUVEAU\LLM_TYBOO
 venv\Scripts\activate
-python step2_intent_classifier/classifier.py
+python step2_intent_classifier/raven_cnn.py
 ```
+
+---
+
+## Config reference
+
+| Parameter | Value |
+|-----------|-------|
+| `VOCAB_SIZE` | 10,000 |
+| `SEQ_LEN` | 96 |
+| `EMBED_DIM` | 64 |
+| `CNN_FILTERS` | 192 per kernel (576 total) |
+| `EPOCHS` | 60 (early stopping, patience=10) |
+| `BATCH_SIZE` | 256 |
+| `LEARNING_RATE` | 2e-3 |
+| `DROPOUT` | 0.35 |
+| `AUG_FACTOR` | 4× (rare intents: 8×) |
 
 ---
 
@@ -97,12 +184,9 @@ python step2_intent_classifier/classifier.py
 
 | File | Description |
 |------|-------------|
-| `classifier.py` | Main classifier with training + inference |
-| `classifier_v2.py` | Improved version with better accuracy |
-| `neural_classifier.py` | Neural network-based approach |
-| `improved_classifier.py` | Latest version with all improvements |
-
-> **Tip:** Start with `improved_classifier.py` for best results.
+| `raven_cnn.py` | Full training + inference pipeline |
+| `Segmentation_TybotSmartContact.xlsx` | Official tag taxonomy (350 tags) |
+| `IIbalanced_shuffled_dataset.csv` | Balanced training dataset (100K rows) |
 
 ---
 
