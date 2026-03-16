@@ -1,0 +1,49 @@
+# RAVEN — Stage 1 : SFT Config
+# Model : Qwen3-0.6B  (fallback: Qwen2.5-0.5B)
+# GPU   : T4 (8GB+ VRAM)
+
+model:
+  primary:   "Qwen/Qwen3-0.6B"
+  fallback:  "Qwen/Qwen2.5-0.5B-Instruct"     # auto-used si Qwen3 indisponible
+  max_seq_len: 2048
+  output_name: "raven-qwen3-0.6b"              # ou raven-qwen2.5-0.5b si fallback
+
+quantization:
+  load_in_4bit:              true
+  bnb_4bit_quant_type:       "nf4"
+  bnb_4bit_use_double_quant: true
+  bnb_4bit_compute_dtype:    "bfloat16"
+
+lora_sft:
+  r:              16
+  lora_alpha:     32
+  lora_dropout:   0.05
+  bias:           "none"
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj
+
+training:
+  epochs:                     3
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 8          # effective batch = 32
+  learning_rate:              2.0e-4
+  lr_scheduler_type:          "cosine"
+  warmup_ratio:               0.03
+  weight_decay:               0.001
+  max_grad_norm:              0.3
+  bf16:                       true
+  packing:                    true
+  group_by_length:            true
+
+data:
+  files: ["sft_ar.jsonl","sft_darija.jsonl","sft_fr.jsonl","sft_en.jsonl"]
+  val_split:    0.02
+  lang_weights: {ar:0.25, darija:0.30, fr:0.25, en:0.20}
+
+# T4 (~5-7h) | A100 (~1.5h)
