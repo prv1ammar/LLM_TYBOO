@@ -1,0 +1,16 @@
+============================================================
+RAPPORT DE PRÉTRAITEMENT — DARIJA DATASET
+============================================================
+Dataset source    : /content/drive/MyDrive/data/dataset_conversation.csv
+Dataset sortie    : /content/drive/MyDrive/data/dataset_clean.csv
+Exemples finaux   : 8501
+Longueur moyenne  : 778 caractères
+Tokens totaux     : ~1,650,925
+
+Filtres appliqués :
+  - Suppression doublons
+  - Suppression lignes null/vides
+  - Vérification format ChatML
+  - Nettoyage caractères spéciaux
+  - Filtre longueur [50-8000] chars
+  - Vérification réponse assistant non vide
