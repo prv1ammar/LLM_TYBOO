@@ -1,0 +1,8 @@
+============================================================
+RAPPORT PRÉTRAITEMENT — QWEN2.5-1.5B DARIJA
+============================================================
+Source    : /content/drive/MyDrive/fine tuning/dataset.csv
+Sortie    : /content/drive/MyDrive/fine tuning/dataset_clean.csv
+Exemples  : 8009
+Long. moy.: 781 chars
+Tokens tot: ~1,560,895
